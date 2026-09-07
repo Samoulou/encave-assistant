@@ -22,7 +22,8 @@ def main():
     if major != ROOT.joinpath('.nvmrc').read_text().strip():
         print('Version Node incompatible : utiliser la version de .nvmrc.', file=sys.stderr)
         return 2
-    for command in (['npm', 'ci', '--no-audit', '--no-fund'],
+    for command in ([sys.executable, '-m', 'pip', 'install', '-r', 'requirements-tooling.txt'],
+                    ['npm', 'ci', '--no-audit', '--no-fund'],
                     [sys.executable, 'scripts/check_kit.py']):
         result = subprocess.run(command, cwd=ROOT, timeout=600)
         if result.returncode:

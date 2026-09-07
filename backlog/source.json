@@ -1,5 +1,5 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "date": "2026-09-07",
   "tickets": [
     {
@@ -51,7 +51,8 @@
         "Sam fixe le périmètre, les priorités et la politique de livraison ; les décisions réversibles documentées permettent aux agents de progresser sans validation d’un prospect.",
         "Disponibilité interne/externe et limites de concurrence décidées ; interfaces de connecteurs neutres vis-à-vis du fournisseur, Microsoft étant le premier adaptateur visé.",
         "Profil sans Microsoft et devis livrés ou exclus explicitement du lancement vendu ; aucune activation d’un fournisseur non qualifié.",
-        "Les choix de fondation et de développement ne dépendent pas d’une vérification sur le compte réel d’un prospect ni de la disponibilité du tenant de test Microsoft."
+        "Les choix de fondation et de développement ne dépendent pas d’une vérification sur le compte réel d’un prospect ni de la disponibilité du tenant de test Microsoft.",
+        "Les choix techniques réversibles conformes au brief sont délégués à l’agent et consignés en ADR sans demander à Sam une validation entre tickets ; une dépense, un accès tiers ou une hypothèse métier non établie ne sont jamais inventés."
       ],
       "status": "A faire",
       "estimate": "A affiner ; budget au niveau de la phase"
@@ -70,7 +71,8 @@
       "acceptance_criteria": [
         "Aucun import ou secret de la marketplace.",
         "Versions verrouillées et guide local.",
-        "Développement, préproduction et production séparés."
+        "Développement, préproduction et production séparés.",
+        "Configurer les environnements de test et la CI dans les fichiers de maintenance préautorisés, en conservant les gates obligatoires, la distinction entre foundation et produit et le forçage des contrôles de release ; aucune suppression de contrôle pour obtenir du vert."
       ],
       "status": "A faire",
       "estimate": "A affiner ; budget au niveau de la phase"
@@ -87,10 +89,14 @@
       "acceptance_criteria": [
         "Session vérifiée côté serveur.",
         "Invitation et révocation effectives.",
-        "Commandes sensibles interdites au lecteur."
+        "Commandes sensibles interdites au lecteur.",
+        "Livrer la première tranche verticale testable : schéma minimal des identités, caves et membres, migrations nécessaires à l’authentification, vrais runners unitaires, fonctionnels/API, métier des rôles et E2E navigateur ; les suites absentes ou vides restent en échec. Le schéma métier complet appartient à EA-07.",
+        "Rendre exécutable test:ux pour les écrans livrés : clavier et focus, erreurs de connexion, contrôle d’accès, tailles mobile/bureau et captures issues du navigateur ; la review indépendante examine les rendus réels.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-06",
@@ -104,10 +110,13 @@
       "acceptance_criteria": [
         "Deux caves de test indépendantes.",
         "Accès API, tâches et exports inter-caves refusés.",
-        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs."
+        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs.",
+        "Créer ou compléter le schéma minimal tenant/membres et les migrations indispensables aux tests avec le rôle DB effectivement utilisé ; EA-07 étend ensuite le schéma aux dossiers, propositions et actions sans retarder ces preuves d’isolation.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-07",
@@ -189,10 +198,12 @@
       "acceptance_criteria": [
         "Rechargement conserve le dossier.",
         "Origine et acteur de la saisie conservés.",
-        "Validation des champs avec erreurs visibles."
+        "Validation des champs avec erreurs visibles.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-12",
@@ -206,10 +217,12 @@
       "acceptance_criteria": [
         "Tenant résolu par configuration serveur.",
         "Limites de taille, débit et anti-spam.",
-        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé."
+        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-13",
@@ -227,10 +240,12 @@
         "Une cave autorisée connecte son compte Microsoft via OAuth, choisit les ressources permises et peut reconnecter ou révoquer sans redéploiement ni identifiants client codés en dur.",
         "Appliquer les permissions Microsoft réellement nécessaires et vérifier côté serveur l’identité du compte, la cave, le retour OAuth et les ressources autorisées ; si Microsoft exige un consentement administrateur, afficher cet état et ne pas contourner ce contrôle.",
         "L’état de santé, la reconnexion, l’expiration et la révocation sont indépendants par connexion ; une révocation bloque les nouveaux effets externes sans interrompre une autre cave.",
-        "Les tests de contrat utilisent des comptes et réponses synthétiques explicitement identifiés ; seuls les tests sur un environnement autorisé prouvent l’intégration Microsoft réelle. Garder toute connexion réelle inactive avant sa qualification technique."
+        "Les tests de contrat utilisent des comptes et réponses synthétiques explicitement identifiés ; seuls les tests sur un environnement autorisé prouvent l’intégration Microsoft réelle. Garder toute connexion réelle inactive avant sa qualification technique.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-14",
@@ -341,10 +356,12 @@
       "acceptance_criteria": [
         "Version et empreinte du texte envoyé conservées.",
         "Édition commerciale crée une nouvelle version.",
-        "Conditions, taxe, monnaie et montants cohérents."
+        "Conditions, taxe, monnaie et montants cohérents.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-20",
@@ -359,10 +376,12 @@
       "acceptance_criteria": [
         "Mode supervisé par défaut.",
         "Modification invalide une approbation antérieure.",
-        "Un outil revalide tenant, rôle, état et politique."
+        "Un outil revalide tenant, rôle, état et politique.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-21",
@@ -396,10 +415,12 @@
       "acceptance_criteria": [
         "GET ne déclenche pas l’accord.",
         "Jeton expirant lié à une proposition.",
-        "Réponse avec changement de groupe/prix/date produit une nouvelle offre."
+        "Réponse avec changement de groupe/prix/date produit une nouvelle offre.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-23",
@@ -433,10 +454,12 @@
       "acceptance_criteria": [
         "Cent confirmations concurrentes : une allocation active.",
         "Toutes les ressources réussissent ensemble ou rollback.",
-        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés."
+        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-25",
@@ -469,10 +492,12 @@
       "acceptance_criteria": [
         "Même commande rejouée ne double pas réservation/message.",
         "Termes identiques à la version acceptée et couverts par l’autorisation humaine.",
-        "Écriture nécessaire incertaine bloque confirmation automatique."
+        "Écriture nécessaire incertaine bloque confirmation automatique.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-27",
@@ -487,10 +512,12 @@
       "acceptance_criteria": [
         "Conflit tardif demande nouvel accord sur alternative.",
         "Relances bornées respectant Retry-After.",
-        "Reprise manuelle journalisée sans masquer l’historique."
+        "Reprise manuelle journalisée sans masquer l’historique.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-28",
@@ -505,10 +532,12 @@
       "acceptance_criteria": [
         "Réservation/synchronisation/envoi affichés séparément.",
         "Rechargement et second utilisateur voient état serveur.",
-        "Export .ics facultatif distinct d’une connexion Outlook."
+        "Export .ics facultatif distinct d’une connexion Outlook.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-29",
@@ -524,10 +553,12 @@
       "acceptance_criteria": [
         "Durée variable, équipements et marges de salle.",
         "Prix/conditions inconnus bloquent confirmation.",
-        "Acompte hors produit vérifié par acteur autorisé si requis."
+        "Acompte hors produit vérifié par acteur autorisé si requis.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-30",
@@ -543,10 +574,12 @@
       "acceptance_criteria": [
         "Pas de date/prix/place/URL inventés.",
         "Absence de lien officiel signalée.",
-        "Pas de billet créé ; capacité partagée hors lot."
+        "Pas de billet créé ; capacité partagée hors lot.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-31",
@@ -563,10 +596,12 @@
       "acceptance_criteria": [
         "Expéditeur vérifié, pas d’usurpation de domaine.",
         "Réponses rattachées ou saisie manuelle explicitement annoncée.",
-        "Parcours simple une offre/une ressource testé."
+        "Parcours simple une offre/une ressource testé.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-32",
@@ -581,10 +616,12 @@
       "acceptance_criteria": [
         "Aucune annulation destructive par simple interprétation IA.",
         "Modification d’engagement implique nouveau contrôle/accord.",
-        "Paiements et remboursements restent hors périmètre."
+        "Paiements et remboursements restent hors périmètre.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-33",
@@ -698,10 +735,12 @@
         "Mobile/clavier et erreurs accessibles.",
         "Checklist de mise en service avec ressources, versions, capacités et connexions qualifiées ; les limites sont visibles.",
         "L’onboarding d’une nouvelle cave supportée configure son compte, ses ressources, ses permissions et ses connexions sans modification de code ni redéploiement ; démontrer l’isolation de deux caves.",
-        "Les permissions ou consentements exigés par un fournisseur sont des conditions d’accès techniques pour cette connexion, distinctes de l’autorité de Sam sur le produit et sa livraison."
+        "Les permissions ou consentements exigés par un fournisseur sont des conditions d’accès techniques pour cette connexion, distinctes de l’autorité de Sam sur le produit et sa livraison.",
+        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
       ],
       "status": "A faire",
-      "estimate": "A affiner ; budget au niveau de la phase"
+      "estimate": "A affiner ; budget au niveau de la phase",
+      "requires_ux": true
     },
     {
       "id": "EA-39",
@@ -740,12 +779,14 @@
         "Sam détient la décision de lancement et configure au préalable les environnements, accès et règles de livraison permettant son exécution autonome ; aucune approbation de Julien ou d’un autre prospect n’est requise.",
         "Support, informations contractuelles, accès, traitement des données et facturation préparés pour l’offre ; les droits nécessaires aux services effectivement utilisés restent requis.",
         "Activer progressivement uniquement les connexions et capacités réellement qualifiées ; un connecteur non vérifié reste désactivé sans empêcher la livraison d’un périmètre indépendant clairement annoncé.",
-        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée ; les validations métier A1 du caviste restent obligatoires."
+        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée ; les validations métier A1 du caviste restent obligatoires.",
+        "Implémenter et vérifier l’adaptateur de déploiement dans le périmètre de maintenance préautorisé avant de déclarer une livraison réelle ; des manifestes ou un code retour simulé ne prouvent pas un déploiement."
       ],
       "status": "A faire",
       "estimate": "A affiner ; budget au niveau de la phase"
     }
   ],
   "change_reference": "docs/decisions/ADR-0002-autorite-et-connecteurs.md",
-  "previous_reference": "backlog/archive/source-v1.json"
+  "previous_reference": "backlog/archive/source-v1.json",
+  "change_note": "Campagne autonome et exigences UX formalisées avant code ; voir ADR-0004-campagne-et-ux.md. Référence v1.1 archivée."
 }

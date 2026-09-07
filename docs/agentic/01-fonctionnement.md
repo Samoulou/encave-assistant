@@ -1,6 +1,6 @@
 # Fonctionnement de la boucle
 
-`AGENTS.md` fournit les règles lues par Codex ; il ne déclenche aucun processus. `scripts/agentic.py`, écrit avec la bibliothèque standard Python, orchestre des appels distincts à `codex exec`. [Instructions de projet](https://learn.chatgpt.com/docs/agent-configuration/agents-md), [mode non interactif](https://learn.chatgpt.com/docs/non-interactive-mode).
+`AGENTS.md` fournit les règles lues par Codex ; il ne déclenche aucun processus. `scripts/agentic.py` orchestre des appels distincts à `codex exec`. Le contrôle des workflows utilise PyYAML, épinglé dans requirements-tooling.txt ; le reste du contrôleur utilise la bibliothèque standard Python. [Instructions de projet](https://learn.chatgpt.com/docs/agent-configuration/agents-md), [mode non interactif](https://learn.chatgpt.com/docs/non-interactive-mode).
 
 | Commande | Rôle |
 |---|---|
@@ -18,8 +18,8 @@ La boucle commence sur un dépôt propre et committé. Le contrôleur prépare l
 
 La politique limite chaque ticket à trois tentatives de développement et revue, huit appels d'agent, 1 200 secondes par appel et 7 200 secondes au total. Un contrôle requis absent, une revue défavorable, un accès manquant ou une limite atteinte empêche la livraison. Les instructions, le backlog produit, les tests préexistants et la configuration du pipeline sont protégés : une modification interdite bloque le résultat.
 
-Le commit local et sa preuve dans `docs/evidence/` rendent le changement examinable. `.agentic/state.json` suit l'exécution locale ; les diagnostics restent dans `.agentic/runs/` du worktree. Le ticket ne débloque ses dépendances qu'après intégration vérifiée. `scripts/autopilot.py --limit N` ajoute la fusion locale par avance rapide et `reconcile` entre tickets. Une divergence de branches exige une reprise ; elle ne doit pas être masquée. Aucun push ni déploiement n'est exécuté.
+Le commit local et sa preuve dans `docs/evidence/` rendent le changement examinable. `.agentic/state.json` suit l'exécution locale ; les diagnostics restent dans `.agentic/runs/` du worktree. Le ticket ne débloque ses dépendances qu'après intégration vérifiée. `scripts/autopilot.py --limit N` ajoute la fusion locale par avance rapide et `reconcile` entre tickets. Une divergence de branches exige une reprise ; elle ne doit pas être masquée. Ce mode limité ne pousse ni ne déploie. La [campagne continuous](09-campagne-autonome.md) ajoute la poursuite de tout le plan, les budgets persistants et le push vérifié ; elle ne déploie pas directement et ne surveille pas la CI distante.
 
 L'autopilote exige la branche `base_branch` de la politique, initialement `main`. `python3 scripts/autopilot.py --integrate-ticket ID` reprend une livraison locale déjà vérifiée. Le verrou du contrôleur est `.agentic/run.lock` : vérifier le processus avant toute suppression d'un verrou supposé orphelin.
 
-Ces contrôles réduisent les erreurs ; ils ne remplacent pas les permissions de l'environnement, les essais réels, ni la revue humaine des décisions de produit. Un simulateur prouve le comportement du contrôleur, jamais celui du modèle ou de Microsoft.
+Ces contrôles réduisent les erreurs ; ils ne remplacent pas les permissions de l'environnement, les essais réels, ni la politique initiale de Sam. Les décisions réversibles dans ce cadre sont déléguées à l’agent sans confirmation entre tâches. Un simulateur prouve le comportement du contrôleur, jamais celui du modèle ou de Microsoft.

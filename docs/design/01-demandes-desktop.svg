@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc"><title id="title">EnCave Assistant — file de demandes, concept ordinateur</title><desc id="desc">Maquette de la file de travail pour la cave fictive des Coteaux. Les demandes affichent leur prochaine action. Aucun service réel n’est connecté.</desc>
+<style>text {font-family: Arial, sans-serif;} .num {font-variant-numeric:tabular-nums}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8F6F3"/>
+<rect x="0" y="0" width="232" height="1000" rx="0" fill="#FFFFFF"/>
+<text x="24" y="48" font-size="26" fill="#6E2944" font-weight="700">EnCave</text>
+<text x="24" y="71" font-size="12" fill="#655B62" font-weight="600">ASSISTANT</text>
+<rect x="16" y="100" width="200" height="66" rx="8" fill="#F8F6F3"/>
+<text x="28" y="127" font-size="15" fill="#272326" font-weight="600">Cave des Coteaux</text>
+<text x="28" y="150" font-size="12" fill="#655B62" font-weight="400">Cave de démonstration</text>
+<rect x="16" y="172" width="200" height="44" rx="8" fill="#F8EDF1"/>
+<text x="32" y="200" font-size="16" fill="#6E2944" font-weight="600">Demandes</text>
+<text x="32" y="256" font-size="16" fill="#272326" font-weight="400">Agenda</text>
+<text x="32" y="312" font-size="16" fill="#272326" font-weight="400">Catalogue</text>
+<text x="32" y="368" font-size="16" fill="#272326" font-weight="400">Connexions</text>
+<text x="32" y="424" font-size="16" fill="#272326" font-weight="400">Paramètres</text>
+<path d="M 24 860 h 184" stroke="#DDD5D7"/>
+<text x="24" y="893" font-size="14" fill="#272326" font-weight="600">Camille · Opératrice</text>
+<text x="24" y="919" font-size="13" fill="#655B62" font-weight="400">Mode supervisé A1</text>
+<text x="264" y="53" font-size="28" fill="#272326" font-weight="700">Demandes</text>
+<text x="264" y="82" font-size="14" fill="#655B62" font-weight="400">Les prochaines actions de votre cave, au même endroit.</text>
+<text x="264" y="976" font-size="12" fill="#655B62" font-weight="400">CONCEPT UX/UI · Données fictives · Fonctions à implémenter · Référence : docs/product/11-ux-ui-et-design.md</text>
+<rect x="1208" y="35" width="200" height="44" rx="8" fill="#6E2944"/>
+<text x="1224" y="63" font-size="14" fill="#FFFFFF" font-weight="600">+ Nouvelle demande</text>
+<rect x="264" y="108" width="1144" height="72" rx="12" fill="#FFFFFF"/>
+<text x="284" y="136" font-size="16" fill="#7C4A00" font-weight="600">À reprendre : 1 envoi à vérifier</text>
+<text x="284" y="161" font-size="14" fill="#655B62" font-weight="400">La réservation interne est conservée. Vérifiez le résultat avant toute relance.</text>
+<rect x="1252" y="122" width="140" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="1268" y="150" font-size="14" fill="#272326" font-weight="600">Voir le dossier</text>
+<rect x="264" y="204" width="128" height="44" rx="8" fill="#6E2944"/>
+<text x="278" y="232" font-size="14" fill="#FFFFFF" font-weight="600">À traiter  4</text>
+<rect x="404" y="204" width="164" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="418" y="232" font-size="14" fill="#272326" font-weight="600">Attente client  3</text>
+<rect x="580" y="204" width="140" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="594" y="232" font-size="14" fill="#272326" font-weight="600">À réserver  2</text>
+<rect x="732" y="204" width="148" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="746" y="232" font-size="14" fill="#272326" font-weight="600">À reprendre  1</text>
+<rect x="892" y="204" width="136" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="906" y="232" font-size="14" fill="#272326" font-weight="600">Réservées  8</text>
+<rect x="264" y="272" width="440" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="280" y="300" font-size="14" fill="#655B62" font-weight="400">Rechercher un client ou un besoin</text>
+<rect x="1160" y="272" width="248" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="1176" y="300" font-size="14" fill="#272326" font-weight="600">Tri : prochaine action</text>
+<rect x="264" y="340" width="1144" height="456" rx="12" fill="#FFFFFF"/>
+<text x="284" y="372" font-size="11" fill="#655B62" font-weight="600">DEMANDE</text>
+<text x="650" y="372" font-size="11" fill="#655B62" font-weight="600">DATE SOUHAITÉE</text>
+<text x="846" y="372" font-size="11" fill="#655B62" font-weight="600">PROCHAINE ACTION</text>
+<text x="1168" y="372" font-size="11" fill="#655B62" font-weight="600">RESPONSABLE</text>
+<path d="M 284 394 h 1104" stroke="#DDD5D7"/>
+<text x="284" y="424" font-size="16" fill="#272326" font-weight="600">Claire Martin</text>
+<text x="284" y="452" font-size="13" fill="#655B62" font-weight="400">Dégustation · 12 personnes · E-mail</text>
+<text x="650" y="424" font-size="14" fill="#272326" font-weight="400">17 octobre 2026</text>
+<text x="650" y="452" font-size="13" fill="#655B62" font-weight="400">15:00–16:30</text>
+<rect x="846" y="408" width="236" height="30" rx="15" fill="#F8EDF1"/>
+<text x="858" y="428" font-size="13" fill="#6E2944" font-weight="600">Valider la proposition</text>
+<text x="1168" y="431" font-size="14" fill="#272326" font-weight="400">Camille</text>
+<path d="M 284 488 h 1104" stroke="#DDD5D7"/>
+<text x="284" y="518" font-size="16" fill="#272326" font-weight="600">Société Horizon</text>
+<text x="284" y="546" font-size="13" fill="#655B62" font-weight="400">Location de salle · 35 personnes</text>
+<text x="650" y="518" font-size="14" fill="#272326" font-weight="400">Date à préciser</text>
+<text x="650" y="546" font-size="13" fill="#655B62" font-weight="400">Formulaire du site</text>
+<rect x="846" y="502" width="236" height="30" rx="15" fill="#FFF2D6"/>
+<text x="858" y="522" font-size="13" fill="#7C4A00" font-weight="600">Préciser les horaires</text>
+<text x="1168" y="525" font-size="14" fill="#272326" font-weight="400">Camille</text>
+<path d="M 284 582 h 1104" stroke="#DDD5D7"/>
+<text x="284" y="612" font-size="16" fill="#272326" font-weight="600">Noah Favre</text>
+<text x="284" y="640" font-size="13" fill="#655B62" font-weight="400">Visite · 6 personnes · Téléphone</text>
+<text x="650" y="612" font-size="14" fill="#272326" font-weight="400">24 octobre 2026</text>
+<text x="650" y="640" font-size="13" fill="#655B62" font-weight="400">Matin souhaité</text>
+<rect x="846" y="596" width="236" height="30" rx="15" fill="#EAF3FA"/>
+<text x="858" y="616" font-size="13" fill="#235D80" font-weight="600">Compléter le besoin</text>
+<text x="1168" y="619" font-size="14" fill="#272326" font-weight="400">Non attribuée</text>
+<path d="M 284 676 h 1104" stroke="#DDD5D7"/>
+<text x="284" y="706" font-size="16" fill="#272326" font-weight="600">Association des Prés</text>
+<text x="284" y="734" font-size="13" fill="#655B62" font-weight="400">Balade · 20 personnes · E-mail</text>
+<text x="650" y="706" font-size="14" fill="#272326" font-weight="400">18 octobre 2026</text>
+<text x="650" y="734" font-size="13" fill="#655B62" font-weight="400">Événement externe</text>
+<rect x="846" y="690" width="236" height="30" rx="15" fill="#F8EDF1"/>
+<text x="858" y="710" font-size="13" fill="#6E2944" font-weight="600">Préparer le lien officiel</text>
+<text x="1168" y="713" font-size="14" fill="#272326" font-weight="400">Camille</text>
+<text x="284" y="777" font-size="13" fill="#655B62" font-weight="400">4 demandes affichées · filtres conservés à l’ouverture d’un dossier</text>
+<rect x="264" y="820" width="1144" height="104" rx="12" fill="#FFFFFF"/>
+<text x="284" y="851" font-size="18" fill="#272326" font-weight="600">Une vue du travail à accomplir</text>
+<text x="284" y="878" font-size="14" fill="#655B62" font-weight="400">Ouvrez une demande pour lire les sources, vérifier les termes et autoriser la prochaine action.</text>
+<text x="284" y="902" font-size="14" fill="#655B62" font-weight="400">Une proposition envoyée ne bloque pas le créneau. L’accord client précède « Réserver et confirmer ».</text>
+</svg>

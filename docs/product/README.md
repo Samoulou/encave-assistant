@@ -1,4 +1,4 @@
-# Référence produit active — v1.1
+# Référence produit active — v1.2
 
 La décision de Sam du 7 septembre 2026 met à jour la documentation initiale : Sam possède les décisions produit, les priorités et la politique de livraison ; les retours de Julien ou d’autres prospects sont facultatifs. Les connexions aux outils sont génériques, configurées par cave et réutilisables, avec Microsoft 365 professionnel comme premier fournisseur.
 
@@ -9,3 +9,5 @@ Le caviste conserve la validation des engagements de ses clients en A1. Sam gouv
 Le [backlog actif](../../backlog/tickets.json) et ses décisions conservent les critères à implémenter. La [documentation originale archivée](../archive/product-v1/README.md) sert uniquement à la traçabilité ; ses anciennes conditions de pilote ne sont pas des instructions actives.
 
 Ces documents décrivent la cible. Leur présence ne prouve aucune fonctionnalité, connexion, autorisation ou suite produit exécutée. Le dépôt est indépendant de la marketplace EnCave et du POC.
+
+La [conception UX/UI](11-ux-ui-et-design.md) précise les parcours, états, composants, responsive et 18 critères de recette. Les [maquettes et tokens](../design/README.md) donnent une référence visuelle avant développement ; aucune validation utilisateur n'est revendiquée. La [décision de campagne et UX](../decisions/ADR-0004-campagne-et-ux.md) trace les ajouts aux contrats v1.2.

@@ -22,6 +22,7 @@ class BootstrapContractTest(unittest.TestCase):
             self.fixture.write("backlog/" + name, value)
         self.fixture.policy["gates"]["foundation"] = [sys.executable, "-c", "raise SystemExit(0)"]
         self.fixture.policy["gates"]["evals"] = [sys.executable, "-c", "raise SystemExit(0)"]
+        self.fixture.policy["gates"]["ux"] = [sys.executable, "-c", "raise SystemExit(0)"]
         self.fixture.write(".agentic/policy.json", self.fixture.policy)
         self.data = agentic.read_json(self.root / "backlog/tickets.json")
         self.tickets = {item["id"]: item for item in self.data["tickets"]}
@@ -115,6 +116,19 @@ class BootstrapContractTest(unittest.TestCase):
         del self.fixture.policy["gates"]["foundation"]
         self.fixture.write(".agentic/policy.json", self.fixture.policy)
         with self.assertRaisesRegex(agentic.Blocked, "Gates obligatoires absentes : DEV-01"):
+            agentic.validate(self.root)
+
+    def test_ux_gate_cannot_be_omitted_for_an_interface_ticket(self):
+        self.tickets['EA-05']['required_gates'].remove('ux')
+        self.write_tickets()
+        with self.assertRaisesRegex(agentic.Blocked, 'Gate UX obligatoire'):
+            agentic.validate(self.root)
+
+    def test_ux_requirement_cannot_be_removed_from_the_current_contract(self):
+        self.tickets['EA-05'].pop('requires_ux')
+        self.tickets['EA-05']['required_gates'].remove('ux')
+        self.write_tickets()
+        with self.assertRaisesRegex(agentic.Blocked, 'validation UX supprimée'):
             agentic.validate(self.root)
 
     def test_bootstrap_reference_is_protected_even_without_policy_entry(self):

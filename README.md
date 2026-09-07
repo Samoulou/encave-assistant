@@ -9,6 +9,8 @@ Ce dépôt indépendant contient la documentation et la chaîne de développemen
 ```bash
 git clone https://github.com/Samoulou/encave-assistant.git
 cd encave-assistant
+python3 -m venv .venv
+source .venv/bin/activate
 python3 scripts/setup_codex.py
 ```
 
@@ -23,7 +25,9 @@ Prérequis : Git, Node 24/npm et Python 3.11+. Aucun secret produit n’est néc
 | Roadmap, lancement et business | [Roadmap produit](docs/product/06-roadmap-lancement-business.md) |
 | 40 tickets produit + INIT-01 et DEV-01 | [Backlog](backlog/README.md) |
 | Connexion générique des outils de chaque client | [Connecteurs et onboarding](docs/product/10-connecteurs-et-onboarding.md) |
-| Boucle autonome locale | [Guide](docs/agentic/00-marche-a-suivre.md), [fonctionnement](docs/agentic/01-fonctionnement.md) |
+| UX/UI, parcours et critères | [Conception UX/UI](docs/product/11-ux-ui-et-design.md), [trois maquettes et tokens](docs/design/README.md) |
+| Campagne jusqu'à la fin du backlog | [Lancement, reprise et limites](docs/agentic/09-campagne-autonome.md) |
+| Installation et contrôleur | [Guide](docs/agentic/00-marche-a-suivre.md), [fonctionnement](docs/agentic/01-fonctionnement.md) |
 | Tâches Codex directes et review | [Protocole](docs/agentic/08-tache-codex.md) |
 | Tests, évaluations et preuves | [Stratégie](docs/agentic/04-strategie-tests.md), [vérifications initiales](VERIFICATION.md) |
 | CI et livraison | [Livraison](docs/agentic/02-livraison-et-ci.md) |
@@ -54,11 +58,10 @@ python3 scripts/restore_progress.py --check
 Avec un CLI Codex authentifié, depuis le terminal d’une machine de développement dédiée et la branche main :
 
 ```bash
-python3 scripts/restore_progress.py
-python3 scripts/autopilot.py --limit 2
+python3 scripts/continuous.py
 ```
 
-Le contrôleur formalise, développe, teste, relit dans une session distincte, corrige dans les limites et intègre localement les tickets validés. Il ne pousse pas les commits et ne déploie pas de produit. Codex Cloud utilise le protocole de tâche directe ; le runner local n’est pas supposé disponible dans le cloud.
+La campagne formalise, développe, teste, relit dans une session distincte, corrige dans les limites, intègre et publie les tickets validés. Elle poursuit les 42 tickets sans accord entre chaque tâche, conserve les budgets et reprend avec `--resume`. `--status` consulte l'avancement ; `--stop` demande un arrêt après le ticket courant. Les accès manquants et résultats incertains restent des blocages explicites ; publication et production sont des états distincts. Codex Cloud utilise le protocole de tâche directe lorsque le contrôleur n'y est pas disponible.
 
 INIT-01 puis DEV-01 amorcent le développement. Les retours de Julien ou d’autres prospects sont facultatifs. Sam décide des exigences et de la livraison ; chaque cave autorise sa propre connexion fournisseur. Les intégrations ne contiennent aucune configuration spécifique à un prospect.
 

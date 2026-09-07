@@ -14,7 +14,7 @@ La configuration du projet complète celle du poste ; des règles d'organisation
 
 Conserver les identifiants hors dépôt : authentification CLI dans son stockage prévu, variables sensibles dans un gestionnaire de secrets ou des fichiers locaux exclus de Git. Ne pas copier le cache d'authentification dans les preuves. Les tests doivent utiliser des données fictives ou des données réellement autorisées et minimisées. [Authentification](https://learn.chatgpt.com/docs/auth).
 
-La politique borne les appels et le temps, **pas le coût fournisseur en CHF**. Avant une série de tickets, choisir le modèle accessible, relever son tarif ou les conditions du forfait, définir le budget du compte et le seuil d'arrêt, puis surveiller l'usage réel. Un timeout peut consommer du quota. Commencer par `--limit 1`, mesurer, puis augmenter progressivement.
+La politique borne les appels et le temps, **pas le coût fournisseur en CHF**. Avant une série de tickets, choisir le modèle accessible, relever son tarif ou les conditions du forfait, définir le budget du compte et le seuil d'arrêt, puis surveiller l'usage réel. Un timeout peut consommer du quota. La campagne borne aussi les appels et le temps cumulés sans les réinitialiser à la reprise ; voir [le guide de campagne](09-campagne-autonome.md). Un essai limité reste possible, sans être une confirmation obligatoire entre tickets.
 
 Séparer coûts de développement Codex, API IA du futur produit, hébergement et Microsoft. Aucun montant, modèle disponible, crédit ou plafond financier n'est garanti par ce kit.
 

@@ -9,6 +9,7 @@ history, ambiguous origins and noncanonical file permissions are unsupported.
 from __future__ import annotations
 
 import argparse
+from contextlib import nullcontext
 import hashlib
 import json
 from pathlib import Path
@@ -125,6 +126,7 @@ def verify_report(report, policy, ticket):
     require("kit" in expected and set(expected).issubset(policy["gates"]), "Gates historiques invalides")
     require(ticket["kind"] != "code" or agentic.CODE_GATES.issubset(expected), "Gates métier historiques absentes")
     require(not ticket.get("requires_evals") or "evals" in expected, "Évaluations historiques absentes")
+    require(not ticket.get("requires_ux") or "ux" in expected, "Contrôles UX historiques absents")
     for gate, (attempt, _) in zip(gates, reviews):
         require(gate["attempt"] == attempt and [g["name"] for g in gate["results"]] == expected and all(result_shape(g) for g in gate["results"]), "Résultats des gates invalides")
     require(all(passed(g) for g in gates[-1]["results"]), "Gates finales non réussies")
@@ -144,10 +146,13 @@ def verify_report(report, policy, ticket):
             require(count > 0 and items and not passed(items[-1]) and all(passed(p) for p in items[:-1]), "Tentative sans review ni préparation échouée")
 
 
-def restore(root=agentic.ROOT, *, check=False):
+def restore(root=agentic.ROOT, *, check=False, readonly=False):
+    require(not readonly or check, "Une vérification sans verrou doit être en lecture seule")
     root = Path(root).resolve()
-    with agentic.lock(root):
+    with nullcontext() if readonly else agentic.lock(root):
         controller = agentic.Controller(root)
+        state_before = controller.state_path.read_bytes() if controller.state_path.exists() else None
+        require(state_before is None and controller.state == {"version": 1, "tickets": {}} or state_before is not None and json.loads(state_before) == controller.state, "État modifié pendant la lecture")
         require(agentic.git(root, "rev-parse", "--show-toplevel").stdout.strip() == str(root), "Le kit doit être à la racine Git")
         require(agentic.git(root, "branch", "--show-current").stdout.strip() == controller.policy.get("base_branch", "main"), "Restauration uniquement sur la branche de base")
         require(agentic.git(root, "rev-parse", "--is-shallow-repository").stdout.strip() == "false", "Historique Git incomplet : récupérer l’historique complet")
@@ -197,6 +202,7 @@ def restore(root=agentic.ROOT, *, check=False):
             require(existing.get("status") not in ("running", "delivered_local"), "État actif ou livré conservé : " + identifier)
             require(existing.get("status") != "integrated" or existing.get("delivered_commit") == record["delivered_commit"], "État intégré incompatible : " + identifier)
         require(agentic.git(root, "rev-parse", "HEAD").stdout.strip() == head, "HEAD a changé pendant la restauration")
+        require((controller.state_path.read_bytes() if controller.state_path.exists() else None) == state_before, "État modifié pendant la vérification")
         restored = sorted(identifier for identifier in verified if controller.state["tickets"].get(identifier, {}).get("status") != "integrated")
         if not check and restored:
             for identifier in restored:

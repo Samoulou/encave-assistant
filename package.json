@@ -11,6 +11,7 @@
     "test:business": "python3 scripts/unconfigured.py business",
     "test:e2e": "python3 scripts/unconfigured.py e2e",
     "test:evals": "python3 scripts/unconfigured.py evals",
-    "check:foundation": "python3 scripts/unconfigured.py foundation"
+    "check:foundation": "python3 scripts/unconfigured.py foundation",
+    "test:ux": "python3 scripts/unconfigured.py ux"
   }
 }

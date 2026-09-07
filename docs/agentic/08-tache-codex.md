@@ -18,6 +18,14 @@ Une tâche ouverte directement dans Codex Cloud, l'application ou l'IDE travaill
 
 La procédure autorise l'organisation de la review indépendante sans nouvelle demande si les outils le permettent. Elle ne prétend pas qu'une surface sans cette capacité fournit automatiquement une seconde session. Ne pas fabriquer la review.
 
+## Mission continue
+
+Lorsque Sam confie le développement complet, poursuivre le prochain ticket admissible après chaque livraison vérifiée, sans demander de continuer. Organiser la review avec un agent distinct si disponible. Conserver les preuves et les budgets ; un blocage laisse poursuivre les tâches indépendantes. Les objectifs persistants de certaines surfaces aident à poursuivre, sans remplacer les contrôles ou garantir une exécution sans limite.
+
+Les fichiers de maintenance exacts d’EA-04 et EA-40 sont préautorisés par la politique et ADR-0004 ; aucun élargissement implicite. L’UX/UI suit docs/product/11-ux-ui-et-design.md, les tokens et la gate ux des tickets concernés.
+
+La CI réserve les exemptions progressives aux attestations vérifiables du contrôleur. Les comptes rendus docs/work ne sont pas automatiquement équivalents : un changement applicatif direct déclenche les suites complètes, ce qui peut révéler des suites encore absentes pendant l’amorçage. Ne pas falsifier d’attestation pour éviter ce blocage. Le runner continuous reste le parcours recommandé pour le processus complet préparé ici.
+
 ## Cas INIT-01
 
 Créer les deux fichiers demandés, `docs/decisions/ADR-0001-environnement.md` et `docs/setup-result.md`. Noter les versions effectivement disponibles. Si le CLI n'existe pas dans une tâche cloud, écrire « CLI indisponible ; exécution directe Codex » : ne pas inventer sa version et ne pas installer un second agent pour satisfaire artificiellement ce point. INIT-01 vérifie le poste/conteneur ; la boucle CLI reste non vérifiée tant qu'elle n'a pas réellement tourné.

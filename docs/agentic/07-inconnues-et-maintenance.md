@@ -12,7 +12,7 @@ AGENTS.md, les politiques, scripts, prompts, schémas, workflows, sources métie
 
 Pour une évolution légitime du cadre, ouvrir un chantier de maintenance distinct, arrêter l’autopilot, justifier le changement, faire relire séparément les exigences concernées, exécuter les tests du kit et committer une nouvelle base avant reprise. Ne jamais permettre à un ticket en échec de s’autoriser lui-même cette exception.
 
-Pour des tests existants qui doivent évoluer avec une règle approuvée, formaliser cette évolution avant le ticket produit, préserver les scénarios invariants et faire une review dédiée. Le mode strict de ce premier kit privilégie une référence stable. Cette maintenance peut être automatisée dans un second pipeline contrôlé ; elle n’est pas implémentée ici.
+Pour des tests existants qui doivent évoluer avec une règle approuvée, formaliser cette évolution avant le ticket produit, préserver les scénarios invariants et faire une review dédiée. Le mode strict de ce premier kit privilégie une référence stable. Les seules maintenances déjà autorisées pendant la campagne sont celles d’EA-04 (workflows qualité/release) et EA-40 (déployeur/release), sur les fichiers exacts de la politique et sans neutraliser les gates. Elles ne permettent pas de modifier les anciens tests. Le contrôleur vérifie le câblage requis ; les autres évolutions du cadre suivent une maintenance distincte. Voir ADR-0004-campagne-et-ux.md dans docs/decisions.
 
 ## Reprise après interruption
 

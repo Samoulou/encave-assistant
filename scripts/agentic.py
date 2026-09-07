@@ -21,6 +21,12 @@ ROOT = Path(__file__).resolve().parents[1]
 STAGES = ("formalize", "develop", "review")
 CODE_GATES = {"kit", "unit", "functional", "business", "e2e"}
 DEADLINE = ContextVar("ticket_deadline", default=None)
+# Maintenance authorized before the campaign, restricted to these exact files.
+# Controllers, contracts, policy, schemas and existing tests have no exception.
+MAINTENANCE_FILES = {
+    "EA-04": {".github/workflows/product-quality.yml", ".github/workflows/release.yml"},
+    "EA-40": {"scripts/deploy.py", ".github/workflows/release.yml"},
+}
 
 
 class Blocked(RuntimeError):
@@ -171,6 +177,8 @@ def validate(root):
         required = set(item["required_gates"])
         if "kit" not in required or not required.issubset(gates) or (item["kind"] == "code" and not CODE_GATES.issubset(required)) or (item.get("requires_evals") and "evals" not in required):
             raise Blocked("Gates obligatoires absentes : " + item["id"])
+        if item.get("requires_ux") and "ux" not in required:
+            raise Blocked("Gate UX obligatoire absente : " + item["id"])
         index[item["id"]] = item
     source_ids = [item.get("id") for item in source["tickets"] if isinstance(item, dict)]
     if not all(isinstance(identifier, str) for identifier in source_ids) or len(source_ids) != len(source["tickets"]) or len(source_ids) != len(set(source_ids)) or not set(source_ids).issubset(index):
@@ -192,6 +200,8 @@ def validate(root):
         raise Blocked("Référentiel bootstrap absent pour les tickets supplémentaires")
     for item in source["tickets"]:
         current = index[item["id"]]
+        if item.get("requires_ux") and not current.get("requires_ux"):
+            raise Blocked("Exigence de validation UX supprimée : " + item["id"])
         # Historical isolated fixtures contain only source IDs. A repository with
         # bootstrap contracts must retain the complete original requirements.
         if bootstrap_path.exists() or "acceptance_criteria" in item:
@@ -220,6 +230,12 @@ def validate(root):
         visited.add(identifier)
     for identifier in index:
         visit(identifier)
+    grants = policy.get("maintenance", {})
+    if not isinstance(grants, dict):
+        raise Blocked("Maintenance doit être une table de tickets et fichiers exacts")
+    for identifier, names in grants.items():
+        if identifier not in index or identifier not in MAINTENANCE_FILES or not strings(names, True) or len(names) != len(set(names)) or not set(names).issubset(MAINTENANCE_FILES[identifier]):
+            raise Blocked("Périmètre de maintenance non autorisé : " + str(identifier))
     return policy, index
 
 
@@ -248,11 +264,25 @@ def protected(name, policy):
     return Path(name).name in ("AGENTS.md", "AGENTS.override.md", "conftest.py") or any(name == p or name.startswith(p.rstrip("/") + "/") for p in list(policy["protected_paths"]) + list(always))
 
 
-def enforce(root, baseline, head, policy):
+def enforce(root, baseline, head, policy, ticket=None):
     if git(root, "rev-parse", "HEAD").stdout.strip() != head:
         raise Blocked("HEAD a changé hors du contrôleur")
     current = snapshot(root)
+    permitted = set(policy.get("maintenance", {}).get(ticket, [])) & MAINTENANCE_FILES.get(ticket, set())
     for name in set(baseline) | set(current):
+        if name in permitted:
+            if name in baseline and name not in current:
+                raise Blocked("Suppression d’un fichier de maintenance interdite : " + name)
+            if name.startswith(".github/workflows/") and baseline.get(name) != current.get(name):
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("workflow_contract", Path(__file__).with_name("workflow_contract.py"))
+                verifier = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(verifier)
+                try:
+                    verifier.validate_workflow_edit(name, git(root, "show", head + ":" + name).stdout, (root / name).read_text(encoding="utf-8"))
+                except verifier.WorkflowContractError as exc:
+                    raise Blocked(str(exc)) from exc
+            continue
         if (protected(name, policy) or (name in baseline and existing_test(name))) and baseline.get(name) != current.get(name):
             raise Blocked("Fichier protégé ou test existant modifié : " + name)
     # Also detect ignored instruction files, including newly nested AGENTS.md.
@@ -287,6 +317,7 @@ class Controller:
     def __init__(self, root=ROOT):
         self.root = Path(root).resolve()
         self.policy, self.tickets = validate(self.root)
+        self.identifier = None
         self.state_path = self.root / ".agentic/state.json"
         self.state = read_json(self.state_path) if self.state_path.exists() else {"version": 1, "tickets": {}}
         if not isinstance(self.state, dict) or self.state.get("version") != 1 or not isinstance(self.state.get("tickets"), dict):
@@ -323,7 +354,7 @@ class Controller:
         return min(remaining, self.policy["max_seconds_per_agent"])
 
     def stable(self, expected):
-        current = enforce(self.worktree, self.baseline, self.head, self.policy)
+        current = enforce(self.worktree, self.baseline, self.head, self.policy, self.identifier)
         if expected is not None and current != expected:
             raise Blocked("Code modifié depuis la validation précédente")
         if git(self.root, "rev-parse", "HEAD").stdout.strip() != self.head:
@@ -344,6 +375,7 @@ class Controller:
         output = self.run_dir / f"{self.calls:02d}-{stage}.json"
         log = self.run_dir / f"{self.calls:02d}-{stage}.log"
         prompt = (self.worktree / f".agentic/prompts/{stage}.md").read_text(encoding="utf-8")
+        context = dict(context, maintenance_paths=self.policy.get("maintenance", {}).get(self.identifier, []))
         prompt += "\n\nContexte fourni par le contrôleur local :\n" + json.dumps(context, ensure_ascii=False)
         # This setting governs workspace-write; the other roles use read-only + never.
         network = stage == "develop" and self.policy.get("development_network_access", False)
@@ -410,6 +442,7 @@ class Controller:
         if os.name != "posix":
             raise Blocked("Exécution prise en charge sur Linux/macOS/WSL ; arrêt des groupes de processus requis")
         with lock(self.root):
+            self.identifier = identifier
             self.reconcile()
             if identifier not in self.tickets:
                 raise Blocked("Ticket inconnu")

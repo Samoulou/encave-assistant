@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1000" viewBox="0 0 1440 1000" role="img" aria-labelledby="title desc"><title id="title">EnCave Assistant — proposition acceptée et réservation supervisée, concept ordinateur</title><desc id="desc">Dossier fictif de Claire Martin. L’accord concerne la proposition version 2. L’opératrice peut examiner ses termes avant Réserver et confirmer. Les étapes du calendrier et de l’envoi restent distinctes.</desc>
+<style>text {font-family: Arial, sans-serif;} .num {font-variant-numeric:tabular-nums}</style>
+<rect x="0" y="0" width="1440" height="1000" rx="0" fill="#F8F6F3"/>
+<rect x="0" y="0" width="232" height="1000" rx="0" fill="#FFFFFF"/>
+<text x="24" y="48" font-size="26" fill="#6E2944" font-weight="700">EnCave</text>
+<text x="24" y="71" font-size="12" fill="#655B62" font-weight="600">ASSISTANT</text>
+<rect x="16" y="100" width="200" height="66" rx="8" fill="#F8F6F3"/>
+<text x="28" y="127" font-size="15" fill="#272326" font-weight="600">Cave des Coteaux</text>
+<text x="28" y="150" font-size="12" fill="#655B62" font-weight="400">Cave de démonstration</text>
+<rect x="16" y="172" width="200" height="44" rx="8" fill="#F8EDF1"/>
+<text x="32" y="200" font-size="16" fill="#6E2944" font-weight="600">Demandes</text>
+<text x="32" y="256" font-size="16" fill="#272326" font-weight="400">Agenda</text>
+<text x="32" y="312" font-size="16" fill="#272326" font-weight="400">Catalogue</text>
+<text x="32" y="368" font-size="16" fill="#272326" font-weight="400">Connexions</text>
+<text x="32" y="424" font-size="16" fill="#272326" font-weight="400">Paramètres</text>
+<path d="M 24 860 h 184" stroke="#DDD5D7"/>
+<text x="24" y="893" font-size="14" fill="#272326" font-weight="600">Camille · Opératrice</text>
+<text x="24" y="919" font-size="13" fill="#655B62" font-weight="400">Mode supervisé A1</text>
+<text x="264" y="53" font-size="28" fill="#272326" font-weight="700">Dégustation · Claire Martin</text>
+<text x="264" y="82" font-size="14" fill="#655B62" font-weight="400">Demandes / EA-DEMO-014 · Client fictif · Dernière mise à jour : 14:32</text>
+<text x="264" y="976" font-size="12" fill="#655B62" font-weight="400">CONCEPT UX/UI · Données fictives · Fonctions à implémenter · Référence : docs/product/11-ux-ui-et-design.md</text>
+<rect x="1210" y="42" width="198" height="30" rx="15" fill="#EAF5EE"/>
+<text x="1222" y="62" font-size="13" fill="#176442" font-weight="600">Accord reçu · version 2</text>
+<rect x="264" y="108" width="1144" height="66" rx="12" fill="#EAF5EE"/>
+<text x="284" y="137" font-size="17" fill="#176442" font-weight="600">Prochaine action : autoriser la réservation de la version 2</text>
+<text x="284" y="160" font-size="14" fill="#176442" font-weight="400">Le client a accepté cette version. Aucun créneau n’est encore réservé.</text>
+<rect x="264" y="198" width="492" height="638" rx="12" fill="#FFFFFF"/>
+<text x="284" y="232" font-size="20" fill="#272326" font-weight="600">Besoin et sources</text>
+<text x="284" y="269" font-size="13" fill="#655B62" font-weight="400">Claire Martin · E-mail reçu le 7 septembre</text>
+<rect x="284" y="292" width="452" height="114" rx="8" fill="#F8F6F3"/>
+<text x="300" y="320" font-size="16" fill="#272326" font-weight="400">« Nous acceptons la version 2 pour 12,</text>
+<text x="300" y="348" font-size="16" fill="#272326" font-weight="400">le 17 octobre, pour une dégustation</text>
+<text x="300" y="376" font-size="16" fill="#272326" font-weight="400">à 420 CHF, de 15:00 à 16:30. »</text>
+<text x="300" y="392" font-size="12" fill="#655B62" font-weight="400">Message fictif du client · 14:31</text>
+<text x="284" y="450" font-size="17" fill="#272326" font-weight="600">Faits du dossier</text>
+<text x="284" y="484" font-size="13" fill="#655B62" font-weight="400">Participants</text>
+<text x="444" y="484" font-size="14" fill="#272326" font-weight="600">12 personnes</text>
+<text x="444" y="507" font-size="12" fill="#655B62" font-weight="400">Extrait du dernier e-mail</text>
+<path d="M 284 523 h 452" stroke="#DDD5D7"/>
+<text x="284" y="555" font-size="13" fill="#655B62" font-weight="400">Date et heure</text>
+<text x="444" y="555" font-size="14" fill="#272326" font-weight="600">17 octobre · 15:00</text>
+<text x="444" y="578" font-size="12" fill="#655B62" font-weight="400">Version 2 acceptée</text>
+<path d="M 284 594 h 452" stroke="#DDD5D7"/>
+<text x="284" y="626" font-size="13" fill="#655B62" font-weight="400">Activité</text>
+<text x="444" y="626" font-size="14" fill="#272326" font-weight="600">Dégustation découverte</text>
+<text x="444" y="649" font-size="12" fill="#655B62" font-weight="400">Catalogue approuvé</text>
+<path d="M 284 665 h 452" stroke="#DDD5D7"/>
+<text x="284" y="697" font-size="13" fill="#655B62" font-weight="400">Contact</text>
+<text x="444" y="697" font-size="14" fill="#272326" font-weight="600">Adresse de réponse vérifiée</text>
+<text x="444" y="720" font-size="12" fill="#655B62" font-weight="400">Voir le message source</text>
+<path d="M 284 736 h 452" stroke="#DDD5D7"/>
+<text x="284" y="799" font-size="12" fill="#655B62" font-weight="400">Historique : version 1 remplacée · version 2 acceptée</text>
+<rect x="780" y="198" width="628" height="638" rx="12" fill="#FFFFFF"/>
+<text x="804" y="232" font-size="20" fill="#272326" font-weight="600">Proposition n° 2</text>
+<rect x="1194" y="210" width="190" height="30" rx="15" fill="#EAF5EE"/>
+<text x="1206" y="230" font-size="13" fill="#176442" font-weight="600">Acceptée · 7 sept. 14:31</text>
+<text x="804" y="270" font-size="22" fill="#6E2944" font-weight="600">Dégustation découverte</text>
+<text x="804" y="299" font-size="15" fill="#655B62" font-weight="400">Cave des Coteaux · Salle d’accueil</text>
+<text x="804" y="342" font-size="14" fill="#655B62" font-weight="400">Date</text>
+<text x="1056" y="342" font-size="16" fill="#272326" font-weight="400">17 octobre 2026</text>
+<text x="804" y="385" font-size="14" fill="#655B62" font-weight="400">Horaire</text>
+<text x="1056" y="385" font-size="16" fill="#272326" font-weight="400">15:00–16:30 · Europe/Zurich</text>
+<text x="804" y="428" font-size="14" fill="#655B62" font-weight="400">Participants</text>
+<text x="1056" y="428" font-size="16" fill="#272326" font-weight="400">12 personnes</text>
+<text x="804" y="471" font-size="14" fill="#655B62" font-weight="400">Tarif</text>
+<text x="1056" y="471" font-size="16" fill="#272326" font-weight="400">12 × 35.00 CHF</text>
+<text x="804" y="514" font-size="14" fill="#655B62" font-weight="400">Total, taxes incluses</text>
+<text x="1056" y="514" font-size="16" fill="#272326" font-weight="600">420.00 CHF</text>
+<path d="M 804 535 h 580" stroke="#DDD5D7"/>
+<text x="804" y="567" font-size="16" fill="#272326" font-weight="600">Conditions et disponibilité</text>
+<text x="804" y="595" font-size="14" fill="#655B62" font-weight="400">Offre valable jusqu’au 15 septembre 2026 à 18:00.</text>
+<text x="804" y="620" font-size="14" fill="#655B62" font-weight="400">Annulation : conditions de la proposition version 2.</text>
+<text x="804" y="645" font-size="14" fill="#655B62" font-weight="400">Créneau vérifié à 14:32 ; recontrôlé lors de la réservation.</text>
+<rect x="804" y="668" width="580" height="136" rx="8" fill="#F8F6F3"/>
+<text x="820" y="698" font-size="15" fill="#272326" font-weight="600">Après votre autorisation</text>
+<text x="820" y="725" font-size="14" fill="#655B62" font-weight="400">1. Allocation de la ressource et création de la réservation</text>
+<text x="820" y="750" font-size="14" fill="#655B62" font-weight="400">2. Synchronisation du calendrier</text>
+<text x="820" y="775" font-size="14" fill="#655B62" font-weight="400">3. Envoi de la confirmation, avec résultat suivi</text>
+<rect x="264" y="860" width="1144" height="72" rx="12" fill="#FFFFFF"/>
+<text x="284" y="889" font-size="14" fill="#272326" font-weight="600">Vous engagez la cave sur les termes exacts de la version 2.</text>
+<text x="284" y="913" font-size="13" fill="#655B62" font-weight="400">Si le créneau a changé, une nouvelle proposition sera nécessaire.</text>
+<rect x="950" y="874" width="184" height="44" rx="8" fill="#FFFFFF" stroke="#877A80"/>
+<text x="966" y="902" font-size="14" fill="#272326" font-weight="600">Voir l’accord client</text>
+<rect x="1146" y="874" width="240" height="44" rx="8" fill="#6E2944"/>
+<text x="1162" y="902" font-size="14" fill="#FFFFFF" font-weight="600">Réserver et confirmer</text>
+</svg>

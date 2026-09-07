@@ -8,9 +8,9 @@ on:
         default: true
   push:
     branches: [main]
-    paths: ['apps/**', 'packages/**', 'src/**', 'migrations/**', 'ops/**', 'compose*.yml', 'compose*.yaml', 'tests/**', 'evals/**', 'scripts/**', 'package*.json', '.nvmrc', '*config*', '.agentic/**', '.github/workflows/**']
+    paths: ['apps/**', 'packages/**', 'src/**', 'migrations/**', 'ops/**', 'compose*.yml', 'compose*.yaml', 'tests/**', 'evals/**', 'scripts/**', 'package*.json', 'requirements-tooling.txt', '.nvmrc', '*config*', '.agentic/**', '.github/workflows/**']
   pull_request:
-    paths: ['apps/**', 'packages/**', 'src/**', 'migrations/**', 'ops/**', 'compose*.yml', 'compose*.yaml', 'tests/**', 'evals/**', 'scripts/**', 'package*.json', '.nvmrc', '*config*', '.agentic/**', '.github/workflows/**']
+    paths: ['apps/**', 'packages/**', 'src/**', 'migrations/**', 'ops/**', 'compose*.yml', 'compose*.yaml', 'tests/**', 'evals/**', 'scripts/**', 'package*.json', 'requirements-tooling.txt', '.nvmrc', '*config*', '.agentic/**', '.github/workflows/**']
 permissions:
   contents: read
 jobs:
@@ -19,10 +19,12 @@ jobs:
     timeout-minutes: 5
     outputs:
       required: ${{ steps.scope.outputs.required }}
+      gates: ${{ steps.scope.outputs.gates }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: '3.11'
@@ -40,6 +42,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: '3.11'
@@ -47,8 +50,11 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           package-manager-cache: false
+      - run: python3 -m pip install -r requirements-tooling.txt
       - run: npm ci
       - run: python3 scripts/check_kit.py
       # Préparer ici DB, navigateur et connecteurs TEST autorisés après choix de stack.
       # Aucun secret OpenAI dans l'environnement global d'un job exécutant le dépôt.
-      - run: python3 scripts/product_quality.py
+      - run: python3 scripts/product_quality.py --gates "$QUALITY_GATES"
+        env:
+          QUALITY_GATES: ${{ needs.scope.outputs.gates }}

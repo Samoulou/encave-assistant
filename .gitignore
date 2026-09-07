@@ -18,3 +18,8 @@ __pycache__/
 .agentic/integration-log.jsonl
 *.log
 .agentic/run.lock
+
+.agentic/continuous.json
+.agentic/continuous.json.tmp
+.agentic/continuous.lock
+.agentic/continuous.stop

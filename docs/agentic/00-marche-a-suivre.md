@@ -1,6 +1,6 @@
 # Marche à suivre — du dossier au premier ticket
 
-Objectif : démarrer un dépôt indépendant, vérifier son contrôleur puis lui confier **INIT-01**. Ce guide concerne le contrôleur local. Le dépôt GitHub existe déjà ; pour une tâche directe dans Codex, commencer par START-HERE.md.
+Objectif : préparer l’environnement puis confier les **42 tickets** à la campagne décrite dans [le guide de campagne](09-campagne-autonome.md). Les sections 5 à 7 ci-dessous décrivent aussi le mode limité facultatif pour diagnostiquer un ticket. Ce guide concerne le contrôleur local. Le dépôt GitHub existe déjà ; pour une tâche directe dans Codex, commencer par START-HERE.md.
 
 ## 1. Préparer le poste
 
@@ -10,7 +10,7 @@ Sous Windows, le parcours recommandé pour ce kit est Ubuntu dans **WSL2**. Si W
 wsl --install
 ```
 
-Exécuter ensuite les commandes Bash dans Ubuntu. Installer Git et Python **3.11 ou supérieur** avec le gestionnaire de paquets Ubuntu. Installer **Node.js 24 LTS avec npm** en suivant les instructions Linux de la [page de téléchargement Node.js](https://nodejs.org/en/download). Node sert ici au CLI et aux commandes de tests ; le choix de la stack produit sera consigné après les décisions d'architecture. [Versions Node.js](https://nodejs.org/en/about/previous-releases).
+Exécuter ensuite les commandes Bash dans Ubuntu. Installer Git, Python **3.11 ou supérieur**, pip et le module venv avec le gestionnaire de paquets Ubuntu. Installer **Node.js 24 LTS avec npm** en suivant les instructions Linux de la [page de téléchargement Node.js](https://nodejs.org/en/download). Node sert ici au CLI et aux commandes de tests ; le choix de la stack produit sera consigné après les décisions d'architecture. [Versions Node.js](https://nodejs.org/en/about/previous-releases).
 
 ```bash
 git --version
@@ -56,6 +56,8 @@ Le dépôt est déjà initialisé sur main. Conserver son historique. Vérifier 
 ```bash
 git config user.name
 git config user.email
+python3 -m venv .venv
+source .venv/bin/activate
 python3 scripts/setup_codex.py
 python3 scripts/agentic.py doctor
 python3 scripts/restore_progress.py
@@ -104,7 +106,7 @@ Une fois un blocage réellement résolu, consigner sa preuve dans les documents 
 
 Le `node_modules` principal n'est pas hérité : le contrôleur exécute `npm ci` **dans chaque worktree**, avant formalisation et après développement. L'installation doit réussir sans modifier les fichiers versionnés. Node/npm sont donc nécessaires dès INIT-01. Le développeur dispose du réseau pour ajouter dépendances et lockfile ; les rôles en lecture seule ne l'ont pas. Les accès produit restent à configurer séparément.
 
-Pour une séance suivante, borner le nombre de tickets :
+Pour poursuivre tout le backlog, utiliser `python3 scripts/continuous.py`. Pour une séance volontairement limitée, l’ancien mode reste disponible :
 
 ```bash
 python3 scripts/autopilot.py --limit 3
@@ -114,7 +116,7 @@ Ce n'est ni un service permanent ni une tâche planifiée. Le processus travaill
 
 ## 7. Publier les prochains commits
 
-Le remote origin pointe déjà vers Samoulou/encave-assistant. Le kit n'exécute aucun push. Après les contrôles et selon la politique de Sam, les commits validés peuvent être poussés avec l'identité GitHub autorisée :
+Le remote origin pointe déjà vers Samoulou/encave-assistant. La campagne continuous publie automatiquement dans le mode verified_push configuré. Le mode limité autopilot ne pousse pas. Après les contrôles et selon la politique de Sam, les commits validés peuvent être poussés avec l'identité GitHub autorisée :
 
 ```bash
 git push origin main

@@ -25,7 +25,10 @@
     "docs/decisions/ADR-0002-autorite-et-connecteurs.md",
     "docs/archive",
     "backlog/archive",
-    "docs/agentic"
+    "docs/agentic",
+    "docs/design",
+    "docs/decisions/ADR-0004-campagne-et-ux.md",
+    "requirements-tooling.txt"
   ],
   "gates": {
     "kit": [
@@ -61,6 +64,11 @@
       "npm",
       "run",
       "check:foundation"
+    ],
+    "ux": [
+      "npm",
+      "run",
+      "test:ux"
     ]
   },
   "base_branch": "main",
@@ -70,5 +78,22 @@
       "ci"
     ]
   ],
-  "development_network_access": true
+  "development_network_access": true,
+  "continuous": {
+    "max_ticket_runs": 126,
+    "max_agent_calls": 336,
+    "max_wall_seconds": 604800,
+    "max_runs_per_ticket": 3,
+    "publish_mode": "verified_push"
+  },
+  "maintenance": {
+    "EA-04": [
+      ".github/workflows/product-quality.yml",
+      ".github/workflows/release.yml"
+    ],
+    "EA-40": [
+      "scripts/deploy.py",
+      ".github/workflows/release.yml"
+    ]
+  }
 }

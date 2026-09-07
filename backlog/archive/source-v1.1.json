@@ -1,53 +1,7 @@
 {
-  "version": 1,
-  "source_date": "2026-09-07",
-  "note": "40 tickets produit version 1.1 synchronisés avec source.json après décision explicite de Sam ; ancien référentiel conservé dans archive/source-v1.json. INIT-01 et DEV-01 restent définis dans bootstrap.json. Les décisions produit et la livraison appartiennent à Sam ; les connecteurs sont génériques et leur activation réelle exige une qualification technique. Aucun ticket n’est déclaré terminé par cette migration.",
+  "version": "1.1",
+  "date": "2026-09-07",
   "tickets": [
-    {
-      "id": "INIT-01",
-      "phase": "Initialisation",
-      "priority": "P0",
-      "title": "Préparer le poste de développement et les conventions du dépôt",
-      "dependencies": [],
-      "kind": "infrastructure",
-      "required_gates": [
-        "kit"
-      ],
-      "acceptance_criteria": [
-        "Documenter les versions locales Git, Python, Node et Codex, sans secret ni donnée client.",
-        "Vérifier le kit et proposer une structure de travail cohérente avec le brief ; ne pas implémenter le produit dans ce ticket.",
-        "Créer docs/decisions/ADR-0001-environnement.md et docs/setup-result.md avec les résultats réellement observés.",
-        "Conserver les suites produit non configurées en échec explicite ; leur implémentation appartient aux tickets suivants."
-      ],
-      "expected_result": "Un dépôt préparé et vérifié, sans déclarer terminés les tickets produit ou les intégrations."
-    },
-    {
-      "id": "DEV-01",
-      "phase": "Initialisation",
-      "priority": "P0",
-      "title": "Construire la fondation technique locale indépendante",
-      "dependencies": [
-        "INIT-01"
-      ],
-      "kind": "infrastructure",
-      "required_gates": [
-        "kit",
-        "foundation"
-      ],
-      "acceptance_criteria": [
-        "Créer un monorepo npm workspaces TypeScript avec apps/web (Next.js/React), apps/api et apps/worker (Node.js), packages/domain, packages/contracts, packages/connectors et, si nécessaire, packages/tooling ; conserver des dépendances verrouillées et zéro import, secret ou code partagé avec la marketplace EnCave.",
-        "Limiter cette fondation à des données synthétiques et à des vérifications techniques locales ; ne pas implémenter de réservation commerciale, authentification réelle, envoi client, connexion Microsoft ou appel de modèle et ne déclarer terminé aucun ticket EA.",
-        "Fournir une configuration PostgreSQL de développement reproductible et des paramètres d’exemple sans secrets ; vérifier réellement une connexion et une requête SQL sur une base de test isolée, puis consigner la méthode de démarrage et d’arrêt sans présumer Docker disponible.",
-        "Implémenter npm run check:foundation avec un runner dans packages/tooling ou un autre nouveau chemin autorisé : il exécute la vérification TypeScript et la compilation des trois applications et des packages concernés ; toute erreur ou composant manquant rend la commande non nulle.",
-        "Faire exécuter par check:foundation des contrôles de démarrage observables : réponse HTTP de la page web et de l’API, signal de disponibilité du worker et accès SQL de développement ; utiliser des délais bornés, arrêter les processus lancés et échouer si un contrôle manque, expire ou échoue.",
-        "Préparer les commandes npm run test:unit, test:functional, test:business, test:e2e et test:evals pour leurs futurs runners ; chacune échoue explicitement si sa suite est absente, vide ou entièrement ignorée. Les contrôles techniques de foundation ne remplacent aucune preuve produit.",
-        "Prouver les refus pour les suites vides ou absentes et pour un contrôle de foundation en échec par des tests d’outillage ajoutés dans packages/tooling ; ne pas modifier les tests existants et ne pas utiliser passWithNoTests, un catch transformant l’échec en succès ou un résultat préenregistré.",
-        "Conserver les scénarios .feature comme spécifications non exécutées tant que les comportements métier correspondants manquent. La seule lecture de fixtures, le seed IA ou un modèle simulé ne permet pas de déclarer test:business ou test:evals réussi ; une évaluation future devra appeler le modèle configuré et publier ses résultats réels.",
-        "Ne modifier ni scripts/, ni .github/workflows/, ni les autres chemins protégés pour réaliser cette fondation ; relier les commandes nécessaires par package.json et placer le nouvel outillage dans packages/tooling. Une configuration d’environnement indispensable mais indisponible devient un blocage documenté.",
-        "Documenter dans docs/decisions/ADR-0003-fondation-technique.md les versions et choix réversibles retenus ; compléter le guide local et les résultats observés, en distinguant fondation technique, tests produit non exécutés, intégrations non configurées et choix de production encore ouverts."
-      ],
-      "expected_result": "Une structure TypeScript compilable et démarrable localement, un PostgreSQL de test vérifié et un contrôle foundation exécutable ; les 40 tickets produit restent soumis à leurs propres dépendances, critères et preuves."
-    },
     {
       "id": "EA-01",
       "phase": "P0",
@@ -61,12 +15,8 @@
         "Distinguer faits observés, hypothèses de volumes/canaux et données synthétiques ; préparer une baseline de mesure sans inventer de données terrain.",
         "Les entretiens, échantillons clients et retours de Julien sont facultatifs pour commencer le développement ; leur absence ne bloque pas ce ticket et aucun engagement commercial n’est présumé."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "discovery",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-02",
@@ -84,12 +34,8 @@
         "Séparer clairement tests de contrat avec simulations et protocole de qualification réelle sur un tenant de test autorisé géré par Sam ; les résultats réels restent non exécutés tant qu’aucun accès de test n’est configuré.",
         "L’absence d’accès Microsoft de Julien ou d’un prospect ne bloque ni ce contrat ni le développement indépendant. Avant toute activation réelle, les capacités utilisées et permissions effectives doivent être vérifiées avec des preuves réelles ; une configuration inconnue reste inactive."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "discovery",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-03",
@@ -105,15 +51,10 @@
         "Sam fixe le périmètre, les priorités et la politique de livraison ; les décisions réversibles documentées permettent aux agents de progresser sans validation d’un prospect.",
         "Disponibilité interne/externe et limites de concurrence décidées ; interfaces de connecteurs neutres vis-à-vis du fournisseur, Microsoft étant le premier adaptateur visé.",
         "Profil sans Microsoft et devis livrés ou exclus explicitement du lancement vendu ; aucune activation d’un fournisseur non qualifié.",
-        "Les choix de fondation et de développement ne dépendent pas d’une vérification sur le compte réel d’un prospect ni de la disponibilité du tenant de test Microsoft.",
-        "Les choix techniques réversibles conformes au brief sont délégués à l’agent et consignés en ADR sans demander à Sam une validation entre tickets ; une dépense, un accès tiers ou une hypothèse métier non établie ne sont jamais inventés."
+        "Les choix de fondation et de développement ne dépendent pas d’une vérification sur le compte réel d’un prospect ni de la disponibilité du tenant de test Microsoft."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "discovery",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-04",
@@ -129,15 +70,10 @@
       "acceptance_criteria": [
         "Aucun import ou secret de la marketplace.",
         "Versions verrouillées et guide local.",
-        "Développement, préproduction et production séparés.",
-        "Configurer les environnements de test et la CI dans les fichiers de maintenance préautorisés, en conservant les gates obligatoires, la distinction entre foundation et produit et le forçage des contrôles de release ; aucune suppression de contrôle pour obtenir du vert."
+        "Développement, préproduction et production séparés."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "infrastructure",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-05",
@@ -151,23 +87,10 @@
       "acceptance_criteria": [
         "Session vérifiée côté serveur.",
         "Invitation et révocation effectives.",
-        "Commandes sensibles interdites au lecteur.",
-        "Livrer la première tranche verticale testable : schéma minimal des identités, caves et membres, migrations nécessaires à l’authentification, vrais runners unitaires, fonctionnels/API, métier des rôles et E2E navigateur ; les suites absentes ou vides restent en échec. Le schéma métier complet appartient à EA-07.",
-        "Rendre exécutable test:ux pour les écrans livrés : clavier et focus, erreurs de connexion, contrôle d’accès, tailles mobile/bureau et captures issues du navigateur ; la review indépendante examine les rendus réels.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Commandes sensibles interdites au lecteur."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-06",
@@ -181,22 +104,10 @@
       "acceptance_criteria": [
         "Deux caves de test indépendantes.",
         "Accès API, tâches et exports inter-caves refusés.",
-        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs.",
-        "Créer ou compléter le schéma minimal tenant/membres et les migrations indispensables aux tests avec le rôle DB effectivement utilisé ; EA-07 étend ensuite le schéma aux dossiers, propositions et actions sans retarder ces preuves d’isolation.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-07",
@@ -212,16 +123,8 @@
         "Clés composées empêchant références inter-caves.",
         "Fixtures fictives séparées des données réelles."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-08",
@@ -237,16 +140,8 @@
         "Version périmée retourne un conflit.",
         "Demande, proposition, réservation et action ont des statuts distincts."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-09",
@@ -262,16 +157,8 @@
         "Prix manquant bloque l’offre automatique.",
         "Offre désactivée exclue des nouvelles propositions."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-10",
@@ -287,16 +174,8 @@
         "Fuseaux et changements d’heure testés.",
         "Source de vérité définie par ressource."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-11",
@@ -310,21 +189,10 @@
       "acceptance_criteria": [
         "Rechargement conserve le dossier.",
         "Origine et acteur de la saisie conservés.",
-        "Validation des champs avec erreurs visibles.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Validation des champs avec erreurs visibles."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-12",
@@ -338,21 +206,10 @@
       "acceptance_criteria": [
         "Tenant résolu par configuration serveur.",
         "Limites de taille, débit et anti-spam.",
-        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-13",
@@ -370,21 +227,10 @@
         "Une cave autorisée connecte son compte Microsoft via OAuth, choisit les ressources permises et peut reconnecter ou révoquer sans redéploiement ni identifiants client codés en dur.",
         "Appliquer les permissions Microsoft réellement nécessaires et vérifier côté serveur l’identité du compte, la cave, le retour OAuth et les ressources autorisées ; si Microsoft exige un consentement administrateur, afficher cet état et ne pas contourner ce contrôle.",
         "L’état de santé, la reconnexion, l’expiration et la révocation sont indépendants par connexion ; une révocation bloque les nouveaux effets externes sans interrompre une autre cave.",
-        "Les tests de contrat utilisent des comptes et réponses synthétiques explicitement identifiés ; seuls les tests sur un environnement autorisé prouvent l’intégration Microsoft réelle. Garder toute connexion réelle inactive avant sa qualification technique.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Les tests de contrat utilisent des comptes et réponses synthétiques explicitement identifiés ; seuls les tests sur un environnement autorisé prouvent l’intégration Microsoft réelle. Garder toute connexion réelle inactive avant sa qualification technique."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-14",
@@ -403,16 +249,8 @@
         "Le pipeline consomme le contrat commun d’ingestion et conserve fournisseur, connexion et cave avec les références ; aucun identifiant de boîte ou de client n’est global ni codé en dur.",
         "Les tests de contrat couvrent deux connexions de caves différentes et nomment les réponses simulées ; l’exécution de ces tests ne déclare pas une intégration fournisseur réelle qualifiée."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-15",
@@ -430,16 +268,8 @@
         "Abonnements, secrets de validation, curseurs et état de reprise sont isolés par connexion et cave ; callbacks et tâches revalident leur contexte serveur.",
         "Utiliser uniquement les capacités de notification et de réconciliation déclarées par l’adaptateur ; une opération Microsoft non supportée ou non qualifiée ne peut pas être activée par défaut."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-16",
@@ -458,16 +288,8 @@
         "La sélection du calendrier et les références d’occupation sont propres à chaque connexion et cave, sans redéploiement ; les règles métier utilisent un contrat calendrier indépendant du fournisseur.",
         "Un calendrier interne peut fonctionner sans connexion Microsoft ; une capacité externe inconnue, un consentement manquant ou une connexion révoquée sont visibles et bloquent uniquement les effets qui en dépendent."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-17",
@@ -484,18 +306,8 @@
         "Refus, réponse incomplète et erreur fournisseur gérés.",
         "Date, budget/unité et effectif contrôlés serveur."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-18",
@@ -513,18 +325,8 @@
         "Alternatives uniquement admissibles.",
         "Disponibilité inconnue bloque engagement."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-19",
@@ -539,23 +341,10 @@
       "acceptance_criteria": [
         "Version et empreinte du texte envoyé conservées.",
         "Édition commerciale crée une nouvelle version.",
-        "Conditions, taxe, monnaie et montants cohérents.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Conditions, taxe, monnaie et montants cohérents."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals",
-        "ux"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-20",
@@ -570,23 +359,10 @@
       "acceptance_criteria": [
         "Mode supervisé par défaut.",
         "Modification invalide une approbation antérieure.",
-        "Un outil revalide tenant, rôle, état et politique.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Un outil revalide tenant, rôle, état et politique."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals",
-        "ux"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-21",
@@ -604,16 +380,8 @@
         "202 fournisseur affiché comme acceptation d’envoi.",
         "Résultat réseau incertain repris sans renvoi aveugle."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-22",
@@ -628,21 +396,10 @@
       "acceptance_criteria": [
         "GET ne déclenche pas l’accord.",
         "Jeton expirant lié à une proposition.",
-        "Réponse avec changement de groupe/prix/date produit une nouvelle offre.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Réponse avec changement de groupe/prix/date produit une nouvelle offre."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-23",
@@ -659,16 +416,8 @@
         "Bail expiré repris après redémarrage.",
         "Idempotence avec charge incompatible rejetée."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-24",
@@ -684,21 +433,10 @@
       "acceptance_criteria": [
         "Cent confirmations concurrentes : une allocation active.",
         "Toutes les ressources réussissent ensemble ou rollback.",
-        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-25",
@@ -715,16 +453,8 @@
         "Timeout après création réconcilié.",
         "Aucune promesse d’exclusion atomique avec les écritures manuelles Outlook."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-26",
@@ -739,21 +469,10 @@
       "acceptance_criteria": [
         "Même commande rejouée ne double pas réservation/message.",
         "Termes identiques à la version acceptée et couverts par l’autorisation humaine.",
-        "Écriture nécessaire incertaine bloque confirmation automatique.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Écriture nécessaire incertaine bloque confirmation automatique."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-27",
@@ -768,21 +487,10 @@
       "acceptance_criteria": [
         "Conflit tardif demande nouvel accord sur alternative.",
         "Relances bornées respectant Retry-After.",
-        "Reprise manuelle journalisée sans masquer l’historique.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Reprise manuelle journalisée sans masquer l’historique."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-28",
@@ -797,21 +505,10 @@
       "acceptance_criteria": [
         "Réservation/synchronisation/envoi affichés séparément.",
         "Rechargement et second utilisateur voient état serveur.",
-        "Export .ics facultatif distinct d’une connexion Outlook.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Export .ics facultatif distinct d’une connexion Outlook."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-29",
@@ -827,21 +524,10 @@
       "acceptance_criteria": [
         "Durée variable, équipements et marges de salle.",
         "Prix/conditions inconnus bloquent confirmation.",
-        "Acompte hors produit vérifié par acteur autorisé si requis.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Acompte hors produit vérifié par acteur autorisé si requis."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-30",
@@ -857,23 +543,10 @@
       "acceptance_criteria": [
         "Pas de date/prix/place/URL inventés.",
         "Absence de lien officiel signalée.",
-        "Pas de billet créé ; capacité partagée hors lot.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Pas de billet créé ; capacité partagée hors lot."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals",
-        "ux"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-31",
@@ -890,21 +563,10 @@
       "acceptance_criteria": [
         "Expéditeur vérifié, pas d’usurpation de domaine.",
         "Réponses rattachées ou saisie manuelle explicitement annoncée.",
-        "Parcours simple une offre/une ressource testé.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Parcours simple une offre/une ressource testé."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-32",
@@ -919,21 +581,10 @@
       "acceptance_criteria": [
         "Aucune annulation destructive par simple interprétation IA.",
         "Modification d’engagement implique nouveau contrôle/accord.",
-        "Paiements et remboursements restent hors périmètre.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Paiements et remboursements restent hors périmètre."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-33",
@@ -951,16 +602,8 @@
         "Secrets et données sensibles exclus des logs/prompts inutiles.",
         "Export/suppression/révocation testés par tenant."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-34",
@@ -977,18 +620,8 @@
         "Mesurer extraction exacte et clarification.",
         "Aucun appel d’outil interdit sur le corpus critique."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "evals"
-      ],
-      "requires_evals": true,
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-35",
@@ -1008,16 +641,8 @@
         "Tests exécutés avec le rôle DB réellement prévu ; distinguer les pannes fournisseur injectées et simulations des appels d’intégration réels autorisés.",
         "Avant activation d’un connecteur réel, qualifier les capacités utilisées, permissions effectives, refus hors périmètre et révocation sur un environnement autorisé géré par Sam ; sans cette preuve, le connecteur reste inactif et le périmètre indépendant peut être livré."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-36",
@@ -1035,16 +660,8 @@
         "Alertes reçues par un opérateur identifié.",
         "Quotas modèle/agent et limite d’étapes appliqués."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-37",
@@ -1062,16 +679,8 @@
         "Réconcilier effets externes avant reprise après restauration.",
         "Retour manuel et rollback applicatif testés."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-38",
@@ -1089,21 +698,10 @@
         "Mobile/clavier et erreurs accessibles.",
         "Checklist de mise en service avec ressources, versions, capacités et connexions qualifiées ; les limites sont visibles.",
         "L’onboarding d’une nouvelle cave supportée configure son compte, ses ressources, ses permissions et ses connexions sans modification de code ni redéploiement ; démontrer l’isolation de deux caves.",
-        "Les permissions ou consentements exigés par un fournisseur sont des conditions d’accès techniques pour cette connexion, distinctes de l’autorité de Sam sur le produit et sa livraison.",
-        "Respecter les critères UX applicables de docs/product/11-ux-ui-et-design.md et les tokens de docs/design/design-tokens.json sur les parcours modifiés ; exécuter test:ux, conserver les captures navigateur et faire vérifier les états, le responsive, le clavier et les actions sensibles par la review indépendante."
+        "Les permissions ou consentements exigés par un fournisseur sont des conditions d’accès techniques pour cette connexion, distinctes de l’autorité de Sam sur le produit et sa livraison."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "code",
-      "required_gates": [
-        "kit",
-        "unit",
-        "functional",
-        "business",
-        "e2e",
-        "ux"
-      ],
-      "source": "backlog/source.json",
-      "requires_ux": true
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-39",
@@ -1123,12 +721,8 @@
         "Sam décide des corrections et du périmètre pouvant être activé selon sa politique de livraison et les preuves techniques ; aucun avis de Julien, signature de prospect ou entretien terrain n’est nécessaire pour terminer ce ticket.",
         "Un pilote client, quatre semaines d’observation et trente demandes sont des options de mesure de valeur, non des conditions universelles pour développer ou lancer. Ne pas annoncer des objectifs de valeur atteints sans données réelles."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "discovery",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     },
     {
       "id": "EA-40",
@@ -1146,16 +740,12 @@
         "Sam détient la décision de lancement et configure au préalable les environnements, accès et règles de livraison permettant son exécution autonome ; aucune approbation de Julien ou d’un autre prospect n’est requise.",
         "Support, informations contractuelles, accès, traitement des données et facturation préparés pour l’offre ; les droits nécessaires aux services effectivement utilisés restent requis.",
         "Activer progressivement uniquement les connexions et capacités réellement qualifiées ; un connecteur non vérifié reste désactivé sans empêcher la livraison d’un périmètre indépendant clairement annoncé.",
-        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée ; les validations métier A1 du caviste restent obligatoires.",
-        "Implémenter et vérifier l’adaptateur de déploiement dans le périmètre de maintenance préautorisé avant de déclarer une livraison réelle ; des manifestes ou un code retour simulé ne prouvent pas un déploiement."
+        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée ; les validations métier A1 du caviste restent obligatoires."
       ],
-      "estimate": "A affiner ; budget au niveau de la phase",
-      "kind": "discovery",
-      "required_gates": [
-        "kit"
-      ],
-      "source": "backlog/source.json"
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
     }
   ],
-  "source_version": "1.2"
+  "change_reference": "docs/decisions/ADR-0002-autorite-et-connecteurs.md",
+  "previous_reference": "backlog/archive/source-v1.json"
 }

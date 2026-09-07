@@ -20,7 +20,7 @@ Les dossiers applicatifs et leurs dépendances sont à créer par DEV-01 ; ils n
 
 Cette initialisation est une maintenance explicite du kit : ajout du contrat DEV-01, scripts de setup/reprise, entrée Codex directe et CI applicable au dépôt vide. Les fichiers protégés restent protégés pendant les tickets ordinaires.
 
-DEV-01 peut créer ses outils dans `packages/tooling/`, modifier les commandes npm et ajouter de nouveaux tests. Il n'a pas à modifier les contrôleurs Python, les anciens tests ou les workflows. EA-04 et toute configuration ultérieure de livraison nécessitant des workflows constituent une maintenance planifiée du cadre, avec périmètre formalisé et review distincte. Cette maintenance se réalise par tâche Codex directe ; le runner strict n'accorde pas de permissions élargies à un ticket en échec.
+DEV-01 peut créer ses outils dans `packages/tooling/`, modifier les commandes npm et ajouter de nouveaux tests. Il n'a pas à modifier les contrôleurs Python, les anciens tests ou les workflows. ADR-0004 préautorise les fichiers exacts de maintenance d'EA-04 et EA-40 pour leur traitement par le contrôleur, avec protection des contrôles obligatoires et review distincte. Les autres changements du cadre restent une maintenance explicite ; un ticket en échec ne s'accorde pas de permissions élargies.
 
 ## Limites conservées
 
