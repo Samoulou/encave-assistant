@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "model": null,
+  "max_attempts": 3,
+  "max_seconds_per_agent": 1200,
+  "max_ticket_seconds": 7200,
+  "max_agent_calls": 8,
+  "delivery_mode": "local_commit",
+  "protected_paths": [
+    "AGENTS.md",
+    ".codex",
+    ".agentic/policy.json",
+    ".agentic/schemas",
+    ".agentic/prompts",
+    "scripts",
+    "tests/tooling",
+    "docs/product",
+    "backlog/source.json",
+    "backlog/tickets.json",
+    "tests/acceptance",
+    "docs/evidence",
+    ".github/workflows",
+    "backlog/bootstrap.json",
+    "docs/decisions/ADR-0000-amorcage.md",
+    "docs/decisions/ADR-0002-autorite-et-connecteurs.md",
+    "docs/archive",
+    "backlog/archive",
+    "docs/agentic"
+  ],
+  "gates": {
+    "kit": [
+      "python3",
+      "scripts/check_kit.py"
+    ],
+    "unit": [
+      "npm",
+      "run",
+      "test:unit"
+    ],
+    "functional": [
+      "npm",
+      "run",
+      "test:functional"
+    ],
+    "business": [
+      "npm",
+      "run",
+      "test:business"
+    ],
+    "e2e": [
+      "npm",
+      "run",
+      "test:e2e"
+    ],
+    "evals": [
+      "npm",
+      "run",
+      "test:evals"
+    ],
+    "foundation": [
+      "npm",
+      "run",
+      "check:foundation"
+    ]
+  },
+  "base_branch": "main",
+  "prepare_commands": [
+    [
+      "npm",
+      "ci"
+    ]
+  ],
+  "development_network_access": true
+}

@@ -1,0 +1,751 @@
+{
+  "version": "1.1",
+  "date": "2026-09-07",
+  "tickets": [
+    {
+      "id": "EA-01",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Formaliser le périmètre produit et les hypothèses de Sam",
+      "dependencies": [],
+      "expected_result": "Périmètre, priorités et hypothèses mesurables définis sous l’autorité de Sam, sans dépendance à la validation d’un prospect.",
+      "acceptance_criteria": [
+        "Formaliser le périmètre, les priorités et les critères d’acceptation sous l’autorité de Sam ; les agents appliquent ses décisions documentées sans demander de validation à Julien ou à un autre prospect.",
+        "Consigner les règles de prix, ressources, accord et reprise, en préservant la supervision A1 et les invariants de sécurité du brief.",
+        "Distinguer faits observés, hypothèses de volumes/canaux et données synthétiques ; préparer une baseline de mesure sans inventer de données terrain.",
+        "Les entretiens, échantillons clients et retours de Julien sont facultatifs pour commencer le développement ; leur absence ne bloque pas ce ticket et aucun engagement commercial n’est présumé."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-02",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Définir le contrat et la qualification du connecteur Microsoft générique",
+      "dependencies": [
+        "EA-01"
+      ],
+      "expected_result": "Contrat documenté, capacités Microsoft supportées et protocole de qualification reproductible sur un environnement autorisé, indépendants de tout prospect.",
+      "acceptance_criteria": [
+        "Documenter à partir des références officielles les configurations Exchange Online, boîtes et calendriers visées, les capacités et les opérations non supportées ; l’application Outlook seule ne prouve pas la compatibilité.",
+        "Définir les contrats et cas de tests de lecture, notifications, écriture calendrier, envoi, renouvellement, révocation, erreurs et refus hors périmètre ; aucune permission Shared n’est supposée compatible avec les webhooks.",
+        "Spécifier un onboarding OAuth réutilisable par toute cave sur une configuration supportée, sans identifiants de client codés en dur ni redéploiement ; distinguer permissions déléguées, permissions applicatives et consentement administrateur éventuellement exigé par Microsoft.",
+        "Séparer clairement tests de contrat avec simulations et protocole de qualification réelle sur un tenant de test autorisé géré par Sam ; les résultats réels restent non exécutés tant qu’aucun accès de test n’est configuré.",
+        "L’absence d’accès Microsoft de Julien ou d’un prospect ne bloque ni ce contrat ni le développement indépendant. Avant toute activation réelle, les capacités utilisées et permissions effectives doivent être vérifiées avec des preuves réelles ; une configuration inconnue reste inactive."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-03",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Fixer les ADR et le périmètre de lancement",
+      "dependencies": [
+        "EA-01"
+      ],
+      "expected_result": "Architecture, accord, régions, source de vérité et périmètre de lancement décidés sous l’autorité de Sam ; faisabilité client spécifique indépendante.",
+      "acceptance_criteria": [
+        "Indépendance EnCave explicite : dépôt, données, authentification, secrets, code d’exécution et déploiement propres.",
+        "Sam fixe le périmètre, les priorités et la politique de livraison ; les décisions réversibles documentées permettent aux agents de progresser sans validation d’un prospect.",
+        "Disponibilité interne/externe et limites de concurrence décidées ; interfaces de connecteurs neutres vis-à-vis du fournisseur, Microsoft étant le premier adaptateur visé.",
+        "Profil sans Microsoft et devis livrés ou exclus explicitement du lancement vendu ; aucune activation d’un fournisseur non qualifié.",
+        "Les choix de fondation et de développement ne dépendent pas d’une vérification sur le compte réel d’un prospect ni de la disponibilité du tenant de test Microsoft."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-04",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer le dépôt et les environnements indépendants",
+      "dependencies": [
+        "EA-03",
+        "INIT-01",
+        "DEV-01"
+      ],
+      "expected_result": "Projet reproductible avec pipeline et secrets séparés.",
+      "acceptance_criteria": [
+        "Aucun import ou secret de la marketplace.",
+        "Versions verrouillées et guide local.",
+        "Développement, préproduction et production séparés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-05",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Authentifier les collaborateurs et définir les rôles",
+      "dependencies": [
+        "EA-04"
+      ],
+      "expected_result": "Connexion OIDC et rôles administrateur, opérateur, lecture.",
+      "acceptance_criteria": [
+        "Session vérifiée côté serveur.",
+        "Invitation et révocation effectives.",
+        "Commandes sensibles interdites au lecteur."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-06",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Isoler les caves dans toutes les couches",
+      "dependencies": [
+        "EA-05"
+      ],
+      "expected_result": "Contexte tenant serveur et références cloisonnées.",
+      "acceptance_criteria": [
+        "Deux caves de test indépendantes.",
+        "Accès API, tâches et exports inter-caves refusés.",
+        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-07",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer le schéma, migrations et fixtures",
+      "dependencies": [
+        "EA-06"
+      ],
+      "expected_result": "Noyau persistant avec contraintes et migrations.",
+      "acceptance_criteria": [
+        "Demandes, messages, versions, accords et actions définis.",
+        "Clés composées empêchant références inter-caves.",
+        "Fixtures fictives séparées des données réelles."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-08",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Implémenter les machines à états et versions",
+      "dependencies": [
+        "EA-07"
+      ],
+      "expected_result": "Transitions serveur et verrou optimiste.",
+      "acceptance_criteria": [
+        "Transition interdite rejetée.",
+        "Version périmée retourne un conflit.",
+        "Demande, proposition, réservation et action ont des statuts distincts."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-09",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Créer le catalogue approuvé et versionné",
+      "dependencies": [
+        "EA-07"
+      ],
+      "expected_result": "Offres, tarifs et sources maintenables par la cave.",
+      "acceptance_criteria": [
+        "Capacité, durée, CHF et taxes explicites.",
+        "Prix manquant bloque l’offre automatique.",
+        "Offre désactivée exclue des nouvelles propositions."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-10",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Configurer ressources et règles de disponibilité",
+      "dependencies": [
+        "EA-09"
+      ],
+      "expected_result": "Salles, équipes, marges, fermetures et fuseau.",
+      "acceptance_criteria": [
+        "Occupation incluant préparation/rangement.",
+        "Fuseaux et changements d’heure testés.",
+        "Source de vérité définie par ressource."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-11",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Livrer la demande manuelle persistante",
+      "dependencies": [
+        "EA-08"
+      ],
+      "expected_result": "Saisie après appel et détail de conversation.",
+      "acceptance_criteria": [
+        "Rechargement conserve le dossier.",
+        "Origine et acteur de la saisie conservés.",
+        "Validation des champs avec erreurs visibles."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-12",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Installer le formulaire d’entrée du site",
+      "dependencies": [
+        "EA-11"
+      ],
+      "expected_result": "Endpoint et intégration légère au site de la cave.",
+      "acceptance_criteria": [
+        "Tenant résolu par configuration serveur.",
+        "Limites de taille, débit et anti-spam.",
+        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-13",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Implémenter les connexions par cave et l’onboarding OAuth Microsoft",
+      "dependencies": [
+        "EA-02",
+        "EA-06"
+      ],
+      "expected_result": "Interface de connecteur commune et premier adaptateur Microsoft avec onboarding réutilisable, capacités déclarées et état de santé par connexion.",
+      "acceptance_criteria": [
+        "Jetons chiffrés serveur, jamais au navigateur/LLM ; chaque connexion et ses références appartiennent à une cave et ne sont utilisables que dans son contexte autorisé.",
+        "Définir un contrat fournisseur neutre pour capacités, lecture, écriture, état de santé et erreurs ; distinguer clairement opérations disponibles, non supportées et non qualifiées.",
+        "Une cave autorisée connecte son compte Microsoft via OAuth, choisit les ressources permises et peut reconnecter ou révoquer sans redéploiement ni identifiants client codés en dur.",
+        "Appliquer les permissions Microsoft réellement nécessaires et vérifier côté serveur l’identité du compte, la cave, le retour OAuth et les ressources autorisées ; si Microsoft exige un consentement administrateur, afficher cet état et ne pas contourner ce contrôle.",
+        "L’état de santé, la reconnexion, l’expiration et la révocation sont indépendants par connexion ; une révocation bloque les nouveaux effets externes sans interrompre une autre cave.",
+        "Les tests de contrat utilisent des comptes et réponses synthétiques explicitement identifiés ; seuls les tests sur un environnement autorisé prouvent l’intégration Microsoft réelle. Garder toute connexion réelle inactive avant sa qualification technique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-14",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Ingérer et dédupliquer les messages",
+      "dependencies": [
+        "EA-13",
+        "EA-11"
+      ],
+      "expected_result": "Messages rattachés avec références techniques stables.",
+      "acceptance_criteria": [
+        "Doublons/replays ne recréent pas de demande.",
+        "Réponses automatiques et boucles filtrées.",
+        "Fil ambigu transmis à un humain.",
+        "Le pipeline consomme le contrat commun d’ingestion et conserve fournisseur, connexion et cave avec les références ; aucun identifiant de boîte ou de client n’est global ni codé en dur.",
+        "Les tests de contrat couvrent deux connexions de caves différentes et nomment les réponses simulées ; l’exécution de ces tests ne déclare pas une intégration fournisseur réelle qualifiée."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-15",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Renouveler webhooks et réconcilier les e-mails",
+      "dependencies": [
+        "EA-14"
+      ],
+      "expected_result": "Abonnements surveillés et reprise après interruption.",
+      "acceptance_criteria": [
+        "Persister avant acquittement ; worker séparé.",
+        "Pagination et curseurs opaques conservés.",
+        "Expiration, notification manquée et invalidation récupérées.",
+        "Abonnements, secrets de validation, curseurs et état de reprise sont isolés par connexion et cave ; callbacks et tâches revalident leur contexte serveur.",
+        "Utiliser uniquement les capacités de notification et de réconciliation déclarées par l’adaptateur ; une opération Microsoft non supportée ou non qualifiée ne peut pas être activée par défaut."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-16",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Synchroniser les occupations du calendrier",
+      "dependencies": [
+        "EA-13",
+        "EA-10"
+      ],
+      "expected_result": "Vue locale bornée avec fraîcheur et références.",
+      "acceptance_criteria": [
+        "Représenter explicitement les capacités du calendrier principal ou partagé et le chemin utilisé ; tester le contrat avec simulations identifiées et vérifier réellement chaque configuration supportée avant son activation.",
+        "Suppressions et récurrences réconciliées.",
+        "Échec de lecture ne devient pas absence d’occupation.",
+        "La sélection du calendrier et les références d’occupation sont propres à chaque connexion et cave, sans redéploiement ; les règles métier utilisent un contrat calendrier indépendant du fournisseur.",
+        "Un calendrier interne peut fonctionner sans connexion Microsoft ; une capacité externe inconnue, un consentement manquant ou une connexion révoquée sont visibles et bloquent uniquement les effets qui en dépendent."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-17",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Extraire les faits avec un modèle et un schéma",
+      "dependencies": [
+        "EA-14",
+        "EA-09"
+      ],
+      "expected_result": "Extraction IA structurée et sourcée.",
+      "acceptance_criteria": [
+        "Valeurs absentes restent inconnues.",
+        "Refus, réponse incomplète et erreur fournisseur gérés.",
+        "Date, budget/unité et effectif contrôlés serveur."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-18",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Calculer les offres et créneaux admissibles",
+      "dependencies": [
+        "EA-10",
+        "EA-16",
+        "EA-17"
+      ],
+      "expected_result": "Moteur domaine déterministe avec explication.",
+      "acceptance_criteria": [
+        "Budget/capacité/durée vérifiés.",
+        "Alternatives uniquement admissibles.",
+        "Disponibilité inconnue bloque engagement."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-19",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Versionner les propositions et leurs rendus",
+      "dependencies": [
+        "EA-08",
+        "EA-18"
+      ],
+      "expected_result": "Instantanés commerciaux immuables.",
+      "acceptance_criteria": [
+        "Version et empreinte du texte envoyé conservées.",
+        "Édition commerciale crée une nouvelle version.",
+        "Conditions, taxe, monnaie et montants cohérents."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-20",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Créer la validation humaine et la politique de l’agent",
+      "dependencies": [
+        "EA-19",
+        "EA-05"
+      ],
+      "expected_result": "Validation d’une version par rôle autorisé.",
+      "acceptance_criteria": [
+        "Mode supervisé par défaut.",
+        "Modification invalide une approbation antérieure.",
+        "Un outil revalide tenant, rôle, état et politique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-21",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Envoyer les propositions et suivre leur état",
+      "dependencies": [
+        "EA-20",
+        "EA-23",
+        "EA-13"
+      ],
+      "expected_result": "Envoi autorisé à destinataire vérifié et statut exact.",
+      "acceptance_criteria": [
+        "Aucun envoi sans version approuvée.",
+        "202 fournisseur affiché comme acceptation d’envoi.",
+        "Résultat réseau incertain repris sans renvoi aveugle."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-22",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Enregistrer l’accord sur la version exacte",
+      "dependencies": [
+        "EA-19",
+        "EA-21"
+      ],
+      "expected_result": "Lien d’accord sécurisé et rattachement contrôlé des e-mails.",
+      "acceptance_criteria": [
+        "GET ne déclenche pas l’accord.",
+        "Jeton expirant lié à une proposition.",
+        "Réponse avec changement de groupe/prix/date produit une nouvelle offre."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-23",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer outbox, jobs et baux de worker",
+      "dependencies": [
+        "EA-07",
+        "EA-08"
+      ],
+      "expected_result": "Travail durable, relances et journal d’exécution.",
+      "acceptance_criteria": [
+        "Écriture domaine/outbox atomique.",
+        "Bail expiré repris après redémarrage.",
+        "Idempotence avec charge incompatible rejetée."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-24",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Allouer les ressources dans une transaction",
+      "dependencies": [
+        "EA-10",
+        "EA-22",
+        "EA-23"
+      ],
+      "expected_result": "Création atomique de réservation et allocations après autorisation humaine A1.",
+      "acceptance_criteria": [
+        "Cent confirmations concurrentes : une allocation active.",
+        "Toutes les ressources réussissent ensemble ou rollback.",
+        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-25",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Créer et retrouver les événements Outlook",
+      "dependencies": [
+        "EA-24",
+        "EA-16"
+      ],
+      "expected_result": "Écriture externe idempotente et traçable.",
+      "acceptance_criteria": [
+        "transactionId stable et référence externe conservée.",
+        "Timeout après création réconcilié.",
+        "Aucune promesse d’exclusion atomique avec les écritures manuelles Outlook."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-26",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Orchestrer confirmation et messages au client",
+      "dependencies": [
+        "EA-25",
+        "EA-21"
+      ],
+      "expected_result": "Confirmation cohérente avec réservation et effets connus.",
+      "acceptance_criteria": [
+        "Même commande rejouée ne double pas réservation/message.",
+        "Termes identiques à la version acceptée et couverts par l’autorisation humaine.",
+        "Écriture nécessaire incertaine bloque confirmation automatique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-27",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Gérer incidents de synchronisation et reprises",
+      "dependencies": [
+        "EA-25",
+        "EA-26"
+      ],
+      "expected_result": "Actions incertaines visibles et attribuées.",
+      "acceptance_criteria": [
+        "Conflit tardif demande nouvel accord sur alternative.",
+        "Relances bornées respectant Retry-After.",
+        "Reprise manuelle journalisée sans masquer l’historique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-28",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Livrer agenda et dossier opérationnel",
+      "dependencies": [
+        "EA-24",
+        "EA-27"
+      ],
+      "expected_result": "Interface de suivi distincte des statuts de livraison.",
+      "acceptance_criteria": [
+        "Réservation/synchronisation/envoi affichés séparément.",
+        "Rechargement et second utilisateur voient état serveur.",
+        "Export .ics facultatif distinct d’une connexion Outlook."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-29",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Ajouter les devis de location versionnés",
+      "dependencies": [
+        "EA-19",
+        "EA-22",
+        "EA-24"
+      ],
+      "expected_result": "Devis validé par responsable et accord sur ses conditions.",
+      "acceptance_criteria": [
+        "Durée variable, équipements et marges de salle.",
+        "Prix/conditions inconnus bloquent confirmation.",
+        "Acompte hors produit vérifié par acteur autorisé si requis."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-30",
+      "phase": "P3",
+      "priority": "P1",
+      "title": "Informer sur événements et recommander le catalogue",
+      "dependencies": [
+        "EA-09",
+        "EA-17",
+        "EA-20"
+      ],
+      "expected_result": "Orientation vers fiches et liens approuvés.",
+      "acceptance_criteria": [
+        "Pas de date/prix/place/URL inventés.",
+        "Absence de lien officiel signalée.",
+        "Pas de billet créé ; capacité partagée hors lot."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-31",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Livrer le profil petite cave sans Microsoft",
+      "dependencies": [
+        "EA-12",
+        "EA-10",
+        "EA-21",
+        "EA-28"
+      ],
+      "expected_result": "Agenda interne et canal sortant réellement autorisé.",
+      "acceptance_criteria": [
+        "Expéditeur vérifié, pas d’usurpation de domaine.",
+        "Réponses rattachées ou saisie manuelle explicitement annoncée.",
+        "Parcours simple une offre/une ressource testé."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-32",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Gérer changements et annulations supervisés",
+      "dependencies": [
+        "EA-28",
+        "EA-22"
+      ],
+      "expected_result": "Commandes avec motif et état de reprise.",
+      "acceptance_criteria": [
+        "Aucune annulation destructive par simple interprétation IA.",
+        "Modification d’engagement implique nouveau contrôle/accord.",
+        "Paiements et remboursements restent hors périmètre."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-33",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Mettre en œuvre protection des données et sécurité",
+      "dependencies": [
+        "EA-06",
+        "EA-13",
+        "EA-17"
+      ],
+      "expected_result": "Rétention, export, suppression, accès et contrôles d’entrée.",
+      "acceptance_criteria": [
+        "Contrats et pays de traitement examinés.",
+        "Secrets et données sensibles exclus des logs/prompts inutiles.",
+        "Export/suppression/révocation testés par tenant."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-34",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Créer le corpus IA et les évaluations de régression",
+      "dependencies": [
+        "EA-17",
+        "EA-20"
+      ],
+      "expected_result": "Au moins 100 cas annotés, dont 20 ambigus/adverses.",
+      "acceptance_criteria": [
+        "Jeu de recette séparé des exemples de mise au point.",
+        "Mesurer extraction exacte et clarification.",
+        "Aucun appel d’outil interdit sur le corpus critique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-35",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Tester concurrence, pannes et fournisseurs",
+      "dependencies": [
+        "EA-24",
+        "EA-25",
+        "EA-26",
+        "EA-33"
+      ],
+      "expected_result": "Recette multi-worker et parcours intégrés.",
+      "acceptance_criteria": [
+        "Doublons, ordre, timeout, révocation et panne DB/LLM/Graph.",
+        "Aucune fausse confirmation dans les scénarios critiques.",
+        "Tests exécutés avec le rôle DB réellement prévu ; distinguer les pannes fournisseur injectées et simulations des appels d’intégration réels autorisés.",
+        "Avant activation d’un connecteur réel, qualifier les capacités utilisées, permissions effectives, refus hors périmètre et révocation sur un environnement autorisé géré par Sam ; sans cette preuve, le connecteur reste inactif et le périmètre indépendant peut être livré."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-36",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Instrumenter coûts, métriques et alertes",
+      "dependencies": [
+        "EA-23",
+        "EA-17",
+        "EA-27"
+      ],
+      "expected_result": "Mesures par cave sans contenu client superflu.",
+      "acceptance_criteria": [
+        "Latence, retards, erreurs, corrections, coûts et couverture visibles.",
+        "Alertes reçues par un opérateur identifié.",
+        "Quotas modèle/agent et limite d’étapes appliqués."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-37",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Préparer sauvegarde, restauration et coupe-circuit",
+      "dependencies": [
+        "EA-23",
+        "EA-27",
+        "EA-36"
+      ],
+      "expected_result": "Runbooks et exercice de restauration réussi.",
+      "acceptance_criteria": [
+        "Suspendre les effets par cave et type d’action.",
+        "Réconcilier effets externes avant reprise après restauration.",
+        "Retour manuel et rollback applicatif testés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-38",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Standardiser onboarding et recette par cave",
+      "dependencies": [
+        "EA-28",
+        "EA-33",
+        "EA-36"
+      ],
+      "expected_result": "Installation, rôles, catalogue, connexions et guide.",
+      "acceptance_criteria": [
+        "Les cinq tâches principales sont couvertes par une recette reproductible sous la responsabilité de Sam ; une observation par un testeur non technique peut compléter la recette sans constituer une dépendance obligatoire.",
+        "Mobile/clavier et erreurs accessibles.",
+        "Checklist de mise en service avec ressources, versions, capacités et connexions qualifiées ; les limites sont visibles.",
+        "L’onboarding d’une nouvelle cave supportée configure son compte, ses ressources, ses permissions et ses connexions sans modification de code ni redéploiement ; démontrer l’isolation de deux caves.",
+        "Les permissions ou consentements exigés par un fournisseur sont des conditions d’accès techniques pour cette connexion, distinctes de l’autorité de Sam sur le produit et sa livraison."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-39",
+      "phase": "P6",
+      "priority": "P0",
+      "title": "Recetter le périmètre supervisé et préparer la mesure de valeur",
+      "dependencies": [
+        "EA-35",
+        "EA-37",
+        "EA-38",
+        "EA-34"
+      ],
+      "expected_result": "Recette technique et métier documentée pour le périmètre choisi par Sam, avec protocole de mesure et résultats terrain uniquement lorsqu’ils existent.",
+      "acceptance_criteria": [
+        "Exécuter la recette et les évaluations applicables sur le périmètre livré ; conserver les preuves des invariants critiques, des pannes, de la restauration et des limites connues.",
+        "Préparer une baseline comparable incluant le temps de correction ; publier couverture et exceptions, et distinguer résultats synthétiques, mesures internes et observations clients réelles.",
+        "Sam décide des corrections et du périmètre pouvant être activé selon sa politique de livraison et les preuves techniques ; aucun avis de Julien, signature de prospect ou entretien terrain n’est nécessaire pour terminer ce ticket.",
+        "Un pilote client, quatre semaines d’observation et trente demandes sont des options de mesure de valeur, non des conditions universelles pour développer ou lancer. Ne pas annoncer des objectifs de valeur atteints sans données réelles."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-40",
+      "phase": "P7",
+      "priority": "P0",
+      "title": "Lancer la production supervisée et le support",
+      "dependencies": [
+        "EA-39",
+        "EA-33",
+        "EA-37"
+      ],
+      "expected_result": "Mise en production progressive sous la politique de livraison de Sam, avec tests requis réussis, offre bornée aux fonctions prouvées et support préparé.",
+      "acceptance_criteria": [
+        "Périmètre vendu identique aux lots livrés ; tests techniques, métier, E2E et évaluations IA applicables réussis, aucun défaut critique connu non résolu sur ce périmètre.",
+        "Sam détient la décision de lancement et configure au préalable les environnements, accès et règles de livraison permettant son exécution autonome ; aucune approbation de Julien ou d’un autre prospect n’est requise.",
+        "Support, informations contractuelles, accès, traitement des données et facturation préparés pour l’offre ; les droits nécessaires aux services effectivement utilisés restent requis.",
+        "Activer progressivement uniquement les connexions et capacités réellement qualifiées ; un connecteur non vérifié reste désactivé sans empêcher la livraison d’un périmètre indépendant clairement annoncé.",
+        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée ; les validations métier A1 du caviste restent obligatoires."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    }
+  ],
+  "change_reference": "docs/decisions/ADR-0002-autorite-et-connecteurs.md",
+  "previous_reference": "backlog/archive/source-v1.json"
+}

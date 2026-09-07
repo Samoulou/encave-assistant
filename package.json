@@ -1,0 +1,16 @@
+{
+  "name": "encave-assistant-starter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kit de développement agentique ; application à construire",
+  "scripts": {
+    "check:kit": "python3 scripts/agentic.py validate",
+    "test:tooling": "python3 -m unittest discover -s tests/tooling -v",
+    "test:unit": "python3 scripts/unconfigured.py unit",
+    "test:functional": "python3 scripts/unconfigured.py functional",
+    "test:business": "python3 scripts/unconfigured.py business",
+    "test:e2e": "python3 scripts/unconfigured.py e2e",
+    "test:evals": "python3 scripts/unconfigured.py evals",
+    "check:foundation": "python3 scripts/unconfigured.py foundation"
+  }
+}

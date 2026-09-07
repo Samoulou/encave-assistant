@@ -1,0 +1,728 @@
+{
+  "version": "1.0",
+  "date": "2026-09-07",
+  "tickets": [
+    {
+      "id": "EA-01",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Cadrer les règles et la baseline",
+      "dependencies": [],
+      "expected_result": "Entretien structuré et périmètre signé par le porteur du pilote.",
+      "acceptance_criteria": [
+        "Identifier volumes et canaux sur un échantillon anonymisé.",
+        "Consigner règles de prix, ressources, accord et reprise.",
+        "Julien reste prospect tant qu’aucun pilote n’est accepté."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-02",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Tester la configuration Microsoft réelle",
+      "dependencies": [
+        "EA-01"
+      ],
+      "expected_result": "Rapport de faisabilité sur une boîte et un calendrier autorisés.",
+      "acceptance_criteria": [
+        "Identifier Exchange Online, type de boîte et calendrier.",
+        "Tester lecture, notification, écriture, envoi, renouvellement et révocation.",
+        "Tester refus hors périmètre ; aucune permission Shared supposée compatible webhook."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-03",
+      "phase": "P0",
+      "priority": "P0",
+      "title": "Fixer les ADR et le périmètre de lancement",
+      "dependencies": [
+        "EA-01",
+        "EA-02"
+      ],
+      "expected_result": "Choix documentés : architecture, accord, régions et source de vérité.",
+      "acceptance_criteria": [
+        "Indépendance EnCave explicite.",
+        "Disponibilité interne/externe et limites de concurrence décidées.",
+        "Profil sans Microsoft et devis livrés ou exclus du lancement vendu."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-04",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer le dépôt et les environnements indépendants",
+      "dependencies": [
+        "EA-03"
+      ],
+      "expected_result": "Projet reproductible avec pipeline et secrets séparés.",
+      "acceptance_criteria": [
+        "Aucun import ou secret de la marketplace.",
+        "Versions verrouillées et guide local.",
+        "Développement, préproduction et production séparés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-05",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Authentifier les collaborateurs et définir les rôles",
+      "dependencies": [
+        "EA-04"
+      ],
+      "expected_result": "Connexion OIDC et rôles administrateur, opérateur, lecture.",
+      "acceptance_criteria": [
+        "Session vérifiée côté serveur.",
+        "Invitation et révocation effectives.",
+        "Commandes sensibles interdites au lecteur."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-06",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Isoler les caves dans toutes les couches",
+      "dependencies": [
+        "EA-05"
+      ],
+      "expected_result": "Contexte tenant serveur et références cloisonnées.",
+      "acceptance_criteria": [
+        "Deux caves de test indépendantes.",
+        "Accès API, tâches et exports inter-caves refusés.",
+        "Rôle DB réel testé ; identifiants modèle/client non autoritatifs."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-07",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer le schéma, migrations et fixtures",
+      "dependencies": [
+        "EA-06"
+      ],
+      "expected_result": "Noyau persistant avec contraintes et migrations.",
+      "acceptance_criteria": [
+        "Demandes, messages, versions, accords et actions définis.",
+        "Clés composées empêchant références inter-caves.",
+        "Fixtures fictives séparées des données réelles."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-08",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Implémenter les machines à états et versions",
+      "dependencies": [
+        "EA-07"
+      ],
+      "expected_result": "Transitions serveur et verrou optimiste.",
+      "acceptance_criteria": [
+        "Transition interdite rejetée.",
+        "Version périmée retourne un conflit.",
+        "Demande, proposition, réservation et action ont des statuts distincts."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-09",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Créer le catalogue approuvé et versionné",
+      "dependencies": [
+        "EA-07"
+      ],
+      "expected_result": "Offres, tarifs et sources maintenables par la cave.",
+      "acceptance_criteria": [
+        "Capacité, durée, CHF et taxes explicites.",
+        "Prix manquant bloque l’offre automatique.",
+        "Offre désactivée exclue des nouvelles propositions."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-10",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Configurer ressources et règles de disponibilité",
+      "dependencies": [
+        "EA-09"
+      ],
+      "expected_result": "Salles, équipes, marges, fermetures et fuseau.",
+      "acceptance_criteria": [
+        "Occupation incluant préparation/rangement.",
+        "Fuseaux et changements d’heure testés.",
+        "Source de vérité définie par ressource."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-11",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Livrer la demande manuelle persistante",
+      "dependencies": [
+        "EA-08"
+      ],
+      "expected_result": "Saisie après appel et détail de conversation.",
+      "acceptance_criteria": [
+        "Rechargement conserve le dossier.",
+        "Origine et acteur de la saisie conservés.",
+        "Validation des champs avec erreurs visibles."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-12",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Installer le formulaire d’entrée du site",
+      "dependencies": [
+        "EA-11"
+      ],
+      "expected_result": "Endpoint et intégration légère au site de la cave.",
+      "acceptance_criteria": [
+        "Tenant résolu par configuration serveur.",
+        "Limites de taille, débit et anti-spam.",
+        "Accusé et moyen de réponse testés ; aucun compte visiteur imposé."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-13",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Implémenter OAuth et stockage sécurisé des connexions",
+      "dependencies": [
+        "EA-02",
+        "EA-06"
+      ],
+      "expected_result": "Connecteur Microsoft minimal avec état de santé.",
+      "acceptance_criteria": [
+        "Jetons chiffrés serveur, jamais au navigateur/LLM.",
+        "Droits réellement limités et identité de boîte vérifiée.",
+        "Révocation bloque les nouveaux effets externes."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-14",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Ingérer et dédupliquer les messages",
+      "dependencies": [
+        "EA-13",
+        "EA-11"
+      ],
+      "expected_result": "Messages rattachés avec références techniques stables.",
+      "acceptance_criteria": [
+        "Doublons/replays ne recréent pas de demande.",
+        "Réponses automatiques et boucles filtrées.",
+        "Fil ambigu transmis à un humain."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-15",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Renouveler webhooks et réconcilier les e-mails",
+      "dependencies": [
+        "EA-14"
+      ],
+      "expected_result": "Abonnements surveillés et reprise après interruption.",
+      "acceptance_criteria": [
+        "Persister avant acquittement ; worker séparé.",
+        "Pagination et curseurs opaques conservés.",
+        "Expiration, notification manquée et invalidation récupérées."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-16",
+      "phase": "P2",
+      "priority": "P0",
+      "title": "Synchroniser les occupations du calendrier",
+      "dependencies": [
+        "EA-13",
+        "EA-10"
+      ],
+      "expected_result": "Vue locale bornée avec fraîcheur et références.",
+      "acceptance_criteria": [
+        "Chemin principal/partagé vérifié.",
+        "Suppressions et récurrences réconciliées.",
+        "Échec de lecture ne devient pas absence d’occupation."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-17",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Extraire les faits avec un modèle et un schéma",
+      "dependencies": [
+        "EA-14",
+        "EA-09"
+      ],
+      "expected_result": "Extraction IA structurée et sourcée.",
+      "acceptance_criteria": [
+        "Valeurs absentes restent inconnues.",
+        "Refus, réponse incomplète et erreur fournisseur gérés.",
+        "Date, budget/unité et effectif contrôlés serveur."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-18",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Calculer les offres et créneaux admissibles",
+      "dependencies": [
+        "EA-10",
+        "EA-16",
+        "EA-17"
+      ],
+      "expected_result": "Moteur domaine déterministe avec explication.",
+      "acceptance_criteria": [
+        "Budget/capacité/durée vérifiés.",
+        "Alternatives uniquement admissibles.",
+        "Disponibilité inconnue bloque engagement."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-19",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Versionner les propositions et leurs rendus",
+      "dependencies": [
+        "EA-08",
+        "EA-18"
+      ],
+      "expected_result": "Instantanés commerciaux immuables.",
+      "acceptance_criteria": [
+        "Version et empreinte du texte envoyé conservées.",
+        "Édition commerciale crée une nouvelle version.",
+        "Conditions, taxe, monnaie et montants cohérents."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-20",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Créer la validation humaine et la politique de l’agent",
+      "dependencies": [
+        "EA-19",
+        "EA-05"
+      ],
+      "expected_result": "Validation d’une version par rôle autorisé.",
+      "acceptance_criteria": [
+        "Mode supervisé par défaut.",
+        "Modification invalide une approbation antérieure.",
+        "Un outil revalide tenant, rôle, état et politique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-21",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Envoyer les propositions et suivre leur état",
+      "dependencies": [
+        "EA-20",
+        "EA-23",
+        "EA-13"
+      ],
+      "expected_result": "Envoi autorisé à destinataire vérifié et statut exact.",
+      "acceptance_criteria": [
+        "Aucun envoi sans version approuvée.",
+        "202 fournisseur affiché comme acceptation d’envoi.",
+        "Résultat réseau incertain repris sans renvoi aveugle."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-22",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Enregistrer l’accord sur la version exacte",
+      "dependencies": [
+        "EA-19",
+        "EA-21"
+      ],
+      "expected_result": "Lien d’accord sécurisé et rattachement contrôlé des e-mails.",
+      "acceptance_criteria": [
+        "GET ne déclenche pas l’accord.",
+        "Jeton expirant lié à une proposition.",
+        "Réponse avec changement de groupe/prix/date produit une nouvelle offre."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-23",
+      "phase": "P1",
+      "priority": "P0",
+      "title": "Créer outbox, jobs et baux de worker",
+      "dependencies": [
+        "EA-07",
+        "EA-08"
+      ],
+      "expected_result": "Travail durable, relances et journal d’exécution.",
+      "acceptance_criteria": [
+        "Écriture domaine/outbox atomique.",
+        "Bail expiré repris après redémarrage.",
+        "Idempotence avec charge incompatible rejetée."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-24",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Allouer les ressources dans une transaction",
+      "dependencies": [
+        "EA-10",
+        "EA-22",
+        "EA-23"
+      ],
+      "expected_result": "Création atomique de réservation et allocations après autorisation humaine A1.",
+      "acceptance_criteria": [
+        "Cent confirmations concurrentes : une allocation active.",
+        "Toutes les ressources réussissent ensemble ou rollback.",
+        "Accord absent/périmé/inter-cave ou autorisation A1 absente refusés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-25",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Créer et retrouver les événements Outlook",
+      "dependencies": [
+        "EA-24",
+        "EA-16"
+      ],
+      "expected_result": "Écriture externe idempotente et traçable.",
+      "acceptance_criteria": [
+        "transactionId stable et référence externe conservée.",
+        "Timeout après création réconcilié.",
+        "Aucune promesse d’exclusion atomique avec les écritures manuelles Outlook."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-26",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Orchestrer confirmation et messages au client",
+      "dependencies": [
+        "EA-25",
+        "EA-21"
+      ],
+      "expected_result": "Confirmation cohérente avec réservation et effets connus.",
+      "acceptance_criteria": [
+        "Même commande rejouée ne double pas réservation/message.",
+        "Termes identiques à la version acceptée et couverts par l’autorisation humaine.",
+        "Écriture nécessaire incertaine bloque confirmation automatique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-27",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Gérer incidents de synchronisation et reprises",
+      "dependencies": [
+        "EA-25",
+        "EA-26"
+      ],
+      "expected_result": "Actions incertaines visibles et attribuées.",
+      "acceptance_criteria": [
+        "Conflit tardif demande nouvel accord sur alternative.",
+        "Relances bornées respectant Retry-After.",
+        "Reprise manuelle journalisée sans masquer l’historique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-28",
+      "phase": "P4",
+      "priority": "P0",
+      "title": "Livrer agenda et dossier opérationnel",
+      "dependencies": [
+        "EA-24",
+        "EA-27"
+      ],
+      "expected_result": "Interface de suivi distincte des statuts de livraison.",
+      "acceptance_criteria": [
+        "Réservation/synchronisation/envoi affichés séparément.",
+        "Rechargement et second utilisateur voient état serveur.",
+        "Export .ics facultatif distinct d’une connexion Outlook."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-29",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Ajouter les devis de location versionnés",
+      "dependencies": [
+        "EA-19",
+        "EA-22",
+        "EA-24"
+      ],
+      "expected_result": "Devis validé par responsable et accord sur ses conditions.",
+      "acceptance_criteria": [
+        "Durée variable, équipements et marges de salle.",
+        "Prix/conditions inconnus bloquent confirmation.",
+        "Acompte hors produit vérifié par acteur autorisé si requis."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-30",
+      "phase": "P3",
+      "priority": "P1",
+      "title": "Informer sur événements et recommander le catalogue",
+      "dependencies": [
+        "EA-09",
+        "EA-17",
+        "EA-20"
+      ],
+      "expected_result": "Orientation vers fiches et liens approuvés.",
+      "acceptance_criteria": [
+        "Pas de date/prix/place/URL inventés.",
+        "Absence de lien officiel signalée.",
+        "Pas de billet créé ; capacité partagée hors lot."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-31",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Livrer le profil petite cave sans Microsoft",
+      "dependencies": [
+        "EA-12",
+        "EA-10",
+        "EA-21",
+        "EA-28"
+      ],
+      "expected_result": "Agenda interne et canal sortant réellement autorisé.",
+      "acceptance_criteria": [
+        "Expéditeur vérifié, pas d’usurpation de domaine.",
+        "Réponses rattachées ou saisie manuelle explicitement annoncée.",
+        "Parcours simple une offre/une ressource testé."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-32",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Gérer changements et annulations supervisés",
+      "dependencies": [
+        "EA-28",
+        "EA-22"
+      ],
+      "expected_result": "Commandes avec motif et état de reprise.",
+      "acceptance_criteria": [
+        "Aucune annulation destructive par simple interprétation IA.",
+        "Modification d’engagement implique nouveau contrôle/accord.",
+        "Paiements et remboursements restent hors périmètre."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-33",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Mettre en œuvre protection des données et sécurité",
+      "dependencies": [
+        "EA-06",
+        "EA-13",
+        "EA-17"
+      ],
+      "expected_result": "Rétention, export, suppression, accès et contrôles d’entrée.",
+      "acceptance_criteria": [
+        "Contrats et pays de traitement examinés.",
+        "Secrets et données sensibles exclus des logs/prompts inutiles.",
+        "Export/suppression/révocation testés par tenant."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-34",
+      "phase": "P3",
+      "priority": "P0",
+      "title": "Créer le corpus IA et les évaluations de régression",
+      "dependencies": [
+        "EA-17",
+        "EA-20"
+      ],
+      "expected_result": "Au moins 100 cas annotés, dont 20 ambigus/adverses.",
+      "acceptance_criteria": [
+        "Jeu de recette séparé des exemples de mise au point.",
+        "Mesurer extraction exacte et clarification.",
+        "Aucun appel d’outil interdit sur le corpus critique."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-35",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Tester concurrence, pannes et fournisseurs",
+      "dependencies": [
+        "EA-24",
+        "EA-25",
+        "EA-26",
+        "EA-33"
+      ],
+      "expected_result": "Recette multi-worker et parcours intégrés.",
+      "acceptance_criteria": [
+        "Doublons, ordre, timeout, révocation et panne DB/LLM/Graph.",
+        "Aucune fausse confirmation dans les scénarios critiques.",
+        "Tests exécutés avec rôle DB et permissions réellement prévus."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-36",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Instrumenter coûts, métriques et alertes",
+      "dependencies": [
+        "EA-23",
+        "EA-17",
+        "EA-27"
+      ],
+      "expected_result": "Mesures par cave sans contenu client superflu.",
+      "acceptance_criteria": [
+        "Latence, retards, erreurs, corrections, coûts et couverture visibles.",
+        "Alertes reçues par un opérateur identifié.",
+        "Quotas modèle/agent et limite d’étapes appliqués."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-37",
+      "phase": "P5",
+      "priority": "P0",
+      "title": "Préparer sauvegarde, restauration et coupe-circuit",
+      "dependencies": [
+        "EA-23",
+        "EA-27",
+        "EA-36"
+      ],
+      "expected_result": "Runbooks et exercice de restauration réussi.",
+      "acceptance_criteria": [
+        "Suspendre les effets par cave et type d’action.",
+        "Réconcilier effets externes avant reprise après restauration.",
+        "Retour manuel et rollback applicatif testés."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-38",
+      "phase": "P5",
+      "priority": "P1",
+      "title": "Standardiser onboarding et recette par cave",
+      "dependencies": [
+        "EA-28",
+        "EA-33",
+        "EA-36"
+      ],
+      "expected_result": "Installation, rôles, catalogue, connexions et guide.",
+      "acceptance_criteria": [
+        "Cinq tâches principales effectuées par un testeur non technique.",
+        "Mobile/clavier et erreurs accessibles.",
+        "Checklist de mise en service avec ressources et versions."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-39",
+      "phase": "P6",
+      "priority": "P0",
+      "title": "Conduire le pilote supervisé et mesurer la valeur",
+      "dependencies": [
+        "EA-35",
+        "EA-37",
+        "EA-38",
+        "EA-34"
+      ],
+      "expected_result": "Au moins quatre semaines et 30 demandes éligibles.",
+      "acceptance_criteria": [
+        "Baseline comparable avec temps de correction inclus.",
+        "Couverture et exceptions publiées.",
+        "Objectifs de qualité/valeur atteints ou décision de correction documentée."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    },
+    {
+      "id": "EA-40",
+      "phase": "P7",
+      "priority": "P0",
+      "title": "Lancer la production supervisée et le support",
+      "dependencies": [
+        "EA-39",
+        "EA-33",
+        "EA-37"
+      ],
+      "expected_result": "Go/no-go, activation progressive et offre commerciale bornée.",
+      "acceptance_criteria": [
+        "Périmètre vendu identique aux lots livrés.",
+        "Support, contrats, accès et facturation convenus.",
+        "Autonomie avancée reportée à un lot de priorité P2 après lancement, avec opt-in et recette dédiée."
+      ],
+      "status": "A faire",
+      "estimate": "A affiner ; budget au niveau de la phase"
+    }
+  ]
+}

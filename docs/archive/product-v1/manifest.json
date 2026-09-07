@@ -1,0 +1,42 @@
+{
+  "00-BRIEF-DEVELOPPEMENT.md": {
+    "archive": "00-BRIEF-DEVELOPPEMENT.md",
+    "sha256": "abc64a7325b2b1614a45e1724333c5855b62b00c9f9bbc554ead3315cc77b90d"
+  },
+  "01-produit-et-perimetre.md": {
+    "archive": "01-produit-et-perimetre.md",
+    "sha256": "2c9375801ce92e8c112fc5c1360ddf642593b920ce02d5a884e757591982e29c"
+  },
+  "02-cas-usage-et-regles.md": {
+    "archive": "02-cas-usage-et-regles.md",
+    "sha256": "78226c29e87b5c35eeae61d236d7c5c7db2ec73039894aed3fa0470ba7945d29"
+  },
+  "03-agent-et-integrations.md": {
+    "archive": "03-agent-et-integrations.md",
+    "sha256": "269055da43a5bbc1cb16e46a0606ec4e9090c7343a78b1d15469595e54431ee4"
+  },
+  "04-architecture-donnees-api.md": {
+    "archive": "04-architecture-donnees-api.md",
+    "sha256": "7ef31a4039a261ae113f188559b1325976a028dec6d889a21ba86b29a3558bc7"
+  },
+  "05-securite-qualite-exploitation.md": {
+    "archive": "05-securite-qualite-exploitation.md",
+    "sha256": "daf82d6e05218f16654b3e8c95d03ef0923e8f7ad75800e2f73efc92e9047582"
+  },
+  "06-roadmap-lancement-business.md": {
+    "archive": "06-roadmap-lancement-business.md",
+    "sha256": "c2ba1fd2f2bfb7d6d8b9ce29ec5b6d01305a1faa8c73b6d862488e37a5c96e88"
+  },
+  "07-sources.md": {
+    "archive": "07-sources.md",
+    "sha256": "4f973caf710645fadcd035b9b26c597e1c80c834bdb1f6b2fe22f289f3490e1c"
+  },
+  "09-contrats-et-modeles.md": {
+    "archive": "09-contrats-et-modeles.md",
+    "sha256": "f7c6581f0508291a2c9c71e4b975ad11d00e2397ec0d03e2f14dca1b98af33c9"
+  },
+  "README.md": {
+    "archive": "README-original.md",
+    "sha256": "04432737d96bb92f8b4cd240974c689a2d37ad11b51d9fdf3ecbbde00b54add3"
+  }
+}

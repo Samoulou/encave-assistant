@@ -1,0 +1,39 @@
+name: Release configured product
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        type: choice
+        options: [preproduction, production]
+        default: preproduction
+        required: true
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: release
+  cancel-in-progress: false
+jobs:
+  quality:
+    if: github.event_name == 'workflow_dispatch' || vars.AUTO_RELEASE == 'true'
+    uses: ./.github/workflows/product-quality.yml
+    with:
+      force_product: true
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: ${{ inputs.target || 'preproduction' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.11'
+      # Adaptateur volontairement bloquant tant que la cible n'est pas configurée.
+      # Prévoir identité à droits limités, artefact immuable, migrations et health check.
+      - run: python3 scripts/deploy.py
+        env:
+          DELIVERY_TARGET: ${{ inputs.target || 'preproduction' }}

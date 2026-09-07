@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "changes_requested",
+        "blocked"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "major",
+              "minor"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "file": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "severity",
+          "description",
+          "file"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "requirements_covered": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "verdict",
+    "summary",
+    "findings",
+    "requirements_covered"
+  ],
+  "additionalProperties": false
+}

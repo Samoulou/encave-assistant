@@ -1,0 +1,7 @@
+# Les arguments explicites du contrôleur fixent les réglages critiques.
+# Le chargement de ce fichier dépend de la confiance accordée au projet.
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true

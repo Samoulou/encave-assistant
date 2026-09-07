@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "tickets": [
+    {
+      "id": "INIT-01",
+      "phase": "Initialisation",
+      "priority": "P0",
+      "title": "Préparer le poste de développement et les conventions du dépôt",
+      "dependencies": [],
+      "kind": "infrastructure",
+      "required_gates": [
+        "kit"
+      ],
+      "acceptance_criteria": [
+        "Documenter les versions locales Git, Python, Node et Codex, sans secret ni donnée client.",
+        "Vérifier le kit et proposer une structure de travail cohérente avec le brief ; ne pas implémenter le produit dans ce ticket.",
+        "Créer docs/decisions/ADR-0001-environnement.md et docs/setup-result.md avec les résultats réellement observés.",
+        "Conserver les suites produit non configurées en échec explicite ; leur implémentation appartient aux tickets suivants."
+      ],
+      "expected_result": "Un dépôt préparé et vérifié, sans déclarer terminés les tickets produit ou les intégrations."
+    },
+    {
+      "id": "DEV-01",
+      "phase": "Initialisation",
+      "priority": "P0",
+      "title": "Construire la fondation technique locale indépendante",
+      "dependencies": [
+        "INIT-01"
+      ],
+      "kind": "infrastructure",
+      "required_gates": [
+        "kit",
+        "foundation"
+      ],
+      "acceptance_criteria": [
+        "Créer un monorepo npm workspaces TypeScript avec apps/web (Next.js/React), apps/api et apps/worker (Node.js), packages/domain, packages/contracts, packages/connectors et, si nécessaire, packages/tooling ; conserver des dépendances verrouillées et zéro import, secret ou code partagé avec la marketplace EnCave.",
+        "Limiter cette fondation à des données synthétiques et à des vérifications techniques locales ; ne pas implémenter de réservation commerciale, authentification réelle, envoi client, connexion Microsoft ou appel de modèle et ne déclarer terminé aucun ticket EA.",
+        "Fournir une configuration PostgreSQL de développement reproductible et des paramètres d’exemple sans secrets ; vérifier réellement une connexion et une requête SQL sur une base de test isolée, puis consigner la méthode de démarrage et d’arrêt sans présumer Docker disponible.",
+        "Implémenter npm run check:foundation avec un runner dans packages/tooling ou un autre nouveau chemin autorisé : il exécute la vérification TypeScript et la compilation des trois applications et des packages concernés ; toute erreur ou composant manquant rend la commande non nulle.",
+        "Faire exécuter par check:foundation des contrôles de démarrage observables : réponse HTTP de la page web et de l’API, signal de disponibilité du worker et accès SQL de développement ; utiliser des délais bornés, arrêter les processus lancés et échouer si un contrôle manque, expire ou échoue.",
+        "Préparer les commandes npm run test:unit, test:functional, test:business, test:e2e et test:evals pour leurs futurs runners ; chacune échoue explicitement si sa suite est absente, vide ou entièrement ignorée. Les contrôles techniques de foundation ne remplacent aucune preuve produit.",
+        "Prouver les refus pour les suites vides ou absentes et pour un contrôle de foundation en échec par des tests d’outillage ajoutés dans packages/tooling ; ne pas modifier les tests existants et ne pas utiliser passWithNoTests, un catch transformant l’échec en succès ou un résultat préenregistré.",
+        "Conserver les scénarios .feature comme spécifications non exécutées tant que les comportements métier correspondants manquent. La seule lecture de fixtures, le seed IA ou un modèle simulé ne permet pas de déclarer test:business ou test:evals réussi ; une évaluation future devra appeler le modèle configuré et publier ses résultats réels.",
+        "Ne modifier ni scripts/, ni .github/workflows/, ni les autres chemins protégés pour réaliser cette fondation ; relier les commandes nécessaires par package.json et placer le nouvel outillage dans packages/tooling. Une configuration d’environnement indispensable mais indisponible devient un blocage documenté.",
+        "Documenter dans docs/decisions/ADR-0003-fondation-technique.md les versions et choix réversibles retenus ; compléter le guide local et les résultats observés, en distinguant fondation technique, tests produit non exécutés, intégrations non configurées et choix de production encore ouverts."
+      ],
+      "expected_result": "Une structure TypeScript compilable et démarrable localement, un PostgreSQL de test vérifié et un contrôle foundation exécutable ; les 40 tickets produit restent soumis à leurs propres dépendances, critères et preuves."
+    }
+  ]
+}
