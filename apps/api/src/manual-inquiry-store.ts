@@ -8,14 +8,18 @@ export class ManualValidationError extends AccessError {
   constructor(fields:Record<string,string>){super(400,'invalid_inquiry');this.fields=fields;}
 }
 const queueSql=`WITH dossier AS (
- SELECT i.*,n.origin,n.actor_name,n.actor_id,n.contact_phone,n.requested_date::text,n.participants,n.budget_minor,n.budget_basis,n.message_id,
+ SELECT i.*,CASE WHEN p.inquiry_id IS NOT NULL THEN 'form' ELSE n.origin END AS origin,n.actor_name,n.actor_id,
+ COALESCE(n.contact_phone,p.contact_phone) AS contact_phone,COALESCE(n.requested_date,p.requested_date)::text AS requested_date,
+ COALESCE(n.participants,p.participants) AS participants,COALESCE(n.budget_minor,p.budget_minor) AS budget_minor,
+ COALESCE(n.budget_basis,p.budget_basis) AS budget_basis,COALESCE(n.message_id,p.message_id) AS message_id,
  CASE WHEN i.state='archived' THEN 'archived'
  WHEN EXISTS(SELECT 1 FROM actions a WHERE a.cave_id=i.cave_id AND a.inquiry_id=i.id AND a.state IN ('failed','uncertain'))
    OR EXISTS(SELECT 1 FROM bookings b WHERE b.cave_id=i.cave_id AND b.inquiry_id=i.id AND b.state='reconciliation_required') THEN 'recovery'
  WHEN EXISTS(SELECT 1 FROM bookings b WHERE b.cave_id=i.cave_id AND b.inquiry_id=i.id AND b.state='confirmed') THEN 'booked'
  WHEN EXISTS(SELECT 1 FROM proposal_versions p WHERE p.cave_id=i.cave_id AND p.inquiry_id=i.id AND p.state='accepted') THEN 'reserve'
  WHEN i.state='waiting_customer' THEN 'waiting' ELSE 'to_process' END AS bucket
- FROM inquiries i LEFT JOIN inquiry_intakes n ON n.cave_id=i.cave_id AND n.inquiry_id=i.id WHERE i.cave_id=$1
+ FROM inquiries i LEFT JOIN inquiry_intakes n ON n.cave_id=i.cave_id AND n.inquiry_id=i.id
+ LEFT JOIN public_form_intakes p ON p.cave_id=i.cave_id AND p.inquiry_id=i.id WHERE i.cave_id=$1
 )`;
 const nextActions:Record<string,string>={recovery:'Vérifier le résultat',reserve:'Examiner l’accord reçu',to_process:'Qualifier la demande',waiting:'Attendre les précisions du client',booked:'Consulter la réservation',archived:'Consulter le dossier archivé'};
 const rowResult=(r:Record<string,any>)=>({id:r.id,caveId:r.cave_id,localReference:r.local_reference,contactName:r.contact_name,contactEmail:r.contact_email,

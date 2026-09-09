@@ -160,6 +160,19 @@ textarea:disabled { cursor: wait; }
 .message-list li { padding: 16px 0; border-top: 1px solid var(--line); scroll-margin-top: 16px; }
 .message-body { white-space: pre-wrap; overflow-wrap: anywhere; }
 .inquiry-shell .workspace-header .account { max-width: 100%; }
+.public-page { min-height: 100vh; }
+.public-header { background: #fff; border-bottom: 1px solid var(--line); padding: 24px 40px; display: flex; gap: 24px; justify-content: space-between; flex-wrap: wrap; align-items: center; }
+.public-header .brand { margin: 0; }
+.public-main { max-width: 880px; margin: 0 auto; padding: 40px 32px; }
+.public-main h1 { margin: 8px 0 16px; }
+.public-intro { white-space: pre-wrap; overflow-wrap: anywhere; }
+.public-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 32px; margin: 24px 0; }
+.public-card h2 { margin-top: 0; }
+.public-reference { overflow-wrap: anywhere; }
+.public-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.public-footer { margin-top: 32px; }
+.public-main .error-link { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; max-width: 100%; }
+@media(max-width:700px) { .public-header { padding: 20px 16px; gap: 12px; } .public-main { padding: 28px 16px; } .public-card { padding: 24px 16px; } .public-main h1 { font-size: 28px; } }
 @media(max-width:700px) {
   .workspace-nav { flex-wrap: wrap; }
   .workspace-nav nav { display: flex; flex-wrap: wrap; }

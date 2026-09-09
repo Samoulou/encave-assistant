@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { chromium,expect } from '@playwright/test';
+import { caseHarness } from '../helpers/case-harness.mjs';
+import { HttpBrowser } from '../helpers/identity-harness.mjs';
+import { configureForm,fillPublic } from '../helpers/public-form-harness.mjs';
+async function setup(t){const h=await caseHarness();let browser;t.after(async()=>{if(browser)await browser.close();await h.stop();});const staff=new HttpBrowser(h.appOrigin);await staff.login('alice');const form=await configureForm(staff);assert.equal(form.status,200);browser=await chromium.launch();return{...h,form:form.body,browser,page:await browser.newPage()};}
+test('an expired challenge cleaned by another visitor permits safe refresh and completion of the original draft',async t=>{
+ const h=await setup(t),page=h.page;await page.goto(h.form.url);await fillPublic(page);await h.owner.query("UPDATE public_form_challenges SET issued_at=now()-interval '1 hour',expires_at=now()-interval '1 second'");const other=await h.browser.newPage();await other.goto(h.form.url);await expect(other.getByRole('button',{name:'Envoyer ma demande'})).toBeEnabled();assert.equal((await h.pool.query('SELECT count(*)::int n FROM public_form_challenges')).rows[0].n,1);
+ await page.getByRole('button',{name:'Envoyer ma demande'}).click();await expect(page.getByRole('button',{name:'Actualiser en conservant ma saisie'})).toBeVisible();await expect(page.getByLabel('Votre nom',{exact:true})).toBeEnabled();await expect(page.getByLabel('Votre nom',{exact:true})).toHaveValue('Camille Visiteur');assert.equal((await h.pool.query('SELECT count(*)::int n FROM inquiries')).rows[0].n,0);await page.getByRole('button',{name:'Actualiser en conservant ma saisie'}).click();await page.getByRole('button',{name:'Envoyer ma demande'}).click();await expect(page.getByRole('heading',{name:'Demande reçue',exact:true})).toBeVisible();assert.equal((await h.pool.query('SELECT count(*)::int n FROM inquiries')).rows[0].n,1);
+});
+test('the validation summary lists field errors and keyboard links focus each field without clearing the draft',async t=>{
+ const h=await setup(t),page=h.page;await page.goto(h.form.url);await page.getByLabel('Votre nom',{exact:true}).fill('Nom à conserver');await page.getByRole('button',{name:'Envoyer ma demande'}).click();const summary=page.getByRole('main').getByRole('alert');await expect(summary).toBeFocused();const links=summary.getByRole('link');await expect(links).toHaveCount(2);for(const name of ['contactEmail','need']){const link=summary.locator('a[href="#'+name+'"]');await link.focus();await page.keyboard.press('Enter');await expect(page.locator('#'+name)).toBeFocused();await expect(page.locator('#'+name)).toHaveAttribute('aria-invalid','true');}await expect(page.getByLabel('Votre nom',{exact:true})).toHaveValue('Nom à conserver');
+});

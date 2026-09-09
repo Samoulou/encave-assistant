@@ -10,6 +10,7 @@ import { CatalogStore } from './catalog-store.ts';
 import { ResourceStore } from './resource-store.ts';
 import { ResourceTimeError } from '@encave/domain';
 import { ManualInquiryStore,ManualValidationError } from './manual-inquiry-store.ts';
+import { PublicFormStore,PublicFormError } from './public-form-store.ts';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -34,6 +35,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const catalog = new CatalogStore(store.pool);
   const resources = new ResourceStore(store.pool);
   const manual = new ManualInquiryStore(store.pool);
+  const publicForms = new PublicFormStore(store.pool,settings.appOrigin);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -65,6 +67,12 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       const url = new URL(request.url ?? '/', settings.appOrigin);
       if (url.origin !== settings.appOrigin) throw new IdentityError(400, 'invalid_request');
       path = url.pathname;
+      const publicPath=/^\/api\/public\/forms\/([^/]+)$/.exec(path);
+      if(publicPath&&request.method==='GET'){send(200,await publicForms.issue(publicPath[1]));return;}
+      if(publicPath&&request.method==='POST'){
+        await publicForms.chargeSubmission(publicPath[1],request.headers.origin);
+        send(201,await publicForms.submit(publicPath[1],await jsonBody(request)));return;
+      }
       if (request.method === 'GET' && path === '/api/auth/start') {
         const rateId = browserRate(readCookie(request.headers.cookie, rateCookie));
         const rateHeader = cookie(rateCookie, rateId + '.' + signRate(rateId), 600);
@@ -86,6 +94,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       };
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
+      if(request.method==='GET'&&path==='/api/intake-form'){send(200,await publicForms.configuration(context));return;}
       const resourcePath = /^\/api\/resources\/([^/]+)(?:\/(versions|enable|closures)(?:\/([^/]+)\/(cancel))?)?$/.exec(path);
       const planPath = /^\/api\/catalog\/versions\/([^/]+)\/(resources|occupation)$/.exec(path);
       if (request.method === 'GET' && path === '/api/resources') { send(200,await resources.list(context)); return; }
@@ -123,6 +132,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
+      if(path==='/api/intake-form'){send(200,await publicForms.configure(context,body,request.headers['idempotency-key']));return;}
       if(path==='/api/inquiries/manual'){send(201,await manual.create(context,body,request.headers['idempotency-key']));return;}
       if (path === '/api/resources') { send(201,await resources.write(context,'create',null,body,request.headers['idempotency-key'])); return; }
       if (resourcePath) {
@@ -163,6 +173,9 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         const existing = response.getHeader('Set-Cookie');
         response.setHeader('Set-Cookie', [...(Array.isArray(existing) ? existing : typeof existing === 'string' ? [existing] : []), cookie(loginCookie, '', 0)]);
         response.writeHead(303, { Location: settings.appOrigin + '/connexion?erreur=connexion' }).end();
+      } else if (error instanceof PublicFormError) {
+        if(error.retryAfter!==null)response.setHeader('Retry-After',String(error.retryAfter));
+        send(error.status,{error:error.code,retryAfter:error.retryAfter,notCreated:error.notCreated});
       } else if (error instanceof ManualValidationError) send(error.status,{error:error.code,fields:error.fields});
       else if (error instanceof IdentityError) send(error.status, { error: error.code });
       else if (error instanceof ResourceTimeError) send(400, { error: error.code });

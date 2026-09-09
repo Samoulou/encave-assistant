@@ -21,7 +21,7 @@ async function proxy(request: NextRequest): Promise<Response> {
       signal: AbortSignal.timeout(10_000),
     } as RequestInit);
     const output = new Headers({ 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff' });
-    for (const name of ['content-type', 'location', 'content-disposition']) {
+    for (const name of ['content-type', 'location', 'content-disposition', 'retry-after']) {
       const value = upstream.headers.get(name); if (value) output.set(name, value);
     }
     for (const value of upstream.headers.getSetCookie()) output.append('Set-Cookie', value);

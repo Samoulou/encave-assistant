@@ -3,6 +3,7 @@ export * from './case-core.ts';
 export * from './catalog.ts';
 export * from './resources.ts';
 export * from './manual-inquiries.ts';
+export * from './public-forms.ts';
 
 export const technicalHealthSchema = z.object({
   service: z.enum(['api', 'worker']),
