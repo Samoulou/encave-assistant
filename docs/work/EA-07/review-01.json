@@ -1,0 +1,10 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Revue indépendante préliminaire en lecture seule sur la base 1d4f3da84c28af1a2ba8adee6865c0649261e2b4. Migration 003 inspectée : SHA256 18b93e6292ab6442a3e4d2cf3aba3931abf4b664d9e1c708a559695ceaa1f2fa ; runner : eb160774a52ebba42127c0721f7a2ebd8104994d3c73cc56029cae611852a918. Critères source exacts et ordonnés vérifiés. Relations composites, termes figés, preuves append-only, fixtures gardées et lecture authentifiée examinés. Logs constatés : unit 10, functional 10, business 13 et E2E 10 réussis, avec PostgreSQL réel et redémarrage du processus API. Aucun ancien test ni chemin protégé modifié. Aucun défaut critique d’isolation identifié ; les preuves finales restent nécessaires. Aucune CI ou production déduite.",
+  "findings": [
+    {"severity":"minor","description":"Lignes 27–29 : si pg_advisory_unlock échoue après acquisition du verrou, db.release() n’est jamais atteint. Une connexion perdue pendant cette phase peut laisser le client emprunté et bloquer pool.end()/cleanup. Garantir la libération dans un finally interne, traiter la connexion devenue inutilisable et ajouter une preuve ciblée du chemin d’erreur.","file":"packages/tooling/src/migrations.ts"},
+    {"severity":"minor","description":"Deux artefacts de rédaction subsistent : « ressources,+rendus » et « jobs,+baux ». Remplacer les signes plus par les séparations attendues.","file":"docs/development/case-core.md"},
+    {"severity":"major","description":"Les résultats finaux, la gate kit, les contrôles foundation/outillage et le manifeste reliant les preuves à la version finale ne sont pas encore disponibles pour cette revue. Les fournir et faire relire les corrections avant approbation de livraison ; leur absence actuelle n’est pas un échec exécuté.","file":"docs/work/EA-07/results.md"}
+  ],
+  "requirements_covered": ["AC-01","AC-02","AC-03"]
+}

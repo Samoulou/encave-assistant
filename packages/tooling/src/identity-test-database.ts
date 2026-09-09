@@ -1,7 +1,13 @@
 import pg from 'pg';
 import { randomBytes, randomUUID } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
 import { localDatabaseConfig } from './database.ts';
+import { migrateDatabase } from './migrations.ts';
+
+const ownedFixtures = new WeakMap<object, { pool: pg.Pool; owner: pg.Pool }>();
+export function assertOwnedTestDatabase(value: { fixtureScope: object; pool: pg.Pool; owner: pg.Pool }) {
+  const owned = ownedFixtures.get(value.fixtureScope);
+  if (!owned || owned.pool !== value.pool || owned.owner !== value.owner) throw new Error('Only an owned synthetic test database is permitted');
+}
 
 export const caveA = '11111111-1111-4111-8111-111111111111';
 export const caveB = '22222222-2222-4222-8222-222222222222';
@@ -28,7 +34,9 @@ export async function createIdentityTestDatabase(issuer: string) {
   const applicationConfig = { host: foundation.host, port: foundation.port, database, user, password };
   const pool = new pg.Pool({ ...applicationConfig, max: 12, connectionTimeoutMillis: 5000 });
   const owner = new pg.Pool({ ...foundation, database, max: 2, connectionTimeoutMillis: 5000 });
+  const fixtureScope = Object.freeze({});
   const cleanup = async () => {
+    ownedFixtures.delete(fixtureScope);
     await pool.end(); await owner.end();
     try {
       if (createdDatabase) await admin.query(`DROP DATABASE "${database}" WITH (FORCE)`);
@@ -40,8 +48,7 @@ export async function createIdentityTestDatabase(issuer: string) {
     createdRole = true;
     await admin.query(`CREATE DATABASE "${database}"`); createdDatabase = true;
     await owner.query('REVOKE ALL ON SCHEMA public FROM PUBLIC');
-    await owner.query(await readFile(new URL('../../../migrations/001_identity.sql', import.meta.url), 'utf8'));
-    await owner.query(await readFile(new URL('../../../migrations/002_team_exports.sql', import.meta.url), 'utf8'));
+    await migrateDatabase(owner);
     await owner.query(`GRANT CONNECT ON DATABASE "${database}" TO "${user}"`);
     await owner.query(`GRANT USAGE ON SCHEMA public TO "${user}"`);
     await owner.query(`GRANT SELECT ON caves,members,identities,app_sessions,login_attempts,invitations TO "${user}"`);
@@ -50,6 +57,10 @@ export async function createIdentityTestDatabase(issuer: string) {
     await owner.query(`GRANT DELETE ON app_sessions TO "${user}"`);
     await owner.query(`GRANT INSERT ON identity_audit TO "${user}"`);
     await owner.query(`GRANT SELECT,INSERT,UPDATE ON team_exports,team_export_jobs TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT ON inquiries,messages,proposals,proposal_versions,acceptances,proposal_approvals,bookings,actions TO "${user}"`);
+    await owner.query(`GRANT UPDATE ON inquiries,actions TO "${user}"`);
+    await owner.query(`GRANT UPDATE(state,version,updated_at,snapshot,valid_until) ON proposal_versions TO "${user}"`);
+    await owner.query(`GRANT UPDATE(state,version,updated_at) ON bookings TO "${user}"`);
     await owner.query('INSERT INTO caves(id,name) VALUES($1,$2),($3,$4)', [caveA, 'Cave des Roches — test', caveB, 'Cave du Lac — test']);
     const people = [];
     for (const person of fixturePeople) {
@@ -58,6 +69,7 @@ export async function createIdentityTestDatabase(issuer: string) {
       for (const [cave, role] of person.memberships) await owner.query('INSERT INTO members(cave_id,identity_id,role) VALUES($1,$2,$3)', [cave, id, role]);
       people.push({ ...person, id });
     }
-    return { pool, owner, people, applicationConfig, cleanup };
+    ownedFixtures.set(fixtureScope, { pool, owner });
+    return { pool, owner, people, applicationConfig, fixtureScope, cleanup };
   } catch (error) { await cleanup(); throw error; }
 }

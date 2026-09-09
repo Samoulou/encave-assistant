@@ -4,6 +4,7 @@ import { IdentityError, readCookie, opaqueToken, validToken, equalToken } from '
 import { IdentityStore, type CommandContext } from './identity-store.ts';
 import { IdentityOidc, type OidcSettings } from './identity-oidc.ts';
 import { TeamExports } from '@encave/tenancy';
+import { CaseStore } from './case-store.ts';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -23,6 +24,7 @@ async function jsonBody(request: IncomingMessage): Promise<Record<string, unknow
 export function createIdentityHandler(store: IdentityStore, settings: OidcSettings, options: { exportRetentionSeconds?: number } = {}) {
   const authentication = new IdentityOidc(settings, store);
   const exports = new TeamExports(store.pool, options.exportRetentionSeconds ?? 3600);
+  const cases = new CaseStore(store.pool);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -75,6 +77,8 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       };
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
+      const inquiryPath = /^\/api\/inquiries\/([^/]+)$/.exec(path);
+      if (request.method === 'GET' && inquiryPath) { send(200, await cases.read(context, inquiryPath[1])); return; }
       if (request.method === 'GET' && path === '/api/team/exports') { send(200, await exports.list(context)); return; }
       const exportPath = /^\/api\/team\/exports\/([^/]+)(\/download)?$/.exec(path);
       if (request.method === 'GET' && exportPath) {

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+export * from './case-core.ts';
 
 export const technicalHealthSchema = z.object({
   service: z.enum(['api', 'worker']),

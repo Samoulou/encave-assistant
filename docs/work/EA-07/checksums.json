@@ -1,0 +1,192 @@
+{
+  "ticket": "EA-07",
+  "execution": 1,
+  "correction_cycle": 1,
+  "base_commit": "1d4f3da84c28af1a2ba8adee6865c0649261e2b4",
+  "created_utc": "2026-09-09T11:00:10.160333+00:00",
+  "note": "Direct task, not controller attestation. Raw and LF hashes; final reports excluded to avoid circular digest. UX not applicable: no UI code changed.",
+  "review_files": {
+    "README.md": {
+      "sha256_raw": "169b5b3eda67ede90c9f84b6484ece9640c0f1efb1c9d883890e34e4e2f9a4c0",
+      "sha256_lf": "169b5b3eda67ede90c9f84b6484ece9640c0f1efb1c9d883890e34e4e2f9a4c0"
+    },
+    "apps/api/src/case-store.ts": {
+      "sha256_raw": "dda8d97101b7bd2bfe291e64b55f4fd7a248432a975c20b463835341d7e26088",
+      "sha256_lf": "dda8d97101b7bd2bfe291e64b55f4fd7a248432a975c20b463835341d7e26088"
+    },
+    "apps/api/src/identity-http.ts": {
+      "sha256_raw": "df9e6aecbf03dafa1171d15fa73cdde92da4e05997f20137480413911c31509b",
+      "sha256_lf": "df9e6aecbf03dafa1171d15fa73cdde92da4e05997f20137480413911c31509b"
+    },
+    "docs/decisions/ADR-0008-noyau-persistant.md": {
+      "sha256_raw": "960ecf77aa952a3b9fb9cd6c25d434de7fb1760fd6d5f3849fbf805382e6f3e2",
+      "sha256_lf": "960ecf77aa952a3b9fb9cd6c25d434de7fb1760fd6d5f3849fbf805382e6f3e2"
+    },
+    "docs/development/case-core.md": {
+      "sha256_raw": "4c0569e4d4db3ec35df6e4adb9762526011228b8ced91595935e25221653efd1",
+      "sha256_lf": "4c0569e4d4db3ec35df6e4adb9762526011228b8ced91595935e25221653efd1"
+    },
+    "docs/work/EA-06/delivery.md": {
+      "sha256_raw": "16ad0961f3609c9d6a179efb8bcc1d2454c4618d5eeccabc493391659f614866",
+      "sha256_lf": "16ad0961f3609c9d6a179efb8bcc1d2454c4618d5eeccabc493391659f614866"
+    },
+    "docs/work/EA-07/contract.md": {
+      "sha256_raw": "7a2da173e9d3ea67a37fb240960a3da9774ac43274413414c47cae799e7bb697",
+      "sha256_lf": "7a2da173e9d3ea67a37fb240960a3da9774ac43274413414c47cae799e7bb697"
+    },
+    "docs/work/EA-07/review-01.json": {
+      "sha256_raw": "88a05bb78263e25225e4544df36177a6383b8d0325003413ad22d9aaf0e6c200",
+      "sha256_lf": "88a05bb78263e25225e4544df36177a6383b8d0325003413ad22d9aaf0e6c200"
+    },
+    "migrations/003_case_core.sql": {
+      "sha256_raw": "18b93e6292ab6442a3e4d2cf3aba3931abf4b664d9e1c708a559695ceaa1f2fa",
+      "sha256_lf": "18b93e6292ab6442a3e4d2cf3aba3931abf4b664d9e1c708a559695ceaa1f2fa"
+    },
+    "packages/contracts/src/case-core.ts": {
+      "sha256_raw": "8a8d14fe532dd393051af9322eeaae9f887cd55846e8a5bb6e0c3ae16532d7b7",
+      "sha256_lf": "8a8d14fe532dd393051af9322eeaae9f887cd55846e8a5bb6e0c3ae16532d7b7"
+    },
+    "packages/contracts/src/index.ts": {
+      "sha256_raw": "a06aa2d2814a252da8f570b294cdeb576ada45d2f94fcc934d71950192bb7d12",
+      "sha256_lf": "a06aa2d2814a252da8f570b294cdeb576ada45d2f94fcc934d71950192bb7d12"
+    },
+    "packages/tooling/src/case-fixtures.ts": {
+      "sha256_raw": "ff86bcec804d587b639d4bfb249529e8bfa9ab732f7510aa3d03b6c6e7b88e81",
+      "sha256_lf": "ff86bcec804d587b639d4bfb249529e8bfa9ab732f7510aa3d03b6c6e7b88e81"
+    },
+    "packages/tooling/src/identity-test-database.ts": {
+      "sha256_raw": "d7e053cc92c27d7fe07520a29ffecb17f3bbbf1e5fe129574b5c73a06d52174a",
+      "sha256_lf": "d7e053cc92c27d7fe07520a29ffecb17f3bbbf1e5fe129574b5c73a06d52174a"
+    },
+    "packages/tooling/src/migrations.ts": {
+      "sha256_raw": "aeca510534849d9246868a49071de55e0ebe5afdc97b00e8e3f3d6f9a4143187",
+      "sha256_lf": "aeca510534849d9246868a49071de55e0ebe5afdc97b00e8e3f3d6f9a4143187"
+    },
+    "tests/product/business/case-integrity.test.mjs": {
+      "sha256_raw": "805d895e4d08a3ee7630c45fc9ac6643be96e79bfe0922444a856dcad07e5529",
+      "sha256_lf": "805d895e4d08a3ee7630c45fc9ac6643be96e79bfe0922444a856dcad07e5529"
+    },
+    "tests/product/e2e/case-persistence.test.mjs": {
+      "sha256_raw": "a34e8a021d359a568cd364aa5dc74256012866403671f876e8996186e6bd1d2a",
+      "sha256_lf": "a34e8a021d359a568cd364aa5dc74256012866403671f876e8996186e6bd1d2a"
+    },
+    "tests/product/functional/case-migrations.test.mjs": {
+      "sha256_raw": "cbb87d7c83d3af178a3c24743a7d6832e6540c94afb0429aa6d2dc58334d3493",
+      "sha256_lf": "cbb87d7c83d3af178a3c24743a7d6832e6540c94afb0429aa6d2dc58334d3493"
+    },
+    "tests/product/helpers/case-harness.mjs": {
+      "sha256_raw": "48c72a28f316d5b8aed0e3ed7c766cab65f2e1aead975aa49056fea0ff98e41a",
+      "sha256_lf": "48c72a28f316d5b8aed0e3ed7c766cab65f2e1aead975aa49056fea0ff98e41a"
+    },
+    "tests/product/unit/case-core.test.mjs": {
+      "sha256_raw": "513ff1943cc37724a8dd7e7fd95faf1b89e9256d701dfebefb5879d81a38ab51",
+      "sha256_lf": "513ff1943cc37724a8dd7e7fd95faf1b89e9256d701dfebefb5879d81a38ab51"
+    }
+  },
+  "local_logs": {
+    ".agentic/ea06-linux-committed-diagnostic-ubuntu.log": {
+      "sha256_raw": "ab1d6431433ad857f7fdb4f3b0439838096cb6528d96754be489628a2cfc74e7",
+      "sha256_lf": "c77c0e6d253f72b5a0d0074700ca9ae12304b7490f6b915efbaebceacaf9d46b"
+    },
+    ".agentic/ea06-linux-committed-diagnostic.log": {
+      "sha256_raw": "0f22bd7a9af3a12da3db87b8f73a9307f20e4d053aff3949f51d8406638d3204",
+      "sha256_lf": "aa2ed53adc4ba91646897b7da871fade996774bb304654159f53d7fa14625ba2"
+    },
+    ".agentic/ea06-remote-product-failure.log": {
+      "sha256_raw": "b68453a5d125febe22c13ea2713b078ca4f6ac85911314e50f466f0924f33dd4",
+      "sha256_lf": "94ddfd119a9967ea4864150e093ce74a484bb9e3a9acc79c568be238fe6004d3"
+    },
+    ".agentic/ea07-business-constraints.log": {
+      "sha256_raw": "d3a7864e8ac825c365c17bc8e5dc3c0e2451ab281404e0db5279c5734aa29e54",
+      "sha256_lf": "1d45745180f4fd63b78b33b06f916c3a5cec7546eea1e7edc8324e199cdef60f"
+    },
+    ".agentic/ea07-business-development.log": {
+      "sha256_raw": "333549dd3b45fd8992385d05132871382b49960d7042d965511940deb80e991f",
+      "sha256_lf": "58c534d8ce60ea6226bce071b65f65c3d95202c7ddd5d251db900b9cfef92144"
+    },
+    ".agentic/ea07-business-final.log": {
+      "sha256_raw": "d3a7864e8ac825c365c17bc8e5dc3c0e2451ab281404e0db5279c5734aa29e54",
+      "sha256_lf": "1d45745180f4fd63b78b33b06f916c3a5cec7546eea1e7edc8324e199cdef60f"
+    },
+    ".agentic/ea07-e2e-development.log": {
+      "sha256_raw": "4e75495857480202b585f1c491c8bef0adea3b184e7803d8ce937fe0f509c63c",
+      "sha256_lf": "2216a711222e2220030f19563c991e1451bf73a8be311b18fa0499f53aab6c69"
+    },
+    ".agentic/ea07-e2e-final.log": {
+      "sha256_raw": "560051142f8011223d376e0bcb71ad2d285baff701907ad91831f698bb012f6c",
+      "sha256_lf": "92071834785b80efa360a07c8edc3122294ccafe8dcd38c3abc268b2d9b3cd06"
+    },
+    ".agentic/ea07-foundation-final.log": {
+      "sha256_raw": "20483cd76de63217958d36ea1231d6dc875959ecdc461d1094a7da234e58b9f4",
+      "sha256_lf": "d69891230eaadcfb2ed1263d891d051058b8827716b2c1aec2d69cad238d8229"
+    },
+    ".agentic/ea07-functional-cleanup.log": {
+      "sha256_raw": "304b9ea386420fa07f4acdece826b7f76ad9f6e0aa51d54d0612aa231829f47c",
+      "sha256_lf": "f21fddba3f51d4c906d123d5b14f0ae37aeba35ccd1a85497386a1a8256fb84a"
+    },
+    ".agentic/ea07-functional-compatible.log": {
+      "sha256_raw": "330436f9e4d7dfbb3c8b117df9804167053c90a272af312141308e9d2cf7d668",
+      "sha256_lf": "1078e14082d930c689535bc5e49c39e7dc12f274e38f8781aac96e0970ed989a"
+    },
+    ".agentic/ea07-functional-development.log": {
+      "sha256_raw": "40ed540055e23a983757fee2698fe1f4014ba02ad04189c7668666527ccdb859",
+      "sha256_lf": "2ec4006c0757cf1210064f46b97764de830ff388f36c6db87d25aa7cff488e8b"
+    },
+    ".agentic/ea07-functional-review-correction.log": {
+      "sha256_raw": "2b2579628f91676726f77d0814623be7c8db1f581fb5c03c33636a56c02c5f3c",
+      "sha256_lf": "91a55cdd9f071b0ad2a60315aa5cc579324731b14a0edd23e923015e6f95ef15"
+    },
+    ".agentic/ea07-install-final.log": {
+      "sha256_raw": "cb24cc64840222b0f5fd860b9661c0e2738945c9f27eac956d3c40038afa8c58",
+      "sha256_lf": "9a314334e043d001bbc0c39ff2b9cea11ae6a1dddb568f8338df3858f3779298"
+    },
+    ".agentic/ea07-kit-final.log": {
+      "sha256_raw": "bde99384d74780e1fb30097ccd60af2533643577c0ad2b5137b321f0ae4ba63f",
+      "sha256_lf": "51ceb2176e043be012458b2f09101e220b966594aac49f4bd56385e875f3383c"
+    },
+    ".agentic/ea07-migration-diagnostic.log": {
+      "sha256_raw": "a39647cffa1f988e99ab27d648d313c45f89186f831fc6cd05072e71de38f3cb",
+      "sha256_lf": "78c6ee1fdf53c1e84f5da394ecc1a6a8f865f27119bb851dacbe51ca577f450e"
+    },
+    ".agentic/ea07-runtime-final.log": {
+      "sha256_raw": "65c6207affd63c33350f0ee0958d1c3d167c5fc4900ed3fc276a123793da8a1d",
+      "sha256_lf": "74091efdbbb542c6bccb2d9372594126e1d545d9577033afd4ad0e45c17f8c5c"
+    },
+    ".agentic/ea07-tooling-final.log": {
+      "sha256_raw": "e1e72439db1cf6cdfcc059a440483131d11eddafbeb7ac5e219d4f029df6d803",
+      "sha256_lf": "e7d12e8f6c3b4141e456717aac7805210e2351a2a631a772a8657249b601d4fd"
+    },
+    ".agentic/ea07-types-development.log": {
+      "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".agentic/ea07-types-fixtures.log": {
+      "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".agentic/ea07-unit-development.log": {
+      "sha256_raw": "4dbebc5eb41b95368560f14618896cc962a03cc1db33db87545394d7373c249a",
+      "sha256_lf": "e84bded6779c1180be38024822c157e57c7c948799c9dca25fb35d8190f980a8"
+    },
+    ".agentic/ea07-unit-final.log": {
+      "sha256_raw": "4dbebc5eb41b95368560f14618896cc962a03cc1db33db87545394d7373c249a",
+      "sha256_lf": "e84bded6779c1180be38024822c157e57c7c948799c9dca25fb35d8190f980a8"
+    }
+  },
+  "local_helpers": {
+    ".agentic/runs/ea07-controlled-kit.py": {
+      "sha256_raw": "43ff605705699a0dd5e7bd437d1e8b5653dd20dd115b29def911b57c28890d76",
+      "sha256_lf": "43ff605705699a0dd5e7bd437d1e8b5653dd20dd115b29def911b57c28890d76"
+    },
+    ".agentic/runs/ea07-evidence.py": {
+      "sha256_raw": "a01339a04ec32b05db9daa4884eaa80decc8b589478dc1fc8ff5445a36f96787",
+      "sha256_lf": "a01339a04ec32b05db9daa4884eaa80decc8b589478dc1fc8ff5445a36f96787"
+    }
+  },
+  "checks": {
+    "criteria_exact_in_order": 3,
+    "old_test_changes": 0,
+    "protected_changes": 0,
+    "captures": 0
+  }
+}
