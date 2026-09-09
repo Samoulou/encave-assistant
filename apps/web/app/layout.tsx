@@ -3,8 +3,8 @@ import type { ReactNode } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'EnCave Assistant — environnement local',
-  description: 'Fondation technique locale sur données synthétiques.',
+  title: 'EnCave Assistant',
+  description: 'Votre espace de travail et les accès de votre équipe.',
   robots: { index: false, follow: false },
 };
 

@@ -1,0 +1,910 @@
+{
+  "note": "Actual browser captures on synthetic identities; test verdict is reported separately by node:test.",
+  "captures": [
+    {
+      "name": "workspace-320",
+      "path": "docs/work/EA-05/captures/workspace-320.png",
+      "sha256": "f5b37197cfff028ebc10599afaa999b92d540414aab8246d21c3099bfc1ede69",
+      "viewport": {
+        "width": 320,
+        "height": 1000
+      }
+    },
+    {
+      "name": "workspace-390",
+      "path": "docs/work/EA-05/captures/workspace-390.png",
+      "sha256": "f8f92788cb740f0a3f7c9a54b82304d39e149dc091f573a30570e22158feca29",
+      "viewport": {
+        "width": 390,
+        "height": 1000
+      }
+    },
+    {
+      "name": "workspace-768",
+      "path": "docs/work/EA-05/captures/workspace-768.png",
+      "sha256": "4124a79e7de86c8095d4cb35321d5d43eef7b1fced246af030eb1db6a6659e5d",
+      "viewport": {
+        "width": 768,
+        "height": 1000
+      }
+    },
+    {
+      "name": "workspace-1440",
+      "path": "docs/work/EA-05/captures/workspace-1440.png",
+      "sha256": "91e8cee29747f5bc022b0007d2e2d19d5ce9762cd8e12c53742f14280316cb1d",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "browser-zoom-200-view-1",
+      "path": "docs/work/EA-05/captures/browser-zoom-200-view-1.png",
+      "sha256": "8d10afddbbc7a33e8095fc17865bb04da9e20c2d39a8723729225b20d0e445b3",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 0,
+      "innerWidth": 720,
+      "innerHeight": 500,
+      "height": 1485,
+      "devicePixelRatio": 2
+    },
+    {
+      "name": "browser-zoom-200-view-2",
+      "path": "docs/work/EA-05/captures/browser-zoom-200-view-2.png",
+      "sha256": "4b4b935c1e034ccd1b5e03d6251676a8a6f4fee852566416cb6b8f49596b9d3a",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 450,
+      "innerWidth": 720,
+      "innerHeight": 500,
+      "height": 1485,
+      "devicePixelRatio": 2
+    },
+    {
+      "name": "browser-zoom-200-view-3",
+      "path": "docs/work/EA-05/captures/browser-zoom-200-view-3.png",
+      "sha256": "39659f2c6d192d788384deba959285550c505319ede4de782e3dfbc32d3b01a2",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 900,
+      "innerWidth": 720,
+      "innerHeight": 500,
+      "height": 1485,
+      "devicePixelRatio": 2
+    },
+    {
+      "name": "browser-zoom-200-view-4",
+      "path": "docs/work/EA-05/captures/browser-zoom-200-view-4.png",
+      "sha256": "37ab028bcb0857dc8792f18963f0eee5914b9bc02234aa44e395437d924b65b9",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 985.5,
+      "innerWidth": 720,
+      "innerHeight": 500,
+      "height": 1485,
+      "devicePixelRatio": 2
+    },
+    {
+      "name": "browser-zoom-400-view-1",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-1.png",
+      "sha256": "e1e95115e3339b26701921c4bc1e4eabb4868ab19c64c2bd4eb566e93b8492d8",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 0,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-2",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-2.png",
+      "sha256": "655212d66a7744164172d4965c2eac4fdfa530769e42dad77c3ee82b8c2b33f2",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 225,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-3",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-3.png",
+      "sha256": "b439cc025b7126a36024b6fe25e625f74896f717f4de4437f397c705e0790d7d",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 450,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-4",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-4.png",
+      "sha256": "f18dd545b3a8cb89a3120ff7a18b92799002f3259c85e63467b70d990ce51d51",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 675,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-5",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-5.png",
+      "sha256": "a756dc45fb74c867087e26c3e48a1de475eb6acebd91d7f0980ca4e3001cb03e",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 900,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-6",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-6.png",
+      "sha256": "f86f1b4a72b008112e366035cba98094ca3a68e1907d6ce5725d9f3ccdbd0472",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 1125,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-7",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-7.png",
+      "sha256": "b3a0d67cbc0e35d93a676c6c6fd25516971959be2b48608806945dc965aad2a8",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 1350,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "browser-zoom-400-view-8",
+      "path": "docs/work/EA-05/captures/browser-zoom-400-view-8.png",
+      "sha256": "50504770dd107ff1734deb2b9340de711cbf977f61694533563a637ed78716e4",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "method": "CDP visible viewport, no clip; overlapping vertical scroll",
+      "scrollY": 1478.75,
+      "innerWidth": 320,
+      "innerHeight": 250,
+      "height": 1728,
+      "devicePixelRatio": 4
+    },
+    {
+      "name": "invitation-login-required-mobile",
+      "path": "docs/work/EA-05/captures/invitation-login-required-mobile.png",
+      "sha256": "9fa3081f42d74f895df54226207b1ae4dbfa84a160fa37db7246b856a1a2c4e6",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "invitation-loading-mobile",
+      "path": "docs/work/EA-05/captures/invitation-loading-mobile.png",
+      "sha256": "b00ef60e258ed70cc1718e26e3e5f746531a8024eed1b14bc838f202f16adc73",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "invitation-preview-mobile",
+      "path": "docs/work/EA-05/captures/invitation-preview-mobile.png",
+      "sha256": "d229189689f78c845a6e020b744f86d86806ea5a8a3c0900859039358a719c8f",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "invitation-preview-desktop",
+      "path": "docs/work/EA-05/captures/invitation-preview-desktop.png",
+      "sha256": "721b479ea589b0e6184e4fa54b9a738254704ed8978f0c078bc36087186e47db",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "invitation-success-mobile",
+      "path": "docs/work/EA-05/captures/invitation-success-mobile.png",
+      "sha256": "ec7d60d32d67644cf36007c7add8ab28b74130ab6bcabd3cf3d1ab01550c7914",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "revoke-dialog-mobile",
+      "path": "docs/work/EA-05/captures/revoke-dialog-mobile.png",
+      "sha256": "9ec804005368683fec3a57260c70805c71bcdf1dc274f10bb254c76ba79ed4c6",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "revoked-with-remaining-cave-mobile",
+      "path": "docs/work/EA-05/captures/revoked-with-remaining-cave-mobile.png",
+      "sha256": "d43190390e9432b95880cf03bf114e5db25a9f5fc92c09843baddbb31c49ef0d",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "remaining-cave-recovered-mobile",
+      "path": "docs/work/EA-05/captures/remaining-cave-recovered-mobile.png",
+      "sha256": "5f889b6356a6bb84d1e337af21caabf43ce20e8a96efddc9d300a345ae49b3e2",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "invitation-error-keyboard",
+      "path": "docs/work/EA-05/captures/invitation-error-keyboard.png",
+      "sha256": "e40df6a200e8626a35557a2606d2923931814ed5127cbad7b1ec59a704501b68",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "revoke-dialog-keyboard",
+      "path": "docs/work/EA-05/captures/revoke-dialog-keyboard.png",
+      "sha256": "3d1bf1b95f0916a8c66cbad9069314d78934d0053a085fa30fc798e48cf66a6f",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "team-transport-error",
+      "path": "docs/work/EA-05/captures/team-transport-error.png",
+      "sha256": "4f661c39baf37db796df31111594ae9c54dde5972511ed3f31105fd3cb0d3a2e",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "team-loading",
+      "path": "docs/work/EA-05/captures/team-loading.png",
+      "sha256": "99902079db646ceedd5e464811e65e4a5f1658f27bea9929dce31b916fe7ed1d",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "name": "reader-access-mobile",
+      "path": "docs/work/EA-05/captures/reader-access-mobile.png",
+      "sha256": "5b3ebe0a7c2a6b220a24b4785e786cc502dc5a78850f86efbc5d142cfbc69820",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "no-cave-mobile",
+      "path": "docs/work/EA-05/captures/no-cave-mobile.png",
+      "sha256": "4186b3c76d9651d58cc64b8223cab48371f10dd62e620e1f04e790f5b10e8833",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "invalid-invitation-mobile",
+      "path": "docs/work/EA-05/captures/invalid-invitation-mobile.png",
+      "sha256": "f497ac4d9efbe0f55fe8d2db58cadd1354c098d8ee248fd1ec0ad760c28cab13",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "expired-session-mobile",
+      "path": "docs/work/EA-05/captures/expired-session-mobile.png",
+      "sha256": "89d623f1973c01f9efc099221f20bd04ba20ad15a6022d776e0c52611ae3cbf7",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "login-error-mobile",
+      "path": "docs/work/EA-05/captures/login-error-mobile.png",
+      "sha256": "856a204e8755e378bed6417d13fc54fbbcacb71cee26187e7df2506a27fd522a",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "login-normal-mobile",
+      "path": "docs/work/EA-05/captures/login-normal-mobile.png",
+      "sha256": "0030f64fd3ff3f0254c1ba26e10439fe5d397d9e466529b72fc0e9c075ce6c98",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "measurements": [
+    {
+      "label": "workspace-320",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "width": 91.015625,
+          "height": 44,
+          "left": 212.984375,
+          "right": 304,
+          "top": 16.09375,
+          "bottom": 60.09375
+        },
+        {
+          "width": 288,
+          "height": 44,
+          "left": 16,
+          "right": 304,
+          "top": 198.1875,
+          "bottom": 242.1875
+        },
+        {
+          "width": 145.640625,
+          "height": 44.390625,
+          "left": 158.359375,
+          "right": 304,
+          "top": 262.1875,
+          "bottom": 306.578125
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 152.578125,
+          "right": 255.53125,
+          "top": 680.765625,
+          "bottom": 725.15625
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 123.953125,
+          "right": 226.90625,
+          "top": 815.15625,
+          "bottom": 859.546875
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 106.234375,
+          "right": 209.1875,
+          "top": 949.546875,
+          "bottom": 993.9375
+        },
+        {
+          "width": 254,
+          "height": 46,
+          "left": 33,
+          "right": 287,
+          "top": 1250.9375,
+          "bottom": 1296.9375
+        },
+        {
+          "width": 254,
+          "height": 45,
+          "left": 33,
+          "right": 287,
+          "top": 1399.9375,
+          "bottom": 1444.9375
+        },
+        {
+          "width": 154.125,
+          "height": 44.390625,
+          "left": 33,
+          "right": 187.125,
+          "top": 1518.9375,
+          "bottom": 1563.328125
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    },
+    {
+      "label": "workspace-390",
+      "width": 390,
+      "scrollWidth": 390,
+      "controls": [
+        {
+          "width": 91.015625,
+          "height": 44,
+          "left": 282.984375,
+          "right": 374,
+          "top": 16.09375,
+          "bottom": 60.09375
+        },
+        {
+          "width": 340,
+          "height": 44,
+          "left": 16,
+          "right": 356,
+          "top": 198.1875,
+          "bottom": 242.1875
+        },
+        {
+          "width": 145.640625,
+          "height": 44.390625,
+          "left": 228.359375,
+          "right": 374,
+          "top": 262.1875,
+          "bottom": 306.578125
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 152.578125,
+          "right": 255.53125,
+          "top": 647.171875,
+          "bottom": 691.5625
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 123.953125,
+          "right": 226.90625,
+          "top": 781.5625,
+          "bottom": 825.953125
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 106.234375,
+          "right": 209.1875,
+          "top": 915.953125,
+          "bottom": 960.34375
+        },
+        {
+          "width": 324,
+          "height": 46,
+          "left": 33,
+          "right": 357,
+          "top": 1217.34375,
+          "bottom": 1263.34375
+        },
+        {
+          "width": 324,
+          "height": 45,
+          "left": 33,
+          "right": 357,
+          "top": 1345.34375,
+          "bottom": 1390.34375
+        },
+        {
+          "width": 154.125,
+          "height": 44.390625,
+          "left": 33,
+          "right": 187.125,
+          "top": 1443.34375,
+          "bottom": 1487.734375
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    },
+    {
+      "label": "workspace-768",
+      "width": 768,
+      "scrollWidth": 768,
+      "controls": [
+        {
+          "width": 143,
+          "height": 48,
+          "left": 16,
+          "right": 159,
+          "top": 115.984375,
+          "bottom": 163.984375
+        },
+        {
+          "width": 302.28125,
+          "height": 44,
+          "left": 200,
+          "right": 502.28125,
+          "top": 125,
+          "bottom": 169
+        },
+        {
+          "width": 145.640625,
+          "height": 44.390625,
+          "left": 300.640625,
+          "right": 446.28125,
+          "top": 193,
+          "bottom": 237.390625
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 233,
+          "right": 335.953125,
+          "top": 573.984375,
+          "bottom": 618.375
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 233,
+          "right": 335.953125,
+          "top": 712.375,
+          "bottom": 756.765625
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 233,
+          "right": 335.953125,
+          "top": 850.765625,
+          "bottom": 895.15625
+        },
+        {
+          "width": 264.828125,
+          "height": 46,
+          "left": 233,
+          "right": 497.828125,
+          "top": 1144.15625,
+          "bottom": 1190.15625
+        },
+        {
+          "width": 189.15625,
+          "height": 45,
+          "left": 521.828125,
+          "right": 710.984375,
+          "top": 1144.15625,
+          "bottom": 1189.15625
+        },
+        {
+          "width": 154.125,
+          "height": 44.390625,
+          "left": 233,
+          "right": 387.125,
+          "top": 1263.15625,
+          "bottom": 1307.546875
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    },
+    {
+      "label": "workspace-1440",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "controls": [
+        {
+          "width": 183,
+          "height": 48,
+          "left": 24,
+          "right": 207,
+          "top": 123.984375,
+          "bottom": 171.984375
+        },
+        {
+          "width": 302.28125,
+          "height": 44,
+          "left": 272,
+          "right": 574.28125,
+          "top": 125,
+          "bottom": 169
+        },
+        {
+          "width": 145.640625,
+          "height": 44.390625,
+          "left": 1254.359375,
+          "right": 1400,
+          "top": 74.296875,
+          "bottom": 118.6875
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 1260.046875,
+          "right": 1363,
+          "top": 452.890625,
+          "bottom": 497.28125
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 1260.046875,
+          "right": 1363,
+          "top": 530.890625,
+          "bottom": 575.28125
+        },
+        {
+          "width": 102.953125,
+          "height": 44.390625,
+          "left": 1260.046875,
+          "right": 1363,
+          "top": 608.890625,
+          "bottom": 653.28125
+        },
+        {
+          "width": 600.828125,
+          "height": 46,
+          "left": 309,
+          "right": 909.828125,
+          "top": 902.59375,
+          "bottom": 948.59375
+        },
+        {
+          "width": 429.15625,
+          "height": 45,
+          "left": 933.828125,
+          "right": 1362.984375,
+          "top": 902.59375,
+          "bottom": 947.59375
+        },
+        {
+          "width": 154.125,
+          "height": 44.390625,
+          "left": 309,
+          "right": 463.125,
+          "top": 1001.59375,
+          "bottom": 1045.984375
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    },
+    {
+      "label": "browser-zoom-200",
+      "width": 720,
+      "scrollWidth": 720,
+      "controls": [
+        {
+          "width": 143,
+          "height": 48,
+          "left": 16,
+          "right": 159,
+          "top": 115.9921875,
+          "bottom": 163.9921875
+        },
+        {
+          "width": 301.7734375,
+          "height": 44,
+          "left": 200,
+          "right": 501.7734375,
+          "top": 125,
+          "bottom": 169
+        },
+        {
+          "width": 145.6328125,
+          "height": 44.3984375,
+          "left": 300.6328125,
+          "right": 446.265625,
+          "top": 193,
+          "bottom": 237.3984375
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 233,
+          "right": 335.9453125,
+          "top": 573.9921875,
+          "bottom": 618.390625
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 233,
+          "right": 335.9453125,
+          "top": 712.390625,
+          "bottom": 756.7890625
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 233,
+          "right": 335.9453125,
+          "top": 850.7890625,
+          "bottom": 895.1875
+        },
+        {
+          "width": 236.828125,
+          "height": 46,
+          "left": 233,
+          "right": 469.828125,
+          "top": 1144.1875,
+          "bottom": 1190.1875
+        },
+        {
+          "width": 169.1640625,
+          "height": 45.5,
+          "left": 493.828125,
+          "right": 662.9921875,
+          "top": 1144.1875,
+          "bottom": 1189.6875
+        },
+        {
+          "width": 154.1171875,
+          "height": 44.3984375,
+          "left": 233,
+          "right": 387.1171875,
+          "top": 1264.1875,
+          "bottom": 1308.5859375
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    },
+    {
+      "label": "browser-zoom-400",
+      "width": 320,
+      "scrollWidth": 320,
+      "controls": [
+        {
+          "width": 91.0078125,
+          "height": 44,
+          "left": 212.9921875,
+          "right": 304,
+          "top": 16.09765625,
+          "bottom": 60.09765625
+        },
+        {
+          "width": 288,
+          "height": 44,
+          "left": 16,
+          "right": 304,
+          "top": 198.19921875,
+          "bottom": 242.19921875
+        },
+        {
+          "width": 145.6328125,
+          "height": 44.3984375,
+          "left": 158.3671875,
+          "right": 304,
+          "top": 262.19921875,
+          "bottom": 306.59765625
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 152.5703125,
+          "right": 255.515625,
+          "top": 680.79296875,
+          "bottom": 725.19140625
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 123.953125,
+          "right": 226.8984375,
+          "top": 815.19140625,
+          "bottom": 859.58984375
+        },
+        {
+          "width": 102.9453125,
+          "height": 44.3984375,
+          "left": 106.234375,
+          "right": 209.1796875,
+          "top": 949.58984375,
+          "bottom": 993.98828125
+        },
+        {
+          "width": 254,
+          "height": 46,
+          "left": 33,
+          "right": 287,
+          "top": 1250.98828125,
+          "bottom": 1296.98828125
+        },
+        {
+          "width": 254,
+          "height": 45.25,
+          "left": 33,
+          "right": 287,
+          "top": 1399.98828125,
+          "bottom": 1445.23828125
+        },
+        {
+          "width": 154.1171875,
+          "height": 44.3984375,
+          "left": 33,
+          "right": 187.1171875,
+          "top": 1519.23828125,
+          "bottom": 1563.63671875
+        }
+      ],
+      "minimumTextContrast": 6.034392242881919,
+      "minimumFieldContrast": 4.09700510872636
+    }
+  ],
+  "source_run": ".local/ux/EA-05/1788946138525-e7dbb5",
+  "server_state": {
+    "workspace": "Authenticated Alice, Cave des Roches, admin; isolated real PostgreSQL and signed synthetic OIDC.",
+    "zoom": "Same workspace; genuine tabs.setZoom 2/4, overlapping CDP viewport screenshots through bottom.",
+    "invitation": "Diane invited reader by Alice via real API; unauthenticated, pending HTTP response, preview, SQL acceptance and success.",
+    "revoked-with-remaining-cave": "Bruno promoted admin only in this fixture; his actual API command revokes Alice from A, B remains authorized.",
+    "team-transport-error": "503 injected only on browser transport; no success declared.",
+    "team-loading": "Actual team request deliberately held, then released.",
+    "expired-session": "SQL session expiration moved into the past for this fixture.",
+    "login-error": "Test issuer signed token has invalid nonce; actual callback refused.",
+    "invalid-invitation": "No usable token; generic unavailable state.",
+    "reader": "Claire, authorized reader only; no sensitive command in UI.",
+    "no-cave": "Diane before acceptance; no membership."
+  },
+  "state_applicability": {
+    "connexion": [
+      "normal",
+      "callback error",
+      "expired session; no on-page empty/list or loading state for redirect link"
+    ],
+    "espace": [
+      "admin normal",
+      "reader",
+      "no membership",
+      "loading",
+      "transport error",
+      "revoked",
+      "remaining cave recovery",
+      "invalid form",
+      "revocation dialog"
+    ],
+    "invitation": [
+      "login required",
+      "loading",
+      "preview desktop/mobile",
+      "unavailable",
+      "success"
+    ]
+  }
+}

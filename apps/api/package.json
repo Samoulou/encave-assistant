@@ -9,8 +9,10 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@encave/domain": "0.1.0",
+    "@encave/connectors": "0.1.0",
     "@encave/contracts": "0.1.0",
-    "@encave/connectors": "0.1.0"
+    "@encave/domain": "0.1.0",
+    "openid-client": "6.8.8",
+    "pg": "8.23.0"
   }
 }

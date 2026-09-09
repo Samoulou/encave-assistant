@@ -4,3 +4,4 @@ export const foundationScope = Object.freeze({
   mode: 'foundation',
   synthetic: true,
 } as const);
+export { roles, isRole, mayManageTeam, normalizeInvitationEmail, mayRevoke, type Role, type TeamAction } from './identity.ts';

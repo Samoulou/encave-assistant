@@ -2,7 +2,7 @@
 
 Assistant de gestion des demandes de visites, dégustations, salles et événements pour les caves. Le caviste garde la validation des engagements clients. **Sam pilote le produit et sa livraison.**
 
-Ce dépôt indépendant contient la documentation, la chaîne de développement et la fondation technique locale. **Les fonctionnalités produit restent à construire.** Le [guide Windows](docs/local-development.md) décrit Node 24, PostgreSQL, le build et les contrôles.
+Ce dépôt indépendant contient la documentation, la chaîne de développement, la fondation technique locale et une première tranche d’identité/équipe avec sessions PostgreSQL, invitations et rôles. Le [guide identité](docs/development/identity.md) permet de l’essayer avec des comptes fictifs. Les fonctions commerciales, Microsoft et l’IA restent à construire. Le [guide Windows](docs/local-development.md) décrit Node 24, PostgreSQL, le build et les contrôles.
 
 **Commencer par [START-HERE.md](START-HERE.md)** : ouverture dans Codex, premier prompt, setup et lancement autonome local.
 
@@ -40,7 +40,7 @@ Prérequis : Git, Node 24/npm et Python 3.11+. Aucun secret produit n’est néc
 | API et worker | Node.js / TypeScript |
 | Données et tâches durables | PostgreSQL + outbox transactionnelle |
 | Organisation | npm workspaces, apps/web, apps/api, apps/worker, packages/domain, contracts, connectors |
-| Authentification | OIDC, fournisseur à choisir |
+| Authentification | OIDC avec sessions serveur ; fournisseur synthétique local, Keycloak cible distincte |
 | Intégrations | Adaptateurs génériques ; Microsoft Graph / OAuth en premier |
 | Développement | Codex, contrôleurs Python, GitHub Actions |
 

@@ -12,7 +12,14 @@
     "test:e2e": "node packages/tooling/src/suites.ts e2e",
     "test:evals": "node packages/tooling/src/suites.ts evals",
     "check:foundation": "node packages/tooling/src/foundation.ts",
-    "test:ux": "python3 scripts/unconfigured.py ux",
+    "test:ux": "node packages/tooling/src/ux-suite.ts",
+    "pretest:unit": "node node_modules/typescript/bin/tsc -b --force",
+    "pretest:functional": "node node_modules/typescript/bin/tsc -b --force",
+    "pretest:business": "node node_modules/typescript/bin/tsc -b --force",
+    "pretest:e2e": "node packages/tooling/src/product-build.ts",
+    "pretest:ux": "node packages/tooling/src/product-build.ts",
+    "prestart:identity": "node packages/tooling/src/product-build.ts",
+    "start:identity": "node packages/tooling/identity-demo.mjs",
     "test:foundation-tooling": "node --test packages/tooling/test/*.test.mjs",
     "db:start": "node packages/tooling/src/database.ts start",
     "db:stop": "node packages/tooling/src/database.ts stop",
@@ -37,6 +44,8 @@
     "@playwright/test": "1.63.0",
     "@types/node": "24.13.3",
     "@types/pg": "8.20.0",
+    "jose": "6.2.12",
+    "oidc-provider": "9.12.2",
     "typescript": "5.9.3"
   }
 }
