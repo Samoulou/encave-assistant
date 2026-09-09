@@ -4,6 +4,7 @@ export * from './catalog.ts';
 export * from './resources.ts';
 export * from './manual-inquiries.ts';
 export * from './public-forms.ts';
+export * from './connections.ts';
 
 export const technicalHealthSchema = z.object({
   service: z.enum(['api', 'worker']),

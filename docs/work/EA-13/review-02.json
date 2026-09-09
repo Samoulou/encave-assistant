@@ -1,0 +1,144 @@
+{
+  "ticket": "EA-13",
+  "reviewer": "review_ea13",
+  "mode": "Seconde review indépendante, tâche directe ; code, tests et documents du candidat en lecture seule.",
+  "candidate": "C1, correction_cycle 1, modifications non commitées sur la base ddc291786798ed273916d8ee2823efe14747fc6a",
+  "verdict": "pass",
+  "findings": [],
+  "corrections_verified": [
+    {
+      "id": "R1",
+      "assessment": "résolu",
+      "file": "C:/tmp/encave-assistant/encave-assistant/apps/api/src/connection-store.ts",
+      "line": 32,
+      "evidence": "La nouvelle session du même acteur et de la même cave retrouve la connexion durable, annule l’ancien flux pending/consumed et invalide uniquement son autorisation encore courante. Aucun ancien URL OAuth n’est rendu. Les tests HTTP et navigateur prouvent la reprise sans doublon et le refus de l’ancien callback. Le diagnostic indépendant supplémentaire couvre un callback déjà consumed et en vol : aucune persistance tardive, aucun credential restauré, nouvelle autorisation possible et reprise ancienne sans changement de version.",
+      "criteria": [
+        "AC-03",
+        "AC-05",
+        "AC-07"
+      ]
+    },
+    {
+      "id": "R2",
+      "assessment": "résolu",
+      "file": "C:/tmp/encave-assistant/encave-assistant/apps/api/src/connection-store.ts",
+      "line": 59,
+      "evidence": "La persistance de failure() exige maintenant les versions de connexion et d’autorisation observées au départ, sous le verrou transactionnel de la cave. Le contrôle concurrent réussi conserve son état active, sa version et son cache après réception tardive du 429 ; le job de découverte reste utilisable.",
+      "criteria": [
+        "AC-05"
+      ]
+    },
+    {
+      "id": "R3",
+      "assessment": "résolu",
+      "file": "C:/tmp/encave-assistant/encave-assistant/packages/connectors/src/microsoft.ts",
+      "line": 19,
+      "evidence": "Les valeurs exactes errorNo 90093/90094, numériques ou textuelles, deviennent admin_consent_required. Les tests utilisent ServerError du SDK installé et une réponse de refresh traversant MSAL jusqu’au statut API persisté ; le diagnostic fournisseur privé n’est pas exposé.",
+      "criteria": [
+        "AC-04"
+      ]
+    }
+  ],
+  "criteria_coverage": [
+    {
+      "id": "AC-01",
+      "assessment": "couvert",
+      "evidence": "Chiffrement serveur lié à la cave/connexion/finalité/version, références composites et résolution des droits conservés. Les corrections gardent les validations acteur/session/cave ; le callback obsolète ne restaure aucun credential. Contrôles d’isolation et de substitution du premier examen réutilisés sur sources inchangées."
+    },
+    {
+      "id": "AC-02",
+      "assessment": "couvert",
+      "evidence": "Contrats neutres et séparation de l’adaptateur conservés ; opérations non supportées et profil réel non qualifié restent explicites. Normalisation R3 filtrée, sans exposition du diagnostic brut."
+    },
+    {
+      "id": "AC-03",
+      "assessment": "couvert",
+      "evidence": "Parcours générique, ressources autorisées, deux caves/organisations synthétiques, persistance et reconnexion du même compte préservés. R1 résolu, avec preuve HTTP et navigateur de récupération dans une nouvelle session sans doublon."
+    },
+    {
+      "id": "AC-04",
+      "assessment": "couvert",
+      "evidence": "Permissions minimales, PKCE/state/nonce, identité et ressources vérifiées côté serveur conservés. Ancien callback refusé après récupération ; R3 prouve l’état de consentement administrateur avec le SDK effectif."
+    },
+    {
+      "id": "AC-05",
+      "assessment": "couvert",
+      "evidence": "Révocation et versions restent propres à chaque connexion ; guards avant requêtes et persistances maintenus. R1 et R2 résolus : callback annulé en vol et ancien échec de santé ne remplacent pas un état courant."
+    },
+    {
+      "id": "AC-06",
+      "assessment": "couvert",
+      "evidence": "MSAL, Graph et comptes des preuves explicitement synthétiques. Profil test séparé ; activation réelle toujours interdite côté serveur et SQL. Aucune qualification Microsoft réelle déduite des tests."
+    },
+    {
+      "id": "AC-07",
+      "assessment": "couvert",
+      "evidence": "Les 170 captures sont couvertes : 40 nouvelles ou modifiées réexaminées, 130 identiques par SHA256 au premier examen. Parcours de récupération, libellé interaction_required, états sensibles, responsive, focus et zoom examinés ; aucun défaut visuel supplémentaire identifié. Gate UX finale : 16 tests réussis."
+    }
+  ],
+  "evidence_review": {
+    "base_commit": "ddc291786798ed273916d8ee2823efe14747fc6a",
+    "candidate_verified_utc": "2026-09-09 15:35:42 UTC",
+    "manifest": "C:/tmp/encave-assistant/encave-assistant/docs/work/EA-13/checksums.json",
+    "manifest_sha256": "2daabed5a0f799bc1ea5ec663afe9fb7a42b8a83e74dbf68756a9d975b252b68",
+    "verified_hashes": {
+      "review_files": 206,
+      "local_logs": 59,
+      "local_helpers": 9,
+      "captures": 170
+    },
+    "source_sha256": {
+      "apps/api/src/connection-store.ts": "362e3f8a45d36fc9a8055df0955fc55448054f81822e527ec77640eb3c83fa80",
+      "apps/web/app/connexions/page.tsx": "3b131f340bfdc9dfd0bcefbb35b96aec743885431275d6471a5c43713c720a78",
+      "packages/connectors/src/microsoft.ts": "258d94d372002f5023e4d01e896df899eb926f681356078d40a56a0d9ea39bf9"
+    },
+    "initial_review_sha256": "cabdabf1c94ea424f64ca5ca213e2697a81818e794428404381a7b4ed8dd5229",
+    "initial_manifest_sha256": "f897f53a49f0a442e97d81fb08d27bb84199a4f60e50822cd1dff2834a630428",
+    "ux_manifest_sha256": "83ae9b2f9bae09e8f7b54d1fd0fcb206f458b143d1083b459decbaebd36ecdfc",
+    "results_sha256": "2658c929b9830783a8d37c7261232c8a1e6bba71c577635ec191a8568aa90f03",
+    "status_sha256": "ac2cc4b0b5011608ee33a1cda944e2670460bb340dbcdbccd6d810ef3457d390",
+    "visual_inspection": {
+      "identical_png_reused": 130,
+      "modified_png_reexamined": 37,
+      "new_png_examined_individually": 3,
+      "index": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-c1-montages/index.json",
+      "index_sha256": "d684527c83d94df57abed645f02354c08baf0b648a2f6060d69d9e463040f69f"
+    },
+    "gate_logs_examined": {
+      "unit": "C1 : 27 tests réussis",
+      "functional": "C1 : 45 tests réussis",
+      "business": "C1 : 40 tests réussis",
+      "e2e": "C1 final après correction de texte : 34 tests réussis",
+      "ux": "C1 final après correction de texte : 16 tests réussis",
+      "kit": "C1 : 141 tests en 65.686 secondes, OK",
+      "foundation": "C1 final : compilation, API, web, worker et SQL42 réussis",
+      "runtime": "C1 final : démarrage et nettoyage des ressources possédées observés",
+      "foundation_tooling": "19 tests du candidat initial ; preuve réutilisée pour l’outillage non affecté",
+      "npm_ci": "Preuve initiale réutilisée ; dépendances inchangées en C1"
+    },
+    "regression_evidence": "Quatre échecs serveur avant correction puis quatre passes examinés ; échec navigateur initial puis passes E2E/UX C1 examinés. Les quatre régressions serveur ont aussi été exécutées indépendamment : 4 passes, 0 échec, 0 skipped, code 0.",
+    "independent_diagnostics": [
+      {
+        "path": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-c1-recovery-race.mjs",
+        "sha256": "5927221c38712178bf35f661c953cfa257718a966cc0df47f7202b9157933380",
+        "result": "Exécuté sous Node 24.19.0, code 0 ; callback consumed/en vol annulé, réponse obsolète refusée, nouvelle autorisation selection_required, une connexion, ancienne reprise sans changement de version."
+      },
+      {
+        "path": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-c1-regressions.log",
+        "sha256": "2eca4eecc309d07506c3f5a57a5ea4c99be5a6a51c37f4fe094a36e3e7790aae",
+        "result": "Exécution indépendante des tests connection-recovery, connection-health-race et connection-provider-failure : 4/4 réussis."
+      },
+      {
+        "path": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-c1-evidence.json",
+        "sha256": "05e22b00035292691f1383d64cf2f1a2b9b5c3c078b387c14c224750af22adb0",
+        "result": "Inventaire indépendant des empreintes, différences de sources et identité des captures."
+      }
+    ],
+    "integrity": "Sept AC exacts et dans l’ordre vérifiés avec le backlog. Aucun ancien test ni fichier protégé modifié ; aucun code hors manifeste. results.md et status.md lus et empreintés séparément. Les 274 entrées du manifeste ont été revérifiées avant conclusion. Aucun build ni gate UX lancé par cette review."
+  },
+  "limits": [
+    "Le verdict porte sur le candidat C1 identifié et son périmètre synthétique ; l’intégration Microsoft réelle reste non vérifiée et inactive.",
+    "Les diagnostics indépendants ajoutés après le gel sont référencés et empreintés ici ; ils ne font pas partie du manifeste C1.",
+    "Cette review ne constitue ni une attestation du contrôleur, ni une preuve de CI distante, ni un déploiement."
+  ]
+}

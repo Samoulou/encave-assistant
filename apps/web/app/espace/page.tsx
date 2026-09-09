@@ -129,7 +129,7 @@ export default function Workspace() {
   const liveMembers = team?.members.filter(member => !member.revokedAt) ?? [];
   const liveInvitations = team?.invitations.filter(invitation => !invitation.acceptedAt && !invitation.revokedAt) ?? [];
   return <div className="workspace-shell">
-    <aside className="workspace-nav"><p className="brand">EnCave <span>Assistant</span></p><nav aria-label="Navigation principale"><a href="/demandes">Demandes</a><a href="/espace" aria-current="page">Paramètres</a></nav><p className="nav-caption">Votre équipe, réunie autour de votre cave.</p></aside>
+    <aside className="workspace-nav"><p className="brand">EnCave <span>Assistant</span></p><nav aria-label="Navigation principale"><a href="/demandes">Demandes</a><a href="/connexions">Connexions</a><a href="/espace" aria-current="page">Paramètres</a></nav><p className="nav-caption">Votre équipe, réunie autour de votre cave.</p></aside>
     <div className="workspace-content">
       <header className="workspace-header">
         <div><p className="eyebrow">Cave active</p><strong data-testid="active-cave">{active?.name ?? (loading ? 'Chargement de votre cave…' : 'Aucune cave active')}</strong>

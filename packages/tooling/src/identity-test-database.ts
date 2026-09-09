@@ -83,6 +83,9 @@ export async function createIdentityTestDatabase(issuer: string) {
     await owner.query(`GRANT UPDATE(current_version) ON public_forms TO "${user}"`);
     await owner.query(`GRANT SELECT,INSERT,UPDATE ON public_form_rates TO "${user}"`);
     await owner.query(`GRANT SELECT,INSERT,DELETE ON public_form_challenges TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT,UPDATE ON provider_connections,provider_oauth_attempts TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT,UPDATE,DELETE ON provider_resources,provider_credentials,provider_routing_claims TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT ON provider_connection_commands,provider_connection_events TO "${user}"`);
     await owner.query('INSERT INTO caves(id,name) VALUES($1,$2),($3,$4)', [caveA, 'Cave des Roches — test', caveB, 'Cave du Lac — test']);
     const people = [];
     for (const person of fixturePeople) {

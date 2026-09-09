@@ -1,0 +1,123 @@
+{
+  "ticket": "EA-13",
+  "reviewer": "review_ea13",
+  "mode": "review indépendante en lecture seule, tâche directe",
+  "verdict": "request_changes",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P2",
+      "file": "C:/tmp/encave-assistant/encave-assistant/apps/api/src/connection-store.ts",
+      "line": 32,
+      "title": "La reprise OAuth reste bloquée après renouvellement de session",
+      "description": "Après perte de la réponse d’un démarrage OAuth enregistré, une nouvelle session EnCave du même administrateur et de la même cave reçoit systématiquement 409 oauth_invalid en reprenant la commande. L’interface conserve ce retry en attente et désactive toutes les mutations, y compris Reconnecter, sans sortie accessible. Actualiser ne résout pas le blocage.",
+      "related_file": "C:/tmp/encave-assistant/encave-assistant/apps/web/app/connexions/page.tsx",
+      "related_line": 34,
+      "evidence": "Diagnostic HTTP indépendant : démarrage 200, nouvelle session Alice, deux reprises successives 409 oauth_invalid, une connexion oauth_pending conservée. Le verrouillage de l’interface est confirmé par son chemin execute/pending.",
+      "diagnostic": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-session-recovery.mjs",
+      "required_change": "Permettre de retrouver la connexion durable et de reprendre son autorisation depuis la nouvelle session, sans réutiliser le flux OAuth lié à l’ancienne session ni créer de doublon. Ajouter une preuve navigateur de cette récupération.",
+      "criteria": ["AC-03", "AC-05", "AC-07"]
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "file": "C:/tmp/encave-assistant/encave-assistant/apps/api/src/connection-store.ts",
+      "line": 48,
+      "title": "Un échec retardé écrase un contrôle plus récent réussi",
+      "description": "failure() vérifie la version d’autorisation, mais pas la version de connexion observée au départ. Deux contrôles concurrents peuvent donc laisser un ancien échec remplacer un succès plus récent et suspendre les jobs de cette connexion.",
+      "evidence": "Diagnostic indépendant avec une réponse Graph 429 déjà reçue puis retenue avant traitement : un deuxième contrôle réussit et conserve active/version 5 ; la libération du premier échec impose ensuite error/version 6, avec la même version d’autorisation.",
+      "diagnostic": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-health-race.mjs",
+      "required_change": "Conditionner aussi la persistance d’un échec à la version de connexion attendue. Tester qu’une réponse obsolète ne remplace pas le résultat d’un contrôle ultérieur.",
+      "criteria": ["AC-05"]
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "file": "C:/tmp/encave-assistant/encave-assistant/packages/connectors/src/microsoft.ts",
+      "line": 19,
+      "title": "Le code de consentement administrateur du SDK MSAL est ignoré",
+      "description": "providerFailure() cherche 90094 dans errorCodes, alors que le ServerError produit par la version installée de MSAL expose ce numéro dans errorNo. Le besoin de consentement administrateur devient provider_unavailable, avec une mauvaise explication et une mauvaise action de reprise.",
+      "evidence": "Signalement de l’auteur vérifié indépendamment dans ServerError.ts et ResponseHandler.ts du SDK installé, puis reproduit avec un véritable ServerError synthétique : errorNo 90094 est traduit en provider_unavailable.",
+      "diagnostic": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-msal-error.mjs",
+      "required_change": "Normaliser le numéro d’erreur réellement exposé par MSAL et couvrir cette branche par un test du SDK ou de sa réponse de jeton, en conservant les diagnostics publics filtrés.",
+      "source": "[Microsoft : AADSTS90094 et consentement administrateur](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/application-sign-in-unexpected-user-consent-error)",
+      "criteria": ["AC-04"]
+    }
+  ],
+  "criteria_coverage": [
+    {
+      "id": "AC-01",
+      "assessment": "couvert",
+      "evidence": "Chiffrement AES-GCM lié à la cave, connexion, finalité et version ; résolution serveur ; contrôles session/rôle/cave ; références composites ; tests de substitution, révocation et réponses publiques expurgées."
+    },
+    {
+      "id": "AC-02",
+      "assessment": "couvert",
+      "evidence": "Contrats typés de capacités, opérations, ressources, santé et erreurs ; adaptateur séparé ; opérations non implémentées explicitement refusées ; distinction entre découverte synthétique disponible et profil réel non qualifié."
+    },
+    {
+      "id": "AC-03",
+      "assessment": "correction requise",
+      "evidence": "Parcours générique, deux organisations et caves synthétiques, ressources autorisées, persistance et reconnexion contrôlée couverts. R1 bloque la récupération après renouvellement de session."
+    },
+    {
+      "id": "AC-04",
+      "assessment": "correction requise",
+      "evidence": "PKCE, state, nonce, signature, issuer, audience, dates, identité Microsoft et cohérence Graph examinés ; refus sensibles couverts. R3 laisse incorrectement classée une erreur réelle du SDK."
+    },
+    {
+      "id": "AC-05",
+      "assessment": "correction requise",
+      "evidence": "Révocation locale, suppression des credentials, anciennes autorisations, refresh borné et isolation de la cave B couverts. R1 et R2 affectent la reprise et la santé concurrente."
+    },
+    {
+      "id": "AC-06",
+      "assessment": "couvert",
+      "evidence": "Fixtures explicitement synthétiques, transport limité au profil test, absence de configuration supportée, activation réelle interdite côté serveur et SQL. Aucune qualification Microsoft réelle revendiquée."
+    },
+    {
+      "id": "AC-07",
+      "assessment": "correction requise",
+      "evidence": "Responsive, zoom, états, clavier, focus, cibles et captures examinés. Aucun défaut visuel supplémentaire identifié ; R1 laisse toutefois un parcours de reprise sans issue."
+    }
+  ],
+  "evidence_review": {
+    "base_commit": "ddc291786798ed273916d8ee2823efe14747fc6a",
+    "candidate": "Modifications EA-13 non commitées, candidat initial inchangé pendant la revue.",
+    "manifest": "C:/tmp/encave-assistant/encave-assistant/docs/work/EA-13/checksums.json",
+    "manifest_sha256": "f897f53a49f0a442e97d81fb08d27bb84199a4f60e50822cd1dff2834a630428",
+    "verified_hashes": {
+      "review_files": 198,
+      "local_logs": 42,
+      "local_helpers": 3,
+      "captures": 167
+    },
+    "source_sha256": {
+      "connection-store.ts": "a9dde9e7ee178daed1455ebf60e4a05b776b07b730728d6c29a515ecec5322ea",
+      "connexions/page.tsx": "1ad529d5ccdc6246bc7345f27c5b4c558a24c253658f494100e941e7e4867e92",
+      "microsoft.ts": "89a9935dfbba7889a968bf69181e7ff2b809406231ca31bc312539a4a09e3fd4"
+    },
+    "ux_manifest": "C:/tmp/encave-assistant/encave-assistant/docs/work/EA-13/ux-captures.json",
+    "ux_manifest_sha256": "023c6980d510955266b1183b31d8841c3cba64046890611fd2e27b0b782704fe",
+    "visual_inspection": "167 captures examinées : 26 états EA-13 individuellement, 24 vues zoomées EA-13 et 117 captures de régression en planches indexées. Navigation ajoutée, responsive, états sensibles, focus et continuité des vues zoomées vérifiés visuellement.",
+    "visual_index": "C:/tmp/encave-assistant/encave-assistant/.agentic/runs/review-ea13-montages/index.json",
+    "gate_logs_examined": {
+      "unit": "26 tests, réussite",
+      "functional": "43 tests, réussite",
+      "business": "39 tests, réussite",
+      "e2e": "33 tests, réussite",
+      "ux": "15 tests, réussite",
+      "foundation_tooling": "19 tests, réussite",
+      "kit": "141 tests en 71,529 secondes, réussite",
+      "foundation": "Compilation et contrôles API/web/worker/SQL réussis",
+      "runtime": "Démarrage et nettoyage des ressources possédées observés"
+    },
+    "integrity": "Sept critères exacts et dans l’ordre vérifiés ; aucun ancien test ni fichier protégé modifié.",
+    "independent_diagnostics": "Trois scripts diagnostiques exécutés sous Node 24.19.0 ; les trois défauts sont reproduits. Aucun build ni gate UX concurrent lancé."
+  },
+  "limits": [
+    "Microsoft, OIDC et les identités utilisés par les diagnostics sont synthétiques.",
+    "Les gates vertes ne couvrent pas les trois défauts constatés.",
+    "Cette revue ne constitue ni une attestation du contrôleur, ni une qualification Microsoft réelle, ni une autorisation de production."
+  ]
+}

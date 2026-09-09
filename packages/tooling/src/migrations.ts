@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import type { Pool } from 'pg';
 
-export const migrationFiles = ['001_identity.sql', '002_team_exports.sql', '003_case_core.sql', '004_workflow_commands.sql', '005_catalog.sql', '006_resources.sql', '007_manual_inquiries.sql', '008_public_forms.sql'] as const;
+export const migrationFiles = ['001_identity.sql', '002_team_exports.sql', '003_case_core.sql', '004_workflow_commands.sql', '005_catalog.sql', '006_resources.sql', '007_manual_inquiries.sql', '008_public_forms.sql', '009_provider_connections.sql'] as const;
 
 // One owned SQL connection holds the session lock across per-file transactions.
 // Existing 001/002 remain byte-for-byte unchanged; 001 needs an outer transaction.

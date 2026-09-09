@@ -11,6 +11,9 @@ import { ResourceStore } from './resource-store.ts';
 import { ResourceTimeError } from '@encave/domain';
 import { ManualInquiryStore,ManualValidationError } from './manual-inquiry-store.ts';
 import { PublicFormStore,PublicFormError } from './public-form-store.ts';
+import { ConnectionStore } from './connection-store.ts';
+import { ConnectorError } from '@encave/contracts';
+import type { MicrosoftSettings } from '@encave/connectors';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -27,7 +30,7 @@ async function jsonBody(request: IncomingMessage): Promise<Record<string, unknow
   } catch { throw new IdentityError(400, 'invalid_request'); }
 }
 
-export function createIdentityHandler(store: IdentityStore, settings: OidcSettings, options: { exportRetentionSeconds?: number } = {}) {
+export function createIdentityHandler(store: IdentityStore, settings: OidcSettings, options: { exportRetentionSeconds?: number; microsoft?: MicrosoftSettings } = {}) {
   const authentication = new IdentityOidc(settings, store);
   const exports = new TeamExports(store.pool, options.exportRetentionSeconds ?? 3600);
   const cases = new CaseStore(store.pool);
@@ -36,6 +39,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const resources = new ResourceStore(store.pool);
   const manual = new ManualInquiryStore(store.pool);
   const publicForms = new PublicFormStore(store.pool,settings.appOrigin);
+  const connections = new ConnectionStore(store.pool,settings.appOrigin,settings.environment,options.microsoft);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -92,6 +96,11 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         csrf: typeof request.headers['x-csrf-token'] === 'string' ? request.headers['x-csrf-token'] : '',
         expectedCave: typeof request.headers['x-encave-cave'] === 'string' ? request.headers['x-encave-cave'] : '',
       };
+      if(request.method==='GET'&&path==='/api/connections/microsoft/callback'){
+        await connections.callback(context.token,url);
+        response.writeHead(303,{Location:settings.appOrigin+'/connexions?result=connected'}).end();return;
+      }
+      if(request.method==='GET'&&path==='/api/connections'){send(200,await connections.list(context));return;}
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
       if(request.method==='GET'&&path==='/api/intake-form'){send(200,await publicForms.configuration(context));return;}
@@ -152,6 +161,9 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         if (catalogPath[2] === 'select') { const result = await catalog.select(context,id,body); send(result.eligible ? 200 : 409,result); return; }
       }
       const transitionPath = /^\/api\/inquiries\/([^/]+)\/state$/.exec(path);
+      if(path==='/api/connections/microsoft/start'){send(200,await connections.begin(context,body,request.headers['idempotency-key']));return;}
+      const connectionAction=/^\/api\/connections\/([^/]+)\/(resources|inspect|activate|disconnect)$/.exec(path);
+      if(connectionAction){const action=connectionAction[2]==='resources'?'select':connectionAction[2] as 'inspect'|'activate'|'disconnect';send(200,await connections.operate(context,connectionAction[1],action,body,request.headers['idempotency-key']));return;}
       if (transitionPath) { send(200,await workflows.transition(context,'inquiry',transitionPath[1],body,request.headers['idempotency-key'])); return; }
       if (path === '/api/team/exports') {
         if (Object.keys(body).length) throw new IdentityError(400, 'invalid_request');
@@ -169,10 +181,16 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       send(200, { ok: true });
     } catch (error) {
       if (response.headersSent) { response.end(); return; }
-      if (path === '/api/auth/callback' || path === '/api/auth/start') {
+      if(path==='/api/connections/microsoft/callback'){
+        const code=error instanceof ConnectorError?error.code:error instanceof IdentityError&&['cave_changed','role_forbidden','unauthenticated','oauth_invalid','connection_changed'].includes(error.code)?error.code:'oauth_invalid';
+        response.writeHead(303,{Location:settings.appOrigin+'/connexions?error='+encodeURIComponent(code)}).end();
+      } else if (path === '/api/auth/callback' || path === '/api/auth/start') {
         const existing = response.getHeader('Set-Cookie');
         response.setHeader('Set-Cookie', [...(Array.isArray(existing) ? existing : typeof existing === 'string' ? [existing] : []), cookie(loginCookie, '', 0)]);
         response.writeHead(303, { Location: settings.appOrigin + '/connexion?erreur=connexion' }).end();
+      } else if(error instanceof ConnectorError){
+        if(error.retryAfter!==null)response.setHeader('Retry-After',String(error.retryAfter));
+        send(error.code==='rate_limited'?429:error.code==='provider_unavailable'?503:409,{error:error.code});
       } else if (error instanceof PublicFormError) {
         if(error.retryAfter!==null)response.setHeader('Retry-After',String(error.retryAfter));
         send(error.status,{error:error.code,retryAfter:error.retryAfter,notCreated:error.notCreated});
