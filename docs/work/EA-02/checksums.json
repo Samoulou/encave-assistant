@@ -1,0 +1,15 @@
+{
+  "base_commit": "602a56ac3dda67806dbd75f5fbb3b3f0dcb45d15",
+  "algorithm": "SHA-256 raw bytes",
+  "review_files": {
+    "docs/work/EA-02/contract.md": "e959c1c6f670b90c245b198111fa64c6a2594c1a4f082a3fa6e579f71693a511",
+    "docs/work/EA-02/results.md": "27886f2ba6c50e2e52f5f9014f01f68d2da93539e494f008307fba808c245197",
+    "docs/connectors/microsoft-contract.md": "eaf0841a65d315bf5298df0510e0eba6db070e4f1cc1b6d29728d0d862723024",
+    "docs/connectors/microsoft-qualification.md": "34d7e71ea9b7dc342544ecbe99a977c3a3b370dc1a6f48a34008173c6854f147",
+    "docs/connectors/microsoft-qualification.json": "8192a5f4fbeaaa09f4d6505488392fc982863c329586fcb6f75861f9c88a2e83"
+  },
+  "local_logs": {
+    ".agentic/ea02-kit.log": "e5ad4211d11e1208fac7e3805951679cdc29bbac6b8187b8b8eb58edcfa16987",
+    ".agentic/ea02-doc-check.log": "0685af0afff87b296c11541b18e90d64f6dc697871748cb5e47a9e8aa5cd14a3"
+  }
+}

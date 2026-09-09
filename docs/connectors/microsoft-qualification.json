@@ -1,0 +1,129 @@
+{
+  "ticket": "EA-02",
+  "recorded_on": "2026-09-09",
+  "record_kind": "unexecuted_qualification_plan",
+  "configured_authorized_test_organizations": 0,
+  "activation_allowed": false,
+  "reason": "Aucun accès de qualification Microsoft configuré dans cette session ; aucune preuve fournisseur réelle produite.",
+  "profiles": [
+    {
+      "id": "exchange_online_own_mailbox_primary_calendar",
+      "qualification": "not_executed",
+      "activation_allowed": false
+    },
+    {
+      "id": "exchange_online_shared_or_delegated",
+      "qualification": "not_executed",
+      "activation_allowed": false
+    },
+    {
+      "id": "exchange_online_secondary_calendar",
+      "qualification": "not_executed",
+      "activation_allowed": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "mail_read",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "mail_notifications",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "calendar_read",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "calendar_write",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "mail_send",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "subscription_renewal",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "authorization_refresh",
+      "state": "unverified",
+      "evidence_references": []
+    },
+    {
+      "id": "revocation_detection",
+      "state": "unverified",
+      "evidence_references": []
+    }
+  ],
+  "real_cases": [
+    {
+      "id": "CON-01",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-02",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-03",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-04",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-05",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-06",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-07",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-08",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-09",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-10",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-11",
+      "status": "not_executed",
+      "evidence_references": []
+    },
+    {
+      "id": "CON-12",
+      "status": "not_executed",
+      "evidence_references": []
+    }
+  ]
+}
