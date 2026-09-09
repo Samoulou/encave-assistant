@@ -1,0 +1,8 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Revue indépendante sur le manifeste SHA256 71fd020523e02298bc45053ffe29567ced1220de9785ffc5ca03847c6c578f72 : 120 empreintes vérifiées sans écart, 46 captures effectivement examinées. Corrections UI, homonymes, isolation API/worker/SQL, reprise et concurrence validés par lecture du code et des preuves. Logs finaux lus : unit 7, functional 7, business 9, E2E 8, UX 5, tooling 19, foundation SQL42, runtime configuré et kit 141 réussis. Responsive 320/390/768/1440, zooms 200/400, clavier, focus et états sensibles examinés ; aucun défaut visuel constaté. Anciens tests et chemins protégés inchangés. Un défaut de confidentialité du nouveau reporter reste à corriger. Aucune CI distante ni production déduite.",
+  "findings": [
+    {"severity":"major","description":"Ligne 9 : la regex cherche une sous-chaîne ressemblant à un chemin sans vérifier qu’elle représente un fichier source local. Une frame « at https://untrusted.example/tests/private-token:12:3 » produit « tests/private-token:12:3 », ensuite journalisé par suites.ts. Des valeurs issues d’une URL ou d’un nom de fonction peuvent donc être recopiées malgré la garantie annoncée de coordonnées source seules. Extraire l’emplacement terminal de la frame, refuser les URL externes et vérifier son appartenance à un fichier source du dépôt ; ajouter les cas négatifs correspondants.","file":"packages/tooling/src/test-diagnostics.ts"}
+  ],
+  "requirements_covered": ["AC-01","AC-02","AC-03","AC-04","AC-05"]
+}

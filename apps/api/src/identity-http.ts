@@ -3,6 +3,7 @@ import { createHmac } from 'node:crypto';
 import { IdentityError, readCookie, opaqueToken, validToken, equalToken } from './identity-security.ts';
 import { IdentityStore, type CommandContext } from './identity-store.ts';
 import { IdentityOidc, type OidcSettings } from './identity-oidc.ts';
+import { TeamExports } from '@encave/tenancy';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -19,8 +20,9 @@ async function jsonBody(request: IncomingMessage): Promise<Record<string, unknow
   } catch { throw new IdentityError(400, 'invalid_request'); }
 }
 
-export function createIdentityHandler(store: IdentityStore, settings: OidcSettings) {
+export function createIdentityHandler(store: IdentityStore, settings: OidcSettings, options: { exportRetentionSeconds?: number } = {}) {
   const authentication = new IdentityOidc(settings, store);
+  const exports = new TeamExports(store.pool, options.exportRetentionSeconds ?? 3600);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -73,10 +75,22 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       };
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
+      if (request.method === 'GET' && path === '/api/team/exports') { send(200, await exports.list(context)); return; }
+      const exportPath = /^\/api\/team\/exports\/([^/]+)(\/download)?$/.exec(path);
+      if (request.method === 'GET' && exportPath) {
+        const result = await exports.get(context, exportPath[1], Boolean(exportPath[2]));
+        if ('content' in result) {
+          response.writeHead(200, { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="${result.filename}"` }).end(result.content);
+        } else send(200, result);
+        return;
+      }
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
-      if (path === '/api/auth/logout') {
+      if (path === '/api/team/exports') {
+        if (Object.keys(body).length) throw new IdentityError(400, 'invalid_request');
+        send(202, await exports.create(context, request.headers['idempotency-key'])); return;
+      } else if (path === '/api/auth/logout') {
         await store.logout(context);
         response.setHeader('Set-Cookie', cookie(sessionCookie, '', 0));
       } else if (path === '/api/caves/switch') await store.switchCave(context, body.caveId);

@@ -2,6 +2,7 @@ import { readdir } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { run } from 'node:test';
+import { failureLocations } from './test-diagnostics.ts';
 
 const root = fileURLToPath(new URL('../../../', import.meta.url));
 const names = ['unit', 'functional', 'business', 'e2e', 'evals'];
@@ -33,6 +34,9 @@ export async function runNodeSuite(directory: string): Promise<void> {
       if (!event.data.success || event.data.counts.failed || event.data.counts.cancelled) failed = true;
     }
     if (event.type === 'test:fail') failed = true;
+    if (event.type === 'test:fail') {
+      for (const location of failureLocations(event.data.details.error)) console.log(`Failure source: ${location}`);
+    }
     if (event.type === 'test:pass' || event.type === 'test:fail') {
       console.log(`${event.type}: ${event.data.name}`);
     }

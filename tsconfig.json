@@ -11,6 +11,9 @@
       "path": "packages/connectors"
     },
     {
+      "path": "packages/tenancy"
+    },
+    {
       "path": "apps/api"
     },
     {

@@ -20,6 +20,10 @@ try {
     issuer: identity.issuer, clientId: 'encave-test', clientSecret: 'public-fixture-client-credential',
     appOrigin: 'http://127.0.0.1:3000', encryptionKey: randomBytes(32).toString('hex'), environment: 'development',
   } }), { mode: 0o600, flag: 'wx' });
+  const workerFile = join(directory, 'worker.json');
+  await writeFile(workerFile, JSON.stringify({ database: database.applicationConfig }), { mode: 0o600, flag: 'wx' });
+  const worker = launch(process.execPath, ['apps/worker/dist/index.js'], { cwd: root, env: { ...process.env, ENCAVE_WORKER_CONFIG: workerFile } }); processes.push(worker);
+  await until(async () => worker.output().includes('"mode":"team_exports"'), worker, 15_000);
   const api = launch(process.execPath, ['apps/api/dist/index.js'], { cwd: root, env: { ...process.env, PORT: '3001', ENCAVE_IDENTITY_CONFIG: file } }); processes.push(api);
   await until(async () => { try { return (await fetch('http://127.0.0.1:3001/api/session')).status === 401; } catch { return false; } }, api, 15_000);
   const web = launch(process.execPath, [join(root, 'node_modules/next/dist/bin/next'), 'start', '--hostname', '127.0.0.1', '--port', '3000'], {
@@ -27,6 +31,7 @@ try {
   }); processes.push(web);
   await until(async () => { try { return (await fetch('http://127.0.0.1:3000/connexion')).status === 200; } catch { return false; } }, web, 30_000);
   console.log('Identity demo ready: http://127.0.0.1:3000/connexion');
+  console.log('Team export worker ready with its database-only configuration.');
   console.log('Synthetic accounts only. PostgreSQL persists reloads; this disposable demo database is removed on normal exit. No Microsoft or production identity is connected.');
   if (!process.argv.includes('--verify')) await new Promise(resolveStop => {
     process.once('SIGINT', resolveStop); process.once('SIGTERM', resolveStop);

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { TeamExportsPanel } from './team-exports';
 
 type Role = 'admin' | 'operator' | 'reader';
 type Cave = { id: string; name: string; role: Role };
@@ -166,6 +167,7 @@ export default function Workspace() {
             </form>
             <h3>Invitations en attente</h3>{liveInvitations.length === 0 ? <p className="muted">Aucune invitation en attente.</p> : <ul className="member-list">{liveInvitations.map(invitation => <li key={invitation.id} className="member-row"><div className="member-identity"><strong>{invitation.email}</strong><span className="muted">{labels[invitation.role]} · {Date.parse(invitation.expiresAt) < Date.now() ? 'Expirée' : 'En attente d’acceptation'}</span></div><button className="button danger-quiet" type="button" aria-label={`Révoquer l’invitation pour ${invitation.email}`} onClick={event => ask({ kind: 'invitation', invitation }, event.currentTarget)} disabled={busy}>Révoquer</button></li>)}</ul>}
           </section>}
+          {active.role === 'admin' && <TeamExportsPanel key={`${active.id}:${session.identity.id}:${session.csrf}`} caveId={active.id} caveName={active.name} csrf={session.csrf} onAccessChanged={load}/>}
         </>}
       </main>
       <dialog ref={dialog} className="confirm-dialog" aria-labelledby="dialog-title" aria-busy={busy} onKeyDown={event => {

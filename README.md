@@ -2,7 +2,7 @@
 
 Assistant de gestion des demandes de visites, dégustations, salles et événements pour les caves. Le caviste garde la validation des engagements clients. **Sam pilote le produit et sa livraison.**
 
-Ce dépôt indépendant contient la documentation, la chaîne de développement, la fondation technique locale et une première tranche d’identité/équipe avec sessions PostgreSQL, invitations et rôles. Le [guide identité](docs/development/identity.md) permet de l’essayer avec des comptes fictifs. Les fonctions commerciales, Microsoft et l’IA restent à construire. Le [guide Windows](docs/local-development.md) décrit Node 24, PostgreSQL, le build et les contrôles.
+Ce dépôt indépendant contient la documentation, la chaîne de développement, la fondation technique locale et une première tranche d’identité/équipe avec sessions PostgreSQL, invitations et rôles. Le [guide identité](docs/development/identity.md) permet de l’essayer avec des comptes fictifs ; les [exports d’équipe](docs/development/tenant-exports.md) sont préparés par un worker et cloisonnés par cave. Les fonctions commerciales, Microsoft et l’IA restent à construire. Le [guide Windows](docs/local-development.md) décrit Node 24, PostgreSQL, le build et les contrôles.
 
 **Commencer par [START-HERE.md](START-HERE.md)** : ouverture dans Codex, premier prompt, setup et lancement autonome local.
 

@@ -5,3 +5,4 @@ export const foundationScope = Object.freeze({
   synthetic: true,
 } as const);
 export { roles, isRole, mayManageTeam, normalizeInvitationEmail, mayRevoke, type Role, type TeamAction } from './identity.ts';
+export * from './team-export.ts';

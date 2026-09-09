@@ -41,6 +41,7 @@ export async function createIdentityTestDatabase(issuer: string) {
     await admin.query(`CREATE DATABASE "${database}"`); createdDatabase = true;
     await owner.query('REVOKE ALL ON SCHEMA public FROM PUBLIC');
     await owner.query(await readFile(new URL('../../../migrations/001_identity.sql', import.meta.url), 'utf8'));
+    await owner.query(await readFile(new URL('../../../migrations/002_team_exports.sql', import.meta.url), 'utf8'));
     await owner.query(`GRANT CONNECT ON DATABASE "${database}" TO "${user}"`);
     await owner.query(`GRANT USAGE ON SCHEMA public TO "${user}"`);
     await owner.query(`GRANT SELECT ON caves,members,identities,app_sessions,login_attempts,invitations TO "${user}"`);
@@ -48,6 +49,7 @@ export async function createIdentityTestDatabase(issuer: string) {
     await owner.query(`GRANT INSERT,DELETE ON login_attempts TO "${user}"`);
     await owner.query(`GRANT DELETE ON app_sessions TO "${user}"`);
     await owner.query(`GRANT INSERT ON identity_audit TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT,UPDATE ON team_exports,team_export_jobs TO "${user}"`);
     await owner.query('INSERT INTO caves(id,name) VALUES($1,$2),($3,$4)', [caveA, 'Cave des Roches — test', caveB, 'Cave du Lac — test']);
     const people = [];
     for (const person of fixturePeople) {

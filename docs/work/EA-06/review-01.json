@@ -1,0 +1,11 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Revue préliminaire indépendante en lecture seule sur la base 008edb83b3fbb863f93b201ab02c53cda9200b0f. Logs lus : functional 6, business 8 et E2E 7 réussis. Aucun défaut d’isolation serveur constaté dans les chemins examinés. Panneau examiné : SHA256 a305c76f365d23f41973d3e93aebcc7de86db5e847a36c68f6da59e7d7cbb59c. Aucune approbation de livraison : corrections et preuves finales à revoir.",
+  "findings": [
+    {"severity":"major","description":"Une réponse GET retardée peut écraser la liste contenant un export créé ensuite. Si cette ancienne réponse ne contient plus que des exports ready, le nouvel export pending disparaît et le polling s’arrête jusqu’au rechargement. Invalider les réponses antérieures à une création et ajouter le scénario navigateur GET retardé puis POST.","file":"apps/web/app/espace/team-exports.tsx"},
+    {"severity":"minor","description":"Après un refus HTTP 410 au téléchargement, l’interface conserve Prêt à télécharger et son bouton. Actualiser la ligne vers expired ou recharger la liste.","file":"apps/web/app/espace/team-exports.tsx"},
+    {"severity":"major","description":"Le contrat AC-01 et produit04 §21 demandent des valeurs de présentation identiques dans deux caves. Ajouter une preuve avec homonymes et refus des références étrangères.","file":"tests/product/functional/tenant-exports.test.mjs"},
+    {"severity":"major","description":"AC-05 reste non démontré : la gate UX complète et ses captures stables examinées indépendamment manquent encore. Fournir gates finales, manifeste et captures après correction.","file":"docs/work/EA-06/contract.md"}
+  ],
+  "requirements_covered": ["AC-02","AC-03","AC-04"]
+}

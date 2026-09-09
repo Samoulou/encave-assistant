@@ -13,6 +13,7 @@
     "@encave/contracts": "0.1.0",
     "@encave/domain": "0.1.0",
     "openid-client": "6.8.8",
-    "pg": "8.23.0"
+    "pg": "8.23.0",
+    "@encave/tenancy": "0.1.0"
   }
 }

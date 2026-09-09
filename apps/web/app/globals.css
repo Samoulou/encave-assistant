@@ -118,3 +118,10 @@ input[aria-invalid="true"] { border: 2px solid var(--danger); }
   .dialog-actions .button { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
+.export-panel { margin-top: 24px; }
+.export-list { list-style: none; padding: 0; margin: 20px 0 0; }
+.export-row { border-top: 1px solid var(--border); padding: 16px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+.export-row > div { flex: 1 1 220px; }
+.export-row strong, .export-row span { display: block; overflow-wrap: anywhere; }
+.export-row p { margin: 0; flex: 1 1 220px; }
+@media (max-width: 639px) { .export-row .button { width: 100%; } }

@@ -16,6 +16,9 @@
     },
     {
       "path": "../../packages/connectors"
+    },
+    {
+      "path": "../../packages/tenancy"
     }
   ]
 }

@@ -11,6 +11,8 @@
   "dependencies": {
     "@encave/domain": "0.1.0",
     "@encave/contracts": "0.1.0",
-    "@encave/connectors": "0.1.0"
+    "@encave/connectors": "0.1.0",
+    "@encave/tenancy": "0.1.0",
+    "pg": "8.23.0"
   }
 }

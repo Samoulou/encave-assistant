@@ -5,6 +5,10 @@ local ci-dessous sont des fixtures fictives ; le bouton qui choisit une identit�
 ne constitue pas une authentification de production. Keycloak et Microsoft ne
 sont pas connectés. Le POC archivé demeure une simulation indépendante.
 
+EA-06 ajoute le [worker d’exports et les contrôles inter-caves](tenant-exports.md).
+Son guide décrit la migration additive 002 et le démarrage, intégré à la commande
+de démonstration ci-dessous. Les choix d’identité de cette tranche demeurent valides.
+
 ## Essayer sous Windows
 
 Depuis la racine du dépôt, avec PostgreSQL local préparé selon le guide DEV-01 :

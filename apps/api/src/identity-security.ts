@@ -5,11 +5,7 @@ export const tokenHash = (token: string) => createHash('sha256').update(token).d
 export const validToken = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9_-]{43}$/.test(value);
 export const validUuid = (value: unknown): value is string => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value);
 
-export class IdentityError extends Error {
-  status: number;
-  code: string;
-  constructor(status: number, code: string) { super(code); this.status = status; this.code = code; }
-}
+export { AccessError as IdentityError } from '@encave/tenancy';
 
 export function equalToken(a: string, b: string): boolean {
   return validToken(a) && validToken(b) && timingSafeEqual(Buffer.from(a), Buffer.from(b));

@@ -1,43 +1,25 @@
 import { randomUUID } from 'node:crypto';
 import type { Pool, PoolClient } from 'pg';
-import { isRole, mayManageTeam, mayRevoke, normalizeInvitationEmail, type Role } from '@encave/domain';
-import { IdentityError, opaqueToken, tokenHash, validToken, validUuid, equalToken } from './identity-security.ts';
+import { isRole, mayRevoke, normalizeInvitationEmail } from '@encave/domain';
+import { IdentityError, opaqueToken, tokenHash, validToken, validUuid } from './identity-security.ts';
+import { transaction, withSession, membership, checkCsrf, inCave, type Session, type Member, type CommandContext } from '@encave/tenancy';
 
-type Session = { token_hash: string; identity_id: string; active_cave_id: string | null; csrf_token: string; email: string; display_name: string };
-type Member = { role: Role; name: string };
-export type CommandContext = { token: string; csrf: string; expectedCave: string };
+export type { CommandContext } from '@encave/tenancy';
 
 export class IdentityStore {
   pool: Pool;
   constructor(pool: Pool) { this.pool = pool; }
 
   async transaction<T>(operation: (db: PoolClient) => Promise<T>): Promise<T> {
-    const db = await this.pool.connect();
-    try {
-      await db.query('BEGIN');
-      await db.query("SET LOCAL statement_timeout = '5000ms'");
-      const result = await operation(db);
-      await db.query('COMMIT');
-      return result;
-    } catch (error) { await db.query('ROLLBACK'); throw error; }
-    finally { db.release(); }
+    return transaction(this.pool, operation);
   }
 
   async withSession<T>(token: string, operation: (db: PoolClient, session: Session) => Promise<T>): Promise<T> {
-    if (!validToken(token)) throw new IdentityError(401, 'session_required');
-    return this.transaction(async db => {
-      const result = await db.query<Session>(`SELECT s.*, i.email, i.display_name FROM app_sessions s
-        JOIN identities i ON i.id=s.identity_id WHERE s.token_hash=$1 AND s.expires_at>now() FOR UPDATE OF s`, [tokenHash(token)]);
-      const session = result.rows[0];
-      if (!session) throw new IdentityError(401, 'session_required');
-      return operation(db, session);
-    });
+    return withSession(this.pool, token, operation);
   }
 
   async currentMember(db: PoolClient, session: Session): Promise<Member | undefined> {
-    const result = await db.query<Member>(`SELECT m.role, c.name FROM members m JOIN caves c ON c.id=m.cave_id
-      WHERE m.cave_id=$1 AND m.identity_id=$2 AND m.revoked_at IS NULL`, [session.active_cave_id, session.identity_id]);
-    return result.rows[0];
+    return membership(db, session.active_cave_id, session.identity_id);
   }
 
   async snapshot(token: string) {
@@ -55,20 +37,11 @@ export class IdentityStore {
   }
 
   checkCsrf(session: Session, value: string) {
-    if (!equalToken(session.csrf_token, value)) throw new IdentityError(403, 'csrf_invalid');
+    checkCsrf(session, value);
   }
 
   async inCave<T>(context: CommandContext, action: 'read' | 'invite' | 'revoke', operation: (db: PoolClient, session: Session, member: Member) => Promise<T>): Promise<T> {
-    return this.withSession(context.token, async (db, session) => {
-      if (action !== 'read') this.checkCsrf(session, context.csrf);
-      if (!session.active_cave_id || session.active_cave_id !== context.expectedCave) throw new IdentityError(409, 'cave_changed');
-      // Serialize team mutations and last-administrator decisions in this cave.
-      await db.query('SELECT pg_advisory_xact_lock(hashtextextended($1, 0))', [session.active_cave_id]);
-      const member = await this.currentMember(db, session);
-      if (!member) throw new IdentityError(403, 'access_revoked');
-      if (!mayManageTeam(member.role, action)) throw new IdentityError(403, 'role_forbidden');
-      return operation(db, session, member);
-    });
+    return inCave(this.pool, context, action, operation);
   }
 
   async switchCave(context: CommandContext, caveId: unknown) {

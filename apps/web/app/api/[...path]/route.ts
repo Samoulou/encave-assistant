@@ -11,7 +11,7 @@ async function proxy(request: NextRequest): Promise<Response> {
   }
   const target = new URL(request.nextUrl.pathname + request.nextUrl.search, origin);
   const headers = new Headers();
-  for (const name of ['cookie', 'content-type', 'origin', 'x-csrf-token', 'x-encave-cave']) {
+  for (const name of ['cookie', 'content-type', 'origin', 'x-csrf-token', 'x-encave-cave', 'idempotency-key']) {
     const value = request.headers.get(name); if (value) headers.set(name, value);
   }
   try {
@@ -21,7 +21,7 @@ async function proxy(request: NextRequest): Promise<Response> {
       signal: AbortSignal.timeout(10_000),
     } as RequestInit);
     const output = new Headers({ 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'X-Content-Type-Options': 'nosniff' });
-    for (const name of ['content-type', 'location']) {
+    for (const name of ['content-type', 'location', 'content-disposition']) {
       const value = upstream.headers.get(name); if (value) output.set(name, value);
     }
     for (const value of upstream.headers.getSetCookie()) output.append('Set-Cookie', value);
