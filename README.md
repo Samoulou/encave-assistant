@@ -2,7 +2,7 @@
 
 Assistant de gestion des demandes de visites, dégustations, salles et événements pour les caves. Le caviste garde la validation des engagements clients. **Sam pilote le produit et sa livraison.**
 
-Ce dépôt indépendant contient la documentation et la chaîne de développement avec Codex. **L’application est à construire.**
+Ce dépôt indépendant contient la documentation, la chaîne de développement et la fondation technique locale. **Les fonctionnalités produit restent à construire.** Le [guide Windows](docs/local-development.md) décrit Node 24, PostgreSQL, le build et les contrôles.
 
 **Commencer par [START-HERE.md](START-HERE.md)** : ouverture dans Codex, premier prompt, setup et lancement autonome local.
 

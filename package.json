@@ -1,17 +1,38 @@
 {
-  "name": "encave-assistant-starter",
+  "name": "encave-assistant",
   "version": "0.1.0",
   "private": true,
-  "description": "Kit de développement agentique ; application à construire",
+  "description": "EnCave Assistant \u2014 fondation locale ind\u00e9pendante",
   "scripts": {
     "check:kit": "python3 scripts/agentic.py validate",
     "test:tooling": "python3 -m unittest discover -s tests/tooling -v",
-    "test:unit": "python3 scripts/unconfigured.py unit",
-    "test:functional": "python3 scripts/unconfigured.py functional",
-    "test:business": "python3 scripts/unconfigured.py business",
-    "test:e2e": "python3 scripts/unconfigured.py e2e",
-    "test:evals": "python3 scripts/unconfigured.py evals",
-    "check:foundation": "python3 scripts/unconfigured.py foundation",
-    "test:ux": "python3 scripts/unconfigured.py ux"
+    "test:unit": "node packages/tooling/src/suites.ts unit",
+    "test:functional": "node packages/tooling/src/suites.ts functional",
+    "test:business": "node packages/tooling/src/suites.ts business",
+    "test:e2e": "node packages/tooling/src/suites.ts e2e",
+    "test:evals": "node packages/tooling/src/suites.ts evals",
+    "check:foundation": "node packages/tooling/src/foundation.ts",
+    "test:ux": "python3 scripts/unconfigured.py ux",
+    "test:foundation-tooling": "node --test packages/tooling/test/*.test.mjs",
+    "db:start": "node packages/tooling/src/database.ts start",
+    "db:stop": "node packages/tooling/src/database.ts stop",
+    "start:web": "npm run start --workspace @encave/web",
+    "start:api": "npm run start --workspace @encave/api",
+    "start:worker": "npm run start --workspace @encave/worker"
+  },
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24.19.0 <25",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@10.9.2",
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "24.13.3",
+    "@types/pg": "8.20.0"
   }
 }
