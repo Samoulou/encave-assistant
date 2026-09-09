@@ -1,7 +1,8 @@
 import pg from 'pg';
 import { randomBytes, randomUUID } from 'node:crypto';
+import { setTimeout as delay } from 'node:timers/promises';
 import { localDatabaseConfig } from './database.ts';
-import { migrateDatabase } from './migrations.ts';
+import { migrateDatabase, migrationFiles } from './migrations.ts';
 
 const ownedFixtures = new WeakMap<object, { pool: pg.Pool; owner: pg.Pool }>();
 export function assertOwnedTestDatabase(value: { fixtureScope: object; pool: pg.Pool; owner: pg.Pool }) {
@@ -37,9 +38,18 @@ export async function createIdentityTestDatabase(issuer: string) {
   const fixtureScope = Object.freeze({});
   const cleanup = async () => {
     ownedFixtures.delete(fixtureScope);
-    await pool.end(); await owner.end();
     try {
-      if (createdDatabase) await admin.query(`DROP DATABASE "${database}" WITH (FORCE)`);
+      await pool.end(); await owner.end();
+      if (createdDatabase) {
+        // Pool shutdown can resolve before PostgreSQL has observed the socket close.
+        // Do not terminate a backend while its client is still draining messages.
+        const deadline = performance.now() + 5000;
+        while ((await admin.query('SELECT 1 FROM pg_stat_activity WHERE datname=$1 LIMIT 1', [database])).rowCount) {
+          if (performance.now() >= deadline) throw new Error('Owned fixture connections did not close; database retained');
+          await delay(25);
+        }
+        await admin.query(`DROP DATABASE "${database}"`);
+      }
       if (createdRole) await admin.query(`DROP ROLE "${user}"`);
     } finally { await admin.end(); }
   };
@@ -48,7 +58,7 @@ export async function createIdentityTestDatabase(issuer: string) {
     createdRole = true;
     await admin.query(`CREATE DATABASE "${database}"`); createdDatabase = true;
     await owner.query('REVOKE ALL ON SCHEMA public FROM PUBLIC');
-    await migrateDatabase(owner);
+    await migrateDatabase(owner, { targetVersion: migrationFiles.length });
     await owner.query(`GRANT CONNECT ON DATABASE "${database}" TO "${user}"`);
     await owner.query(`GRANT USAGE ON SCHEMA public TO "${user}"`);
     await owner.query(`GRANT SELECT ON caves,members,identities,app_sessions,login_attempts,invitations TO "${user}"`);
@@ -61,6 +71,7 @@ export async function createIdentityTestDatabase(issuer: string) {
     await owner.query(`GRANT UPDATE ON inquiries,actions TO "${user}"`);
     await owner.query(`GRANT UPDATE(state,version,updated_at,snapshot,valid_until) ON proposal_versions TO "${user}"`);
     await owner.query(`GRANT UPDATE(state,version,updated_at) ON bookings TO "${user}"`);
+    await owner.query(`GRANT SELECT,INSERT ON workflow_commands,workflow_events TO "${user}"`);
     await owner.query('INSERT INTO caves(id,name) VALUES($1,$2),($3,$4)', [caveA, 'Cave des Roches — test', caveB, 'Cave du Lac — test']);
     const people = [];
     for (const person of fixturePeople) {

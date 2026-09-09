@@ -5,6 +5,7 @@ import { IdentityStore, type CommandContext } from './identity-store.ts';
 import { IdentityOidc, type OidcSettings } from './identity-oidc.ts';
 import { TeamExports } from '@encave/tenancy';
 import { CaseStore } from './case-store.ts';
+import { WorkflowStore } from './workflow-store.ts';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -25,6 +26,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const authentication = new IdentityOidc(settings, store);
   const exports = new TeamExports(store.pool, options.exportRetentionSeconds ?? 3600);
   const cases = new CaseStore(store.pool);
+  const workflows = new WorkflowStore(store.pool);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -91,6 +93,8 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
+      const transitionPath = /^\/api\/inquiries\/([^/]+)\/state$/.exec(path);
+      if (transitionPath) { send(200,await workflows.transition(context,'inquiry',transitionPath[1],body,request.headers['idempotency-key'])); return; }
       if (path === '/api/team/exports') {
         if (Object.keys(body).length) throw new IdentityError(400, 'invalid_request');
         send(202, await exports.create(context, request.headers['idempotency-key'])); return;

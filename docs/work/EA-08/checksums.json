@@ -1,0 +1,204 @@
+{
+  "ticket": "EA-08",
+  "execution": 1,
+  "correction_cycle": 1,
+  "base_commit": "1b9f250a8f36ee03a8d20ab27b8807d17936eb1f",
+  "created_utc": "2026-09-09T11:28:53.267777+00:00",
+  "note": "Direct task, not controller attestation. Raw and LF hashes; final reports excluded to avoid circular digest. UX not applicable: no UI code changed.",
+  "review_files": {
+    "README.md": {
+      "sha256_raw": "8fe5b9d0a8083c4803011e946f7b34b6887d6c7d7cb75f35f3844cf05ff96075",
+      "sha256_lf": "8fe5b9d0a8083c4803011e946f7b34b6887d6c7d7cb75f35f3844cf05ff96075"
+    },
+    "apps/api/src/identity-http.ts": {
+      "sha256_raw": "419894fbe7f3e14f0a1cc810217820beb723287cbaec35eebfc355689a6832b1",
+      "sha256_lf": "419894fbe7f3e14f0a1cc810217820beb723287cbaec35eebfc355689a6832b1"
+    },
+    "apps/api/src/workflow-store.ts": {
+      "sha256_raw": "ad88249cac223d7bc30323d3049c706b3abd2cb31f32eabb0ad56a8918131d93",
+      "sha256_lf": "ad88249cac223d7bc30323d3049c706b3abd2cb31f32eabb0ad56a8918131d93"
+    },
+    "docs/decisions/ADR-0009-transitions-et-concurrence.md": {
+      "sha256_raw": "c75fefe807a0f203ee384dead6685598c30ac934c0eaa9cf66e6224b6ebb2013",
+      "sha256_lf": "c75fefe807a0f203ee384dead6685598c30ac934c0eaa9cf66e6224b6ebb2013"
+    },
+    "docs/development/case-core.md": {
+      "sha256_raw": "723e61d6983d2a240485bfb6fa7b78d8868119c23f15ee9f817909ab638e5482",
+      "sha256_lf": "723e61d6983d2a240485bfb6fa7b78d8868119c23f15ee9f817909ab638e5482"
+    },
+    "docs/development/workflow.md": {
+      "sha256_raw": "cf28d55083a43d79b0f28d80430f9b5af6a620c1caaa9fe979a6ce064014845c",
+      "sha256_lf": "cf28d55083a43d79b0f28d80430f9b5af6a620c1caaa9fe979a6ce064014845c"
+    },
+    "docs/work/EA-07/delivery.md": {
+      "sha256_raw": "cbf6bb598508153b8ffced6cc9c7d761ec96f3f9f8e68576b4d2f866cdffa195",
+      "sha256_lf": "cbf6bb598508153b8ffced6cc9c7d761ec96f3f9f8e68576b4d2f866cdffa195"
+    },
+    "docs/work/EA-08/contract.md": {
+      "sha256_raw": "f983ee03e99018375acdd0a740b71fdc1899af45283d87818fe21ead8c03b350",
+      "sha256_lf": "f983ee03e99018375acdd0a740b71fdc1899af45283d87818fe21ead8c03b350"
+    },
+    "docs/work/EA-08/review-01.json": {
+      "sha256_raw": "305cbe2d1370be73a1a32f3e531f6df1685dae62e28fd62aa4996865826b4c90",
+      "sha256_lf": "305cbe2d1370be73a1a32f3e531f6df1685dae62e28fd62aa4996865826b4c90"
+    },
+    "migrations/004_workflow_commands.sql": {
+      "sha256_raw": "b3517947d54f395346c6921721f5fe924448bcdd60922d1add4b8648f62ed905",
+      "sha256_lf": "b3517947d54f395346c6921721f5fe924448bcdd60922d1add4b8648f62ed905"
+    },
+    "packages/domain/src/index.ts": {
+      "sha256_raw": "deda8d5c6e9a399d7a0ea86efd49d216b4bcbd7b21b788806571a48202058a7f",
+      "sha256_lf": "deda8d5c6e9a399d7a0ea86efd49d216b4bcbd7b21b788806571a48202058a7f"
+    },
+    "packages/domain/src/workflow.ts": {
+      "sha256_raw": "affa358a4f54237b9775a961f25af629bd7026a35954213d2992aa44ecdcfb92",
+      "sha256_lf": "affa358a4f54237b9775a961f25af629bd7026a35954213d2992aa44ecdcfb92"
+    },
+    "packages/tooling/src/identity-test-database.ts": {
+      "sha256_raw": "f73e0a0d4d336854fecb8761626edb2ae0fc9693d5758706af4f199c9f49341e",
+      "sha256_lf": "f73e0a0d4d336854fecb8761626edb2ae0fc9693d5758706af4f199c9f49341e"
+    },
+    "packages/tooling/src/migrations.ts": {
+      "sha256_raw": "90c26708bc57e799c7b347a097a23c10c59226e3aca67a57e8363e17348557f9",
+      "sha256_lf": "90c26708bc57e799c7b347a097a23c10c59226e3aca67a57e8363e17348557f9"
+    },
+    "tests/product/business/workflow-concurrency.test.mjs": {
+      "sha256_raw": "dc648b2b44a4a98a7a98ca2e7b0ec4e7c54dd1c9154b09dbd2aa238973aa1214",
+      "sha256_lf": "dc648b2b44a4a98a7a98ca2e7b0ec4e7c54dd1c9154b09dbd2aa238973aa1214"
+    },
+    "tests/product/e2e/workflow-browser.test.mjs": {
+      "sha256_raw": "4ed90211ba86a832163909321ac705465816f82dbb702a5cb2e1f1c97ff351a5",
+      "sha256_lf": "4ed90211ba86a832163909321ac705465816f82dbb702a5cb2e1f1c97ff351a5"
+    },
+    "tests/product/functional/fixture-cleanup.test.mjs": {
+      "sha256_raw": "e13d063d40246c8b1794b5fc0556f25e925d4d6cf12b0325bbd5278c33f06cb1",
+      "sha256_lf": "e13d063d40246c8b1794b5fc0556f25e925d4d6cf12b0325bbd5278c33f06cb1"
+    },
+    "tests/product/functional/workflow-http.test.mjs": {
+      "sha256_raw": "f94b2f18f2b120e0c8cba0d87feef5a45efa81a9bbc72a8ce34fe67c4e1310e4",
+      "sha256_lf": "f94b2f18f2b120e0c8cba0d87feef5a45efa81a9bbc72a8ce34fe67c4e1310e4"
+    },
+    "tests/product/helpers/workflow-harness.mjs": {
+      "sha256_raw": "142ffa2387d8c6cdcee4a50dfe1a21570a208b98648c52e416d236e4ec792795",
+      "sha256_lf": "142ffa2387d8c6cdcee4a50dfe1a21570a208b98648c52e416d236e4ec792795"
+    },
+    "tests/product/unit/workflow.test.mjs": {
+      "sha256_raw": "a1d22dfbf0c16129c797cb559aa3c704845b01d01c46b04e05d957ea86a094a3",
+      "sha256_lf": "a1d22dfbf0c16129c797cb559aa3c704845b01d01c46b04e05d957ea86a094a3"
+    }
+  },
+  "local_logs": {
+    ".agentic/ea07-linux-committed-suites-errors.log": {
+      "sha256_raw": "5f93472afde6bc6bb791638816d6e13fed2567d1ff021c45744e7ec4194396fc",
+      "sha256_lf": "d71328daaef8e7117ffe03a000636f6b95d15f3c644ad006ab8efb9e2bc92244"
+    },
+    ".agentic/ea07-linux-committed-suites.log": {
+      "sha256_raw": "eeb8c1d29cb96b5a94ab4e3d143491e5914c12c00a5ce4442cbcfd2f3742fb13",
+      "sha256_lf": "5e01e68b5f09058430c4f82e3a8739af8a3716a37a5e6379aa2ec5a583d15746"
+    },
+    ".agentic/ea07-remote-product-failure.log": {
+      "sha256_raw": "7e980813245829403aa869e80ef789065b233b973790d174fbccc769dea36102",
+      "sha256_lf": "e1c0d1edf7a12aac0243bdb5a17f15bd2684005aee60657f003807ea9f3963cd"
+    },
+    ".agentic/ea08-business-development.log": {
+      "sha256_raw": "944ec363d6dff5bba7926527baa925691f1e59e4ddd97bb102d9588c8b0290f8",
+      "sha256_lf": "8d17e9242df849e7bd110cd446fd69173573785205364aa67cfb78954f72ccc3"
+    },
+    ".agentic/ea08-business-final.log": {
+      "sha256_raw": "c14b9524aff1e8377fb8cc7ea0b3d836a28c1e0767cb2abb0814d00afcd486dd",
+      "sha256_lf": "bd43d87db84751e63e4dea9e95207dbeb947f23c56a647c5ea8ff8bb8ce47297"
+    },
+    ".agentic/ea08-cleanup-before-correction.log": {
+      "sha256_raw": "1afa454c08397db7016c9e775a222b8b3acd87d6cb5903ac40963af53460ece5",
+      "sha256_lf": "d953a2904f5f8780b9ed6a2b6206cc03a052ab5343e7d744a6e39f57e25f5544"
+    },
+    ".agentic/ea08-correction1-targeted.log": {
+      "sha256_raw": "acec0dffd5f8fb6c833d25e61c6e245b71e285b0ac23cf239ff3bc9789133d90",
+      "sha256_lf": "e2f795eae4d32c54b24ab92f1493de31727eb8c6d05346e01bcb3618947b1ccb"
+    },
+    ".agentic/ea08-e2e-development.log": {
+      "sha256_raw": "7693b55591976cc5f025052096bf846fcdda068483cfeb2af7bafcee750590ea",
+      "sha256_lf": "de207d082f5947d1de92287247be87096511c655b2d6df4968a96634cdba95de"
+    },
+    ".agentic/ea08-e2e-final.log": {
+      "sha256_raw": "2dc157f403808d0a3cc7d1d3cbc4d9574a33d90cf0f6e9245956c3ac86da0371",
+      "sha256_lf": "160819c0fe43fd8b931fde12adc7a030a7fa5cc59e977c70ef55f00c10297a09"
+    },
+    ".agentic/ea08-foundation-final.log": {
+      "sha256_raw": "18c3649ff7888b72c8d99b8ca4c99d8b672d85fa8f09387948cc3fff3ba128e9",
+      "sha256_lf": "93b87bd07480012932b668c1be8d812fa3d65e8b13cb1ee2df51f212f1eacb86"
+    },
+    ".agentic/ea08-foundation-tooling-final.log": {
+      "sha256_raw": "b5cb34df5476c98c34726447cf4ed58249114146108ff54a33d00f0cc9554f06",
+      "sha256_lf": "ee244fd58704ef5a129407dbc848e5557e3ea64da5785cbd295bf1ce02e6b429"
+    },
+    ".agentic/ea08-functional-development.log": {
+      "sha256_raw": "c5848dd2282ed2c3a9657bb3f96de216afb95ce7e228555478531ca1fc033427",
+      "sha256_lf": "e936e4d7bddaafbdbd980029b544676be97efc6ec76c3524b79b5b2514335906"
+    },
+    ".agentic/ea08-functional-final.log": {
+      "sha256_raw": "e8d8bb52357cd5998c3d5a5c0a8c7dbe2e131d04c83e09968a8982c7939f9f79",
+      "sha256_lf": "ecc676adedada198d24d3efb94e47abe9cfde01f8bd73e7fddef2a6fe8c8b105"
+    },
+    ".agentic/ea08-install-final.log": {
+      "sha256_raw": "cb24cc64840222b0f5fd860b9661c0e2738945c9f27eac956d3c40038afa8c58",
+      "sha256_lf": "9a314334e043d001bbc0c39ff2b9cea11ae6a1dddb568f8338df3858f3779298"
+    },
+    ".agentic/ea08-kit-final.log": {
+      "sha256_raw": "4dc527611c0edd06594dfd895d4d909da208081adc775a88f32ef3415d26a66e",
+      "sha256_lf": "8fe48557f07172b5d00b6fa1021ecee0fb68a861b7239b6d59af10a086615dd6"
+    },
+    ".agentic/ea08-linux-cleanup-correction.log": {
+      "sha256_raw": "554497a71ffc63f557b975b315f0bdb3b6d121b27dbe644995dd6abc9fa53478",
+      "sha256_lf": "d10458728493ecbd14183a78e2f8231506c2e090301135e042bb10d36d08decd"
+    },
+    ".agentic/ea08-runtime-final.log": {
+      "sha256_raw": "65c6207affd63c33350f0ee0958d1c3d167c5fc4900ed3fc276a123793da8a1d",
+      "sha256_lf": "74091efdbbb542c6bccb2d9372594126e1d545d9577033afd4ad0e45c17f8c5c"
+    },
+    ".agentic/ea08-types-correction1.log": {
+      "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".agentic/ea08-types-development.log": {
+      "sha256_raw": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sha256_lf": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    ".agentic/ea08-unit-development.log": {
+      "sha256_raw": "b375e5bac6d3de14d1917c967ffa0e5df8a700131870f250dd6760e86796ab86",
+      "sha256_lf": "053277c08c8d48abdfdce5695c7217848acc36d9e779da8afc06684b795dea91"
+    },
+    ".agentic/ea08-unit-final.log": {
+      "sha256_raw": "b375e5bac6d3de14d1917c967ffa0e5df8a700131870f250dd6760e86796ab86",
+      "sha256_lf": "053277c08c8d48abdfdce5695c7217848acc36d9e779da8afc06684b795dea91"
+    }
+  },
+  "local_helpers": {
+    ".agentic/runs/ea08-controlled-kit.py": {
+      "sha256_raw": "f784afc3946115d539a411a3a42e7c5d096866231518ca1fc90c4225489ca644",
+      "sha256_lf": "f784afc3946115d539a411a3a42e7c5d096866231518ca1fc90c4225489ca644"
+    },
+    ".agentic/runs/ea08-ea07-fixture-cleanup-only.ts": {
+      "sha256_raw": "328359751481227110e5d3b16688e879b0631ec3ed51581ad8d2af58a8d24d58",
+      "sha256_lf": "328359751481227110e5d3b16688e879b0631ec3ed51581ad8d2af58a8d24d58"
+    },
+    ".agentic/runs/ea08-evidence.py": {
+      "sha256_raw": "3f19d51c28fa25662458f37626b57667938ab3f9dd4e87e7947c33203e1282f6",
+      "sha256_lf": "3f19d51c28fa25662458f37626b57667938ab3f9dd4e87e7947c33203e1282f6"
+    },
+    ".agentic/runs/ea08-linux-cleanup-diagnostic.py": {
+      "sha256_raw": "d3c03f5c7095875c3f14216a7a928288213086c7bfd8bf800dd070624e7e1d51",
+      "sha256_lf": "d3c03f5c7095875c3f14216a7a928288213086c7bfd8bf800dd070624e7e1d51"
+    },
+    ".agentic/runs/ea08-prepare-diagnostics.py": {
+      "sha256_raw": "8debbc2d13ba4173cebe922aaff3bd6eea00ce092f83e15bab22aed21b6f8d4b",
+      "sha256_lf": "8debbc2d13ba4173cebe922aaff3bd6eea00ce092f83e15bab22aed21b6f8d4b"
+    }
+  },
+  "checks": {
+    "criteria_exact_in_order": 3,
+    "old_test_changes": 0,
+    "protected_changes": 0,
+    "captures": 0
+  }
+}

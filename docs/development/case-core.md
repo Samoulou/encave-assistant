@@ -43,6 +43,9 @@ baux, tentatives et effets fournisseur restent EA-23 et suivants.
 
 ## Migrations et reprise
 
+Évolution EA-08 : l'appel sans option conserve la cible v3 ; utiliser la cible
+explicite v4 pour les commandes et le journal, selon le [guide des états](workflow.md).
+
 `migrateDatabase(ownerPool)` dans `packages/tooling/src/migrations.ts` s’exécute
 avec un pool propriétaire de migration. Il utilise une connexion SQL dédiée et
 un verrou de session pour sérialiser les migrations dans cette base. Il refuse

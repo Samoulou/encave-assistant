@@ -6,6 +6,11 @@ Ce dépôt indépendant contient la documentation, la chaîne de développement,
 
 **Commencer par [START-HERE.md](START-HERE.md)** : ouverture dans Codex, premier prompt, setup et lancement autonome local.
 
+Les [commandes d'état](docs/development/workflow.md) vérifient les droits et la
+version côté serveur ; une modification concurrente retourne un conflit, avec
+résultat idempotent et journal transactionnel. Les workflows commerciaux restent
+à réaliser dans les tickets suivants.
+
 ```bash
 git clone https://github.com/Samoulou/encave-assistant.git
 cd encave-assistant

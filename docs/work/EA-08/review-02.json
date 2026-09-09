@@ -1,0 +1,10 @@
+{
+  "verdict": "pass",
+  "summary": "Review indépendante EA-08 achevée en lecture seule sur la base 1b9f250a8f36ee03a8d20ab27b8807d17936eb1f et le manifeste ecfcdd099dc92edccb2447467ac31a5c1c247e35b6b447ef48be056e5f32d163. Les trois constats de review-01 sont résolus. Les 46 empreintes correspondent : 20 fichiers, 21 logs et 5 helpers. Aucun ancien test, migration publiée ou chemin protégé modifié. Logs finaux examinés : unit12, functional17, business17, E2E12, outillage19, foundation SQL42/runtime et kit141 passent. Migration v4 explicite et limites documentées. La correction du nettoyage PostgreSQL conserve les erreurs, attend les connexions pendant une durée bornée, abandonne sans suppression forcée en cas de persistance et ferme le client administrateur dans finally. Le nouveau test échoue avant correction puis passe après. Vérification indépendante des 358 fichiers de l’archive contre Git et de la copie Linux : seule identity-test-database.ts diffère, exactement par le remplacement de cleanup et l’import de temporisation ; les trois répétitions Linux des suites historiques passent. Aucun défaut bloquant identifié. Ce verdict approuve le périmètre local examiné ; il ne constitue ni une preuve de publication, ni une CI réussie, ni un déploiement.",
+  "findings": [],
+  "requirements_covered": [
+    "AC-01 — transitions interdites rejetées ; contrôles serveur et refus inter-caves ; journal atomique, références composites et droits SQL examinés.",
+    "AC-02 — conflits de version, concurrence, rejeu identique ou contradictoire, refus après changement des droits ou de cave, borne entière et rollback démontrés.",
+    "AC-03 — quatre vocabulaires et graphes indépendants ; conservation des termes et refus des transitions commerciales sans workflow démontrés."
+  ]
+}
