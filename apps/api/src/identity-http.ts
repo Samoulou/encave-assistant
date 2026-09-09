@@ -7,6 +7,8 @@ import { TeamExports } from '@encave/tenancy';
 import { CaseStore } from './case-store.ts';
 import { WorkflowStore } from './workflow-store.ts';
 import { CatalogStore } from './catalog-store.ts';
+import { ResourceStore } from './resource-store.ts';
+import { ResourceTimeError } from '@encave/domain';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -29,6 +31,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const cases = new CaseStore(store.pool);
   const workflows = new WorkflowStore(store.pool);
   const catalog = new CatalogStore(store.pool);
+  const resources = new ResourceStore(store.pool);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -81,6 +84,14 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       };
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
+      const resourcePath = /^\/api\/resources\/([^/]+)(?:\/(versions|enable|closures)(?:\/([^/]+)\/(cancel))?)?$/.exec(path);
+      const planPath = /^\/api\/catalog\/versions\/([^/]+)\/(resources|occupation)$/.exec(path);
+      if (request.method === 'GET' && path === '/api/resources') { send(200,await resources.list(context)); return; }
+      if (request.method === 'GET' && resourcePath && !resourcePath[2]) {
+        if ([...url.searchParams.keys()].some(key=>key!=='before')) throw new IdentityError(400,'invalid_cursor');
+        send(200,await resources.read(context,resourcePath[1]!,url.searchParams.has('before')?Number(url.searchParams.get('before')):10001)); return;
+      }
+      if (request.method === 'GET' && planPath?.[2] === 'resources') { send(200,await resources.plan(context,planPath[1]!)); return; }
       if (request.method === 'GET' && path === '/api/catalog/offers') {
         if ([...url.searchParams.keys()].some(key => key !== 'eligible') || (url.searchParams.has('eligible') && url.searchParams.get('eligible') !== 'true')) throw new IdentityError(400,'invalid_request');
         send(200,await catalog.list(context,url.searchParams.get('eligible') === 'true')); return;
@@ -104,6 +115,15 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
+      if (path === '/api/resources') { send(201,await resources.write(context,'create',null,body,request.headers['idempotency-key'])); return; }
+      if (resourcePath) {
+        const id=resourcePath[1]!,key=request.headers['idempotency-key'];
+        if (resourcePath[2]==='versions' && !resourcePath[3]) { send(201,await resources.write(context,'revise',id,body,key)); return; }
+        if (resourcePath[2]==='enable' && !resourcePath[3]) { send(200,await resources.write(context,'enable',id,body,key)); return; }
+        if (resourcePath[2]==='closures') { send(resourcePath[3]?200:201,await resources.write(context,resourcePath[3]?'cancel_closure':'close',id,body,key,resourcePath[3]??null)); return; }
+      }
+      if (planPath?.[2]==='resources') { send(200,await resources.write(context,'plan',planPath[1]!,body,request.headers['idempotency-key'])); return; }
+      if (planPath?.[2]==='occupation') { const result=await resources.preview(context,planPath[1]!,body); send(result.rulesSatisfied?200:409,result); return; }
       if (path === '/api/catalog/offers') { send(201,await catalog.create(context,body,request.headers['idempotency-key'])); return; }
       if (catalogPath) {
         const id = catalogPath[1]!, key = request.headers['idempotency-key'];
@@ -135,6 +155,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         response.setHeader('Set-Cookie', [...(Array.isArray(existing) ? existing : typeof existing === 'string' ? [existing] : []), cookie(loginCookie, '', 0)]);
         response.writeHead(303, { Location: settings.appOrigin + '/connexion?erreur=connexion' }).end();
       } else if (error instanceof IdentityError) send(error.status, { error: error.code });
+      else if (error instanceof ResourceTimeError) send(400, { error: error.code });
       else send(503, { error: 'service_unavailable' });
       // External messages, authorization codes and SQL details never enter logs.
     }

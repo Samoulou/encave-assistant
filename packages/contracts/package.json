@@ -8,6 +8,7 @@
     "build": "tsc -b"
   },
   "dependencies": {
+    "@encave/domain": "0.1.0",
     "zod": "4.5.4"
   }
 }

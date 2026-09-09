@@ -15,6 +15,11 @@ Le [catalogue](docs/development/catalog.md) conserve des fiches approuvées par 
 des versions immuables et les règles de prix explicites ; son garde serveur exclut
 les offres incomplètes, périmées ou désactivées de la sélection automatique.
 
+Les [ressources et leurs horaires](docs/development/resources.md) possèdent des
+configurations versionnées, des marges et des fermetures. L'aperçu des intervalles
+traite les changements d'heure et distingue les règles internes d'une disponibilité
+complète, qui reste à calculer dans les tickets suivants.
+
 ```bash
 git clone https://github.com/Samoulou/encave-assistant.git
 cd encave-assistant
