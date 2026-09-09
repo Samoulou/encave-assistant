@@ -1,0 +1,14 @@
+{
+  "base_commit": "3b241b4118c79a5c8c9036fc03f3056d60890c4d",
+  "algorithm": "SHA-256 raw bytes",
+  "review_files": {
+    "docs/work/EA-01/contract.md": "1a887090581b55df4caabb156558898f3990707526ed61184c9fa862c5175f10",
+    "docs/work/EA-01/results.md": "d3367c724786dc4a6564de28f380861fa196d8a2ce725d2042f63dc97cd7209c",
+    "docs/discovery/EA-01-perimetre-et-mesure.md": "8f75785645a158846fdb3bc770b1fd4c1e259dd04b4ee13dd2918e7f5e4cdcc6",
+    "docs/discovery/EA-01-baseline-template.csv": "db53f6b43a3274559cfd152709508f893eb4a0f5c2a48cb8257e0484569c5015"
+  },
+  "local_logs": {
+    ".agentic/ea01-kit.log": "55a5d5ea5ea1484f2e074f1f3c4e002bf94cb7e3942a70befc4563280893b952",
+    ".agentic/ea01-doc-check.log": "a62100bb735357b63fc919af661e821c821e723bf5d25cf8b58d1816903fe7a6"
+  }
+}
