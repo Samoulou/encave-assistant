@@ -1,0 +1,15 @@
+{
+  "base_commit": "73ab37e",
+  "algorithm": "SHA-256",
+  "review_files": {
+    "docs/work/INIT-01/contract.md": "7a3a5e7f6d2d5708d4fbd999bf6090769e9011ba3f3d211f19590b55dd7115b2",
+    "docs/decisions/ADR-0001-environnement.md": "ef56bc7e596bba59b4966e979ac502f6d13d61c552a6261f5ed2f20fa6d38d2d",
+    "docs/setup-result.md": "b603c8bc64dc8080505fccab42099540376a67502e8a590a22ec075994506789",
+    "docs/work/INIT-01/results.md": "06a853ddb8d4419e38e9d11f0633ca8a112521ee3b7f2ba73a91cc798a8a581a"
+  },
+  "local_logs": {
+    ".agentic/kit-windows-init.log": "d3253671dc895e92d0c8712a4788a4b0ec82f82297094d6be3e3c3a6c5047faa",
+    ".agentic/kit-wsl-init.log": "f149c63533a5ae43cb294fcb5b2f8f73bce532d5a92f9dc6bdb847d4acd2e810",
+    ".agentic/kit-wsl-init-2.log": "a77a789e4fe3fae011e9447380588ffe2f5f822eb211f589a49369146b3bc6e7"
+  }
+}
