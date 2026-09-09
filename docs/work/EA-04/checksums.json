@@ -1,0 +1,34 @@
+{
+  "base_commit": "f5cc92c249370b51e773bea2ae704c0881a65968",
+  "algorithm": "SHA-256 raw bytes",
+  "review_files": {
+    ".github/workflows/product-quality.yml": "6c459bd2c6f6ad9ca2d6ee59ce9288767d5e37f81b4c5b63f6e6b01a201a7243",
+    "docs/ci-environments.md": "3127a4f0a6555c0b5859637487935976ce25d667ad6ab2ef334b14fdf908d9ca",
+    "docs/work/EA-04/contract.md": "ff7a7008703ac8cf78d65283ca0aa32dcf3bec8b0e76519c97acdc49ccd26ea4",
+    "docs/work/EA-04/results.md": "4b18c3a82c7ba59a8d36e23af911aa0db39e187686f924f03afb48f58b3e662d",
+    "ops/environments/development.json": "0fb80a6ec6c501ef4c364aeb4e8d3a8eea743cbbeef871225064c552befe72cd",
+    "ops/environments/preproduction.json": "dcd7300aebf48463fad13b1c20ba1c8426be6ae8353cd82ece365de0f26b0ff9",
+    "ops/environments/production.json": "d7be5b5bff3bc74e824509e66aa8a151b1c91bd5f282bb2193b633217c0f0010",
+    "package-lock.json": "edc7867bbdd5a8acc8305fb5da5def9548e69c425e504e9bf9662f237742957c",
+    "package.json": "8fbdae0c574191ed56209d5a5fedf39b3bce40d560233b9c8f9da782108d3071",
+    "packages/tooling/src/browser-check.ts": "15365808fd644c2ce8910b32259a60f11b930f4ef7c5645f1025ce0e4a4f1c30",
+    "packages/tooling/src/ci-environment.ts": "d15876c86461da3a48f7de8176232f48fda982a96d5ccbf500d99627d08c33b7",
+    "packages/tooling/src/environments.ts": "e578997bd6060deee2fafadfbcb5c1fa2d120a8fcd76a93443d71e9a708f3652",
+    "packages/tooling/test/ci-environment.test.mjs": "c83d8bee5ca411b1a67cd7ec0f57bb0b62b60385c41d94a09fcc205de035bb50"
+  },
+  "local_logs": {
+    ".agentic/ea04-browser-install.log": "4ee157849ad0865f35589eb9519c38a279936c3b596c9d5dbb1c079ea0744668",
+    ".agentic/ea04-browser.log": "3623d79a5bfb39cd8b352adb5b0caf78425c96edb6a688db0ee251355ed2c0fc",
+    ".agentic/ea04-contract-check-final.log": "d89eb898ed876f2e16774e77dd373a56db94d052997b87fac9f50f51b35673cd",
+    ".agentic/ea04-contract-check.log": "b99e514a5849312beb8ecb66b492e3270bd5f1065d97af2be4c5403f7814e824",
+    ".agentic/ea04-foundation-final.log": "234079ab0b1e980dad1bb98beb5fd5f3d7ee84de30d6de9b7d97f5542dc23cdd",
+    ".agentic/ea04-foundation.log": "14a36733ba26fcb0b089ba41031060ab52cfa86b0a784a81279147729e5fcff0",
+    ".agentic/ea04-github-environments.log": "e4c49ceb90c3ea139eece607fe0fb166d9e625d8faa2ddc043cba42cb315c09b",
+    ".agentic/ea04-kit-retry1.log": "f2fcdb3ccd62f62e760b3c3ee9a6f23e65bdfe676463886ecad5456b9578174a",
+    ".agentic/ea04-kit-retry2.log": "c8e499b1a374ed6b2943d96d0f11c7c26d42b3184226a809bfa699f137682353",
+    ".agentic/ea04-kit.log": "97a7d5e19406d84116913e3e27ec8c84978e1bc0bff0f2daeb56701299335723",
+    ".agentic/ea04-local-ci-refusal.log": "75412876ef0d47b2f5bae0c98c6e4da888bdc3b065b4c702af57e51c8fa65bc9",
+    ".agentic/ea04-tooling-final.log": "7b36883f1f60862bcb9ef279e77798c816e4c648ea02b4c3e61d18658bc026c0",
+    ".agentic/ea04-tooling.log": "588ac3d6b362136966e9bebb631cb410ebb210a5ffb0820179743e306370e643"
+  }
+}

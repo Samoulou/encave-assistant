@@ -2,7 +2,7 @@
   "name": "encave-assistant",
   "version": "0.1.0",
   "private": true,
-  "description": "EnCave Assistant \u2014 fondation locale ind\u00e9pendante",
+  "description": "EnCave Assistant — fondation locale indépendante",
   "scripts": {
     "check:kit": "python3 scripts/agentic.py validate",
     "test:tooling": "python3 -m unittest discover -s tests/tooling -v",
@@ -18,7 +18,10 @@
     "db:stop": "node packages/tooling/src/database.ts stop",
     "start:web": "npm run start --workspace @encave/web",
     "start:api": "npm run start --workspace @encave/api",
-    "start:worker": "npm run start --workspace @encave/worker"
+    "start:worker": "npm run start --workspace @encave/worker",
+    "ci:prepare": "node packages/tooling/src/ci-environment.ts",
+    "check:environments": "node packages/tooling/src/environments.ts",
+    "check:browser": "node packages/tooling/src/browser-check.ts"
   },
   "type": "module",
   "workspaces": [
@@ -31,8 +34,9 @@
   },
   "packageManager": "npm@10.9.2",
   "devDependencies": {
-    "typescript": "5.9.3",
+    "@playwright/test": "1.63.0",
     "@types/node": "24.13.3",
-    "@types/pg": "8.20.0"
+    "@types/pg": "8.20.0",
+    "typescript": "5.9.3"
   }
 }

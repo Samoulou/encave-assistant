@@ -1,0 +1,31 @@
+{
+  "base_commit": "f5cc92c249370b51e773bea2ae704c0881a65968",
+  "algorithm": "SHA-256 raw bytes",
+  "execution": 2,
+  "review_files": {
+    "docs/work/EA-04/checksums.json": "a52abb0eb2cb57bf6da6324d379f37818a4ab15747e05eb6c8c5bfc00fefd975",
+    "docs/work/EA-04/review.json": "ff3bdb254a5814c2142a2e174e884b75e3ac45a22291e7f63de460f385fc46e3",
+    "docs/work/EA-04/clock-diagnostic.md": "19c30db89ad43ed14a8e6422feff037cb68c159a03ceac19c3a63eda54c0798f",
+    "docs/work/EA-04/execution-02.md": "93d8ca45cbce6141978fd9619262f4ede2bdbd504fdaf1b7668c883ff257d550",
+    "docs/work/EA-04/execution-02-results.md": "a540175d714fe93790c5e7222d73c2ac30987f911bbf8779f1c40a29ef723bf4",
+    "docs/wsl-kit-clock.md": "7133a122d36a1dab8e839cafb521d9e1439b2e8f54a834dfee438397d2da98da"
+  },
+  "local_logs_and_wrappers": {
+    ".agentic/ea04-execution02-kit.log": "323c5af82f466366ccf236794b46dfc188c5823490fccb62630f1b9ff505caf5",
+    ".agentic/runs/ea04-controlled-kit.py": "ff4522375a7a332d41bc8b50a190401d1930279ed8c54a850c5abcdf74258855",
+    ".agentic/runs/ea04-clock-after-timesync-stop-30s.log": "479b291ee8567eebe32ba8f27fe955a7c550416eb976d1d6d1f540789a0511af",
+    ".agentic/runs/ea04-clock-after-timesync-stop.log": "11858e98ab18647dcc3b5d588ef75994b6b0fb37fd517f2b22188abc1937274c",
+    ".agentic/runs/ea04-clock-before-timesync-stop.log": "144f2c035d6fe62b68c9847a07019c78ef6f9ae2a5a0e025e155c8986d460094",
+    ".agentic/runs/ea04-clock-controlled-pair.log": "bf020ce9c8b3ba6397d51f8fd55839cea7b50ab174967976c93a97957de5df29",
+    ".agentic/runs/ea04-clock-controlled-probe.py": "a1c117b412421d4a9382255405972aa2b3d74487b076ed7563e7ad098021bb9c",
+    ".agentic/runs/ea04-clock-cpu0-30s.log": "bf17faead48911c8817bf7487eece61b03f9c90646faaf8b1d40b05bd4fc62ad",
+    ".agentic/runs/ea04-clock-hyperv-30s.log": "10dd945fb2dca93cde43ffa2d107e22f0c4274295767ea30bf6b77716dfa511f",
+    ".agentic/runs/ea04-clock-hyperv-msr-30s.log": "fe0b4e107547205be70e73161c28b6764c638293c3f9f6c691f04f396d9377dd",
+    ".agentic/runs/ea04-clock-hyperv-msr-no-ntp-30s.log": "23ba9b51b7647d1497d16dbdee00668ff56b81b516e656f209e81a78ce3637fb",
+    ".agentic/runs/ea04-clock-hyperv-msr-no-ntp-confirm-30s.log": "7a023b9b6104c4604a90956ab945dcafa9ee20ae81e04f3f73ebb3ad48242e0e",
+    ".agentic/runs/ea04-clock-probe.log": "079a58af3dfb691e6308659f171005cec920a4b95fe6bf8b3d101e1c7172d46d",
+    ".agentic/runs/ea04-clock-probe.py": "f1a64d8fef57c718383ece6eb0fac756f267c2889f04a4dd4e72a684cb695323",
+    ".agentic/runs/ea04-clock-resume-probe.py": "29944a1f16fd9a1ad50bece1b776f5d821444d8cbf30125e44adf7f5b8791143",
+    ".agentic/runs/ea04-clock-windows-control.log": "d65fe61032417a806d75d6545ad0a82eb68758fa852b0d5bfeb65e760c5ec2d5"
+  }
+}

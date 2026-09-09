@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "encave-assistant",
+  "environment": "production",
+  "github_environment": "production",
+  "resource_prefix": "encave-assistant-production",
+  "database_name": "encave_production",
+  "oidc_realm": "encave-assistant-production",
+  "credential_namespace": "encave-assistant/production",
+  "region": "westeurope",
+  "provisioning_state": "not_provisioned",
+  "external_effects_enabled": false,
+  "auto_release": false
+}

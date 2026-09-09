@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "encave-assistant",
+  "environment": "preproduction",
+  "github_environment": "preproduction",
+  "resource_prefix": "encave-assistant-preproduction",
+  "database_name": "encave_preproduction",
+  "oidc_realm": "encave-assistant-preproduction",
+  "credential_namespace": "encave-assistant/preproduction",
+  "region": "westeurope",
+  "provisioning_state": "not_provisioned",
+  "external_effects_enabled": false,
+  "auto_release": false
+}

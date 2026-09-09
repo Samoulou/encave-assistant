@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "project": "encave-assistant",
+  "environment": "development",
+  "github_environment": "development",
+  "resource_prefix": "encave-assistant-development",
+  "database_name": "encave_development",
+  "oidc_realm": "encave-assistant-development",
+  "credential_namespace": "encave-assistant/development",
+  "region": "local",
+  "provisioning_state": "foundation_only",
+  "external_effects_enabled": false,
+  "auto_release": false
+}

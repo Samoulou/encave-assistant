@@ -50,10 +50,19 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           package-manager-cache: false
+      - run: npm install --global npm@10.9.2
       - run: python3 -m pip install -r requirements-tooling.txt
       - run: npm ci
+      - run: npm run check:environments
+      - run: npm run ci:prepare
+        env:
+          ENCAVE_RUNTIME_ENVIRONMENT: test
+      - run: npx --no-install playwright install --with-deps chromium
+      - run: npm run check:browser
+      - run: npm run test:foundation-tooling
       - run: python3 scripts/check_kit.py
-      # Préparer ici DB, navigateur et connecteurs TEST autorisés après choix de stack.
+      # PostgreSQL and Chromium are ready; missing product suites still fail.
+      # No Microsoft/AI credentials or real provider qualification are implied.
       # Aucun secret OpenAI dans l'environnement global d'un job exécutant le dépôt.
       - run: python3 scripts/product_quality.py --gates "$QUALITY_GATES"
         env:
