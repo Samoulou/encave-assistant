@@ -1,0 +1,14 @@
+{
+  "base_commit": "6ba1d27ea182ca1b1fb676743358fdeca88feb26",
+  "algorithm": "SHA-256 raw bytes",
+  "review_files": {
+    "docs/work/EA-03/contract.md": "97a2561aea2b13dcc9030a6cad4ddfa72080b8934185d7db6d5b2afd20ce1c0c",
+    "docs/work/EA-03/results.md": "dfe394bea84304b9d51fff367ab96c31df391d06a7c36334b7aff2372fa12999",
+    "docs/decisions/ADR-0005-architecture-et-lancement.md": "e6bdd600442618216a85cfcfd552925d4f50438321a75697f39b75043f82a89e"
+  },
+  "local_logs": {
+    ".agentic/ea03-kit.log": "6423c699d597ef520631e7cdfd20cdc4f156b4979448f69fe0f6c42443f5e602",
+    ".agentic/ea03-kit-retry1.log": "605a1feb9959a06bc8fe3f0500bad7ad799217e31a2c1fd171e49a80b8d3ec67",
+    ".agentic/ea03-doc-check.log": "272a7b5317bd27a3682da6c85fb33a3fcfae22ba2db2cdc982da25f62d3762e3"
+  }
+}
