@@ -6,6 +6,7 @@ import { IdentityOidc, type OidcSettings } from './identity-oidc.ts';
 import { TeamExports } from '@encave/tenancy';
 import { CaseStore } from './case-store.ts';
 import { WorkflowStore } from './workflow-store.ts';
+import { CatalogStore } from './catalog-store.ts';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -27,6 +28,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const exports = new TeamExports(store.pool, options.exportRetentionSeconds ?? 3600);
   const cases = new CaseStore(store.pool);
   const workflows = new WorkflowStore(store.pool);
+  const catalog = new CatalogStore(store.pool);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -79,6 +81,15 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       };
       if (request.method === 'GET' && path === '/api/session') { send(200, await store.snapshot(context.token)); return; }
       if (request.method === 'GET' && path === '/api/team') { send(200, await store.team(context)); return; }
+      if (request.method === 'GET' && path === '/api/catalog/offers') {
+        if ([...url.searchParams.keys()].some(key => key !== 'eligible') || (url.searchParams.has('eligible') && url.searchParams.get('eligible') !== 'true')) throw new IdentityError(400,'invalid_request');
+        send(200,await catalog.list(context,url.searchParams.get('eligible') === 'true')); return;
+      }
+      const catalogPath = /^\/api\/catalog\/offers\/([^/]+)(?:\/(versions|publish|enable|select))?$/.exec(path);
+      if (request.method === 'GET' && catalogPath && !catalogPath[2]) {
+        if ([...url.searchParams.keys()].some(key => key !== 'before')) throw new IdentityError(400,'invalid_cursor');
+        send(200,await catalog.read(context,catalogPath[1]!,url.searchParams.has('before') ? Number(url.searchParams.get('before')) : 10001)); return;
+      }
       const inquiryPath = /^\/api\/inquiries\/([^/]+)$/.exec(path);
       if (request.method === 'GET' && inquiryPath) { send(200, await cases.read(context, inquiryPath[1])); return; }
       if (request.method === 'GET' && path === '/api/team/exports') { send(200, await exports.list(context)); return; }
@@ -93,6 +104,14 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
+      if (path === '/api/catalog/offers') { send(201,await catalog.create(context,body,request.headers['idempotency-key'])); return; }
+      if (catalogPath) {
+        const id = catalogPath[1]!, key = request.headers['idempotency-key'];
+        if (catalogPath[2] === 'versions') { send(201,await catalog.revise(context,id,body,key)); return; }
+        if (catalogPath[2] === 'publish') { send(200,await catalog.publish(context,id,body,key)); return; }
+        if (catalogPath[2] === 'enable') { send(200,await catalog.enable(context,id,body,key)); return; }
+        if (catalogPath[2] === 'select') { const result = await catalog.select(context,id,body); send(result.eligible ? 200 : 409,result); return; }
+      }
       const transitionPath = /^\/api\/inquiries\/([^/]+)\/state$/.exec(path);
       if (transitionPath) { send(200,await workflows.transition(context,'inquiry',transitionPath[1],body,request.headers['idempotency-key'])); return; }
       if (path === '/api/team/exports') {

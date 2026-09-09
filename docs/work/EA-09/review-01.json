@@ -1,0 +1,35 @@
+{
+  "verdict": "request_changes",
+  "findings": [
+    {
+      "id": "R1", "severity": "P2", "file": "tests/product/business/catalog-integrity.test.mjs", "line": 23,
+      "requirement": "AC-03", "title": "Démontrer la désactivation face à une sélection concurrente",
+      "description": "Le contrat prévoit une preuve concurrente de désactivation. Le scénario actuel attend la fin de la désactivation avant de lancer la sélection ; le seul scénario concurrent concerne les révisions. Ajouter un test déterministe avec deux connexions/sessions : une sélection attend derrière une désactivation en cours, puis relit le drapeau après son commit et refuse l’offre. Vérifier aussi son exclusion des candidats et l’absence de proposition créée.",
+      "classification": "Couverture manquante ; aucun défaut du verrouillage actuel démontré."
+    }
+  ],
+  "requirements_covered": [
+    {"id":"AC-01","status":"covered","evidence":"Contrat fermé, bornes, CHF en centimes, unités et taxes explicites ; publications authentifiées ; migrations et FK composites ; versions, approbations et commandes immuables vérifiées avec les rôles SQL applicatif et propriétaire."},
+    {"id":"AC-02","status":"covered","evidence":"Prix absent refusé, gratuité explicite admise ; capacités, durée, taxes, conditions et sources contrôlées côté serveur ; catégories manuelles exclues ; tentative de prix client rejetée ; aucune proposition créée."},
+    {"id":"AC-03","status":"partially_covered","evidence":"Désactivation, rejeu, exclusion des candidats, ancienne sélection refusée, nouvelle publication sans réactivation et conservation de l’histoire démontrés. Preuve concurrente demandée dans R1."}
+  ],
+  "observed_tests": {"unit":"15 tests passés, 6 fichiers","functional":"22 tests passés, 6 fichiers","business":"21 tests passés, 5 fichiers","e2e":"14 tests passés, 5 fichiers","source":".agentic/ea09-*-development.log","execution_by_reviewer":false},
+  "version_examined": {
+    "base_commit":"c23cb08719d68cf1753365e534c865f73479bbb1",
+    "state":"Diff de travail et nouveaux fichiers non commités ; aucun ancien test ni migration publiée modifié dans le diff examiné.",
+    "sha256": {
+      "apps/api/src/catalog-store.ts":"6cc983491c810608c4e77c782304be188325f3d90a8014a2f056d9830a920465",
+      "migrations/005_catalog.sql":"cf90a81ded7f633e9bd131652b047a8305854f657d29ef98e739e83df10d06a2",
+      "packages/contracts/src/catalog.ts":"7c4bbf6153be0c74f095c298e034ee944b4a7fd3b976e8b67edd603a0bb32400",
+      "packages/domain/src/catalog.ts":"b6c4d02e0af28dcf9ac40f36061b764cafc66f86375e136b8f93e7957cc848ae",
+      "tests/product/business/catalog-integrity.test.mjs":"443cb9b9c16be85fd6e017efa3e911d2d70eab8a197bfffdff91beffd3e17b66",
+      "docs/work/EA-09/contract.md":"90b0cc5f1475bc3f0c2991c9618ba33bb1421ecb0a98da0fae99138cbbc595c1"
+    }
+  },
+  "limits": [
+    "Review en lecture seule ; aucun défaut concret supplémentaire d’isolation, d’autorisation, d’atomicité ou d’immutabilité trouvé.",
+    "Documentation détaillée, résultats définitifs, gate kit et manifeste final à examiner lors de la seconde review.",
+    "UX non applicable au diff examiné, sans nouvelle interface.",
+    "Ce verdict ne constitue aucune preuve de livraison Git, de CI distante ou de production."
+  ]
+}

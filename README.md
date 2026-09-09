@@ -11,6 +11,10 @@ version côté serveur ; une modification concurrente retourne un conflit, avec
 résultat idempotent et journal transactionnel. Les workflows commerciaux restent
 à réaliser dans les tickets suivants.
 
+Le [catalogue](docs/development/catalog.md) conserve des fiches approuvées par cave,
+des versions immuables et les règles de prix explicites ; son garde serveur exclut
+les offres incomplètes, périmées ou désactivées de la sélection automatique.
+
 ```bash
 git clone https://github.com/Samoulou/encave-assistant.git
 cd encave-assistant

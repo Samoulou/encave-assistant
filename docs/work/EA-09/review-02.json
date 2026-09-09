@@ -1,0 +1,22 @@
+{
+  "verdict":"pass", "findings":[],
+  "resolved_findings":[{"id":"R1","requirement":"AC-03","resolution":"Le nouveau test observe les blocages PostgreSQL entre trois connexions. La sélection opérateur attend derrière la désactivation admin, puis refuse l’offre après son commit. Candidats vides et absence de proposition sont vérifiés. Test ciblé et suite métier finale réussis."}],
+  "requirements_covered":[
+    {"id":"AC-01","status":"covered","evidence":"Contrats fermés, bornes, capacité/durée/unités CHF/taxes explicites ; approbation authentifiée ; FK composites ; versions et historiques immuables ; migration additive vérifiée."},
+    {"id":"AC-02","status":"covered","evidence":"Prix absent et prérequis inconnus refusés côté serveur ; gratuité explicite distinguée ; sources absentes, futures ou périmées et catégories manuelles exclues ; prix client substitué rejeté."},
+    {"id":"AC-03","status":"covered","evidence":"Désactivation immédiate, concurrence réelle, rejeu, exclusion des candidats, refus d’ancienne sélection, publication sans réactivation implicite et conservation des versions précédentes."}
+  ],
+  "observed_tests":{"unit":"15 tests réussis","functional":"22 tests réussis","business":"22 tests réussis","e2e":"14 tests réussis","foundation_tooling":"19 tests réussis","kit":"141 tests réussis ; restauration de l’horloge/NTP consignée","foundation":"Compilation, web/API/worker et requête SQL retournant 42 réussis","runtime":"Démarrage API/OIDC synthétique, worker et nettoyage des ressources possédées réussis","execution_by_reviewer":false},
+  "version_examined":{
+    "base_commit":"c23cb08719d68cf1753365e534c865f73479bbb1","manifest":"docs/work/EA-09/checksums.json",
+    "manifest_sha256":"1585e9de8d7032f8477f47b5a7ded0bdeea22ea7e00595eb9a1007adda7daf4f",
+    "verification":"Empreintes brutes et LF recalculées pour les 20 fichiers, 19 logs et 2 helpers : aucune divergence. Trois critères exacts et ordonnés vérifiés contre le backlog ; aucun ancien test modifié.",
+    "state":"Diff de travail avant livraison Git."
+  },
+  "limits":[
+    "Review indépendante en lecture seule ; code, correction, documentation et preuves examinés.",
+    "Maintenance du catalogue par API ; aucune nouvelle interface, UX non applicable.",
+    "La sélection ne prouve ni disponibilité ni autorisation durable ; les futurs workflows devront revérifier leurs préconditions.",
+    "Aucune qualification Microsoft/IA, livraison Git, CI EA-09 réussie ou production déployée n’est attestée par ce verdict."
+  ]
+}
