@@ -1,0 +1,18 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Review indépendante EA-11 en lecture seule. Contrat conforme aux quatre critères du backlog, contrôles serveur et provenance examinés. Les 37 captures de développement ont été inspectées et leurs empreintes vérifiées. Un défaut de reprise peut créer un doublon. La validation finale reste conditionnée à sa correction, aux gates applicables et au manifeste de la version corrigée.",
+  "findings": [{
+    "id": "R1", "severity": "major", "file": "apps/web/app/demandes/page.tsx", "line": 102,
+    "title": "Conserver la commande incertaine après un refus de vérification",
+    "description": "La branche traitant toute réponse HTTP inférieure à 500 efface le stockage pending et lastCommand, puis réactive l’édition. Une création peut pourtant avoir réussi avant la perte de sa réponse. Si le rôle devient lecteur, la vérification reçoit ensuite 403 car le serveur contrôle les droits avant le rejeu. Ce refus ne renseigne pas sur la création initiale. Après restauration des droits, une nouvelle soumission génère une nouvelle clé et peut créer un second dossier.",
+    "requested_change": "Conserver la clé et le contenu d’une commande déjà incertaine tant que son résultat initial n’est pas établi, notamment après un refus de session, de cave ou de droits. Ajouter un E2E couvrant réponse perdue après commit, refus 403 réel, restauration des droits et reprise avec la même clé sans doublon.",
+    "requirements": ["AC-01", "AC-03", "AC-04"]
+  }],
+  "requirements_covered": [
+    {"id":"AC-01","assessment":"Persistance, redémarrage, liste et transactions examinés ; réserve R1 sur la reprise."},
+    {"id":"AC-02","assessment":"Origine, acteur serveur, message interne, FK composites et immutabilité examinés ; aucun défaut identifié."},
+    {"id":"AC-03","assessment":"Validation fermée, erreurs françaises, conservation des champs et dialogues examinés ; réserve R1."},
+    {"id":"AC-04","assessment":"37 captures inspectées : états, largeurs 320/390/768/1440, zoom 200/400 et focus. Assertions clavier et 17 mesures examinées ; contrastes minimaux observés de 5,14:1 pour le texte et 4,10:1 pour les champs. Gates finales et rattachement à la version corrigée encore requis."}
+  ],
+  "delivery":"Cette review ne déclare ni EA-11 livré, ni CI réussie, ni production déployée."
+}

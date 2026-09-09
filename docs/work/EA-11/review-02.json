@@ -1,0 +1,19 @@
+{
+  "verdict": "pass",
+  "summary": "Review indépendante EA-11, en lecture seule, après correction 1. R1 est résolu : une commande déjà incertaine reste conservée et verrouillée après un refus 403. Le scénario réel avant/après démontre la reprise avec la même clé, sans doublon. Aucun autre défaut identifié.",
+  "findings": [],
+  "requirements_covered": [
+    {"id":"AC-01","assessment":"Persistance PostgreSQL, rechargement, transactions et idempotence vérifiés. Le nouvel E2E couvre création validée, réponse perdue, retrait des droits, refus 403, restauration des droits et reprise après rechargement : un seul dossier et une seule commande."},
+    {"id":"AC-02","assessment":"Origine, acteur résolu côté serveur, message interne, isolation par cave, clés étrangères composites et immutabilité examinés ; preuves de tests cohérentes."},
+    {"id":"AC-03","assessment":"Validation des champs côté serveur, erreurs françaises visibles, conservation des valeurs, focus et traitement des résultats incertains vérifiés."},
+    {"id":"AC-04","assessment":"Les 84 captures finales sont couvertes par l’examen visuel : 38 EA-11, 36 EA-05 et 10 EA-06. Parmi les captures EA-11, 31 correspondent exactement aux empreintes déjà examinées en review 01 ; les 7 différentes ont été inspectées, notamment le refus 403 conservant la commande. Responsive, zoom, clavier, dialogues, états sensibles, navigation et régressions CSS examinés ; aucun défaut identifié."}
+  ],
+  "evidence": {
+    "base_commit":"c6ab7ea845fbeb5ecf3b908c2efc4e7382a18377",
+    "manifest":"docs/work/EA-11/checksums.json",
+    "manifest_sha256":"bfc6bf153debcf85f365735f902be4507fc4a3efdab99169ae481a6938d7e4c0",
+    "integrity":"Empreintes des 109 fichiers, 32 logs et 3 helpers vérifiées sans divergence ; quatre critères exacts ; aucun ancien test ni fichier protégé modifié ; git diff --check réussi.",
+    "gates":"Logs examinés : unitaires 22, fonctionnels 31, métier 32, outillage 19, E2E 21 et UX 8 réussis. Foundation et runtime réussis. Kit : 141 tests réussis en 67,749 secondes, restauration de l’environnement consignée."
+  },
+  "delivery":"Cette review valide le candidat local examiné. Elle ne constitue aucune preuve de commit livré, de CI distante réussie ou de production déployée."
+}

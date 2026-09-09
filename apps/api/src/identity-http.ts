@@ -9,6 +9,7 @@ import { WorkflowStore } from './workflow-store.ts';
 import { CatalogStore } from './catalog-store.ts';
 import { ResourceStore } from './resource-store.ts';
 import { ResourceTimeError } from '@encave/domain';
+import { ManualInquiryStore,ManualValidationError } from './manual-inquiry-store.ts';
 
 async function jsonBody(request: IncomingMessage): Promise<Record<string, unknown>> {
   if (request.headers['content-type']?.split(';')[0] !== 'application/json') throw new IdentityError(415, 'json_required');
@@ -32,6 +33,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
   const workflows = new WorkflowStore(store.pool);
   const catalog = new CatalogStore(store.pool);
   const resources = new ResourceStore(store.pool);
+  const manual = new ManualInquiryStore(store.pool);
   const secure = new URL(settings.appOrigin).protocol === 'https:';
   const sessionCookie = secure ? '__Host-encave_session' : 'encave_session';
   const loginCookie = secure ? '__Host-encave_login' : 'encave_login';
@@ -102,6 +104,12 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         send(200,await catalog.read(context,catalogPath[1]!,url.searchParams.has('before') ? Number(url.searchParams.get('before')) : 10001)); return;
       }
       const inquiryPath = /^\/api\/inquiries\/([^/]+)$/.exec(path);
+      if (request.method === 'GET' && path === '/api/inquiries') {
+        if([...url.searchParams.keys()].some(k=>url.searchParams.getAll(k).length!==1))throw new IdentityError(400,'invalid_list_query');
+        send(200,await manual.list(context,Object.fromEntries(url.searchParams)));return;
+      }
+      const dossierPath=/^\/api\/inquiries\/([^/]+)\/dossier$/.exec(path);
+      if(request.method==='GET'&&dossierPath){send(200,await manual.detail(context,dossierPath[1]));return;}
       if (request.method === 'GET' && inquiryPath) { send(200, await cases.read(context, inquiryPath[1])); return; }
       if (request.method === 'GET' && path === '/api/team/exports') { send(200, await exports.list(context)); return; }
       const exportPath = /^\/api\/team\/exports\/([^/]+)(\/download)?$/.exec(path);
@@ -115,6 +123,7 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
       if (request.method !== 'POST') { send(404, { error: 'not_found' }); return; }
       if (request.headers.origin !== settings.appOrigin) throw new IdentityError(403, 'origin_forbidden');
       const body = await jsonBody(request);
+      if(path==='/api/inquiries/manual'){send(201,await manual.create(context,body,request.headers['idempotency-key']));return;}
       if (path === '/api/resources') { send(201,await resources.write(context,'create',null,body,request.headers['idempotency-key'])); return; }
       if (resourcePath) {
         const id=resourcePath[1]!,key=request.headers['idempotency-key'];
@@ -154,7 +163,8 @@ export function createIdentityHandler(store: IdentityStore, settings: OidcSettin
         const existing = response.getHeader('Set-Cookie');
         response.setHeader('Set-Cookie', [...(Array.isArray(existing) ? existing : typeof existing === 'string' ? [existing] : []), cookie(loginCookie, '', 0)]);
         response.writeHead(303, { Location: settings.appOrigin + '/connexion?erreur=connexion' }).end();
-      } else if (error instanceof IdentityError) send(error.status, { error: error.code });
+      } else if (error instanceof ManualValidationError) send(error.status,{error:error.code,fields:error.fields});
+      else if (error instanceof IdentityError) send(error.status, { error: error.code });
       else if (error instanceof ResourceTimeError) send(400, { error: error.code });
       else send(503, { error: 'service_unavailable' });
       // External messages, authorization codes and SQL details never enter logs.

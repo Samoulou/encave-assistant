@@ -20,6 +20,11 @@ configurations versionnées, des marges et des fermetures. L'aperçu des interva
 traite les changements d'heure et distingue les règles internes d'une disponibilité
 complète, qui reste à calculer dans les tickets suivants.
 
+La [saisie manuelle](docs/development/manual-inquiries.md) conserve le besoin après
+un appel, son origine et l'acteur. La file et le dossier relisent PostgreSQL ;
+les filtres, erreurs et commandes incertaines possèdent un parcours de reprise.
+La saisie ne déclenche aucun envoi ni réservation.
+
 ```bash
 git clone https://github.com/Samoulou/encave-assistant.git
 cd encave-assistant

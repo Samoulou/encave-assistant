@@ -125,3 +125,48 @@ input[aria-invalid="true"] { border: 2px solid var(--danger); }
 .export-row strong, .export-row span { display: block; overflow-wrap: anywhere; }
 .export-row p { margin: 0; flex: 1 1 220px; }
 @media (max-width: 639px) { .export-row .button { width: 100%; } }
+
+/* EA-11: task list and manual intake, using the approved design tokens. */
+.workspace-nav nav a:not([aria-current]) { background: transparent; }
+.workspace-nav nav { display: grid; gap: 8px; }
+textarea { font: inherit; width: 100%; min-height: 120px; resize: vertical; padding: 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: #fff; }
+textarea[aria-invalid="true"], select[aria-invalid="true"] { border: 2px solid var(--danger); }
+textarea:disabled { cursor: wait; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.inquiries-main { max-width: 1440px; }
+.inquiries-main > .section-heading { align-items: flex-start; flex-wrap: wrap; }
+.inquiries-main > .section-heading > .button { margin-top: 8px; }
+.inquiry-filters .form-grid { margin: 0 0 24px; }
+.filter-buttons, .pagination, .section-links, .form-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.inquiry-list { list-style: none; padding: 0; margin: 24px 0; display: grid; gap: 16px; }
+.inquiry-card { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,240px); gap: 24px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px #2723260d; }
+.inquiry-card h2 { margin: 8px 0; }
+.inquiry-card h2 a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; overflow-wrap: anywhere; }
+.inquiry-card p { margin: 8px 0; }
+.inquiry-next { display: flex; align-items: flex-start; flex-direction: column; gap: 16px; justify-content: center; }
+.inquiry-badge { display: inline-block; border-radius: 999px; padding: 4px 12px; font-size: 14px; color: #6E2944; background: #F8EDF1; }
+.inquiry-badge.recovery { color: #A42336; background: #FCECEF; }
+.inquiry-badge.booked { color: #176442; background: #EAF5EE; }
+.inquiry-badge.waiting { color: #7C4A00; background: #FFF2D6; }
+.manual-panel { max-width: 900px; }
+.note-field { margin-top: 24px; }
+.dossier { display: grid; gap: 24px; margin-top: 24px; }
+.dossier > .button { justify-self: start; }
+.dossier .need { font-size: 20px; }
+.facts { display: grid; grid-template-columns: minmax(130px,1fr) minmax(0,3fr); gap: 16px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; overflow-wrap: anywhere; }
+.message-list { list-style: none; padding: 0; }
+.message-list li { padding: 16px 0; border-top: 1px solid var(--line); scroll-margin-top: 16px; }
+.message-body { white-space: pre-wrap; overflow-wrap: anywhere; }
+.inquiry-shell .workspace-header .account { max-width: 100%; }
+@media(max-width:700px) {
+  .workspace-nav { flex-wrap: wrap; }
+  .workspace-nav nav { display: flex; flex-wrap: wrap; }
+  .inquiry-card { grid-template-columns: minmax(0,1fr); padding: 20px 16px; gap: 16px; }
+  .inquiry-next { gap: 12px; }
+  .inquiry-next .button { width: 100%; }
+  .facts { grid-template-columns: minmax(0,1fr); gap: 8px; }
+  .facts dd { margin-bottom: 8px; }
+  .form-actions .button, .pagination .button { flex: 1 1 180px; }
+}
